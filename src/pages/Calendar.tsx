@@ -3,7 +3,7 @@ import "./Calendar.css";
 
 const Calendar = () => {
   return (
-    <div>
+    <div className="flex h-screen flex-col items-center justify-center">
       <ReactCalendar
         className="react-calendar"
         minDate={new Date()}
