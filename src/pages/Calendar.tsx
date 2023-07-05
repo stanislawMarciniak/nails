@@ -2,7 +2,6 @@ import ReactCalendar from "react-calendar";
 import "./Calendar.css";
 import { useState } from "react";
 import { add, format } from "date-fns";
-import { formatDate } from "react-calendar/dist/cjs/shared/dateFormatter";
 import {
   OPENING_HOURS_BEGINNING,
   OPENING_HOURS_END,
@@ -19,6 +18,8 @@ const Calendar = () => {
     justDate: null,
     dateTime: null,
   });
+
+  console.log(date.dateTime);
 
   const getTimes = () => {
     if (!date.justDate) return;
@@ -40,14 +41,11 @@ const Calendar = () => {
   const times = getTimes();
 
   return (
-    <div
-      className="flex mt-72  flex-col items-center justify-center"
-      style={{ scale: "150%" }}
-    >
+    <div className="flex flex-col items-center justify-center mt-36">
       {date.justDate ? (
         <div className="flex gap-4">
           {times?.map((time, i) => (
-            <div key={i} className="rounded-md bg-gray-200 p-2">
+            <div key={i} className="p-2 bg-gray-200 rounded-md">
               <button
                 type="button"
                 onClick={() => setDate((prev) => ({ ...prev, dateTime: time }))}

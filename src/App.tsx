@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
 import Calendar from "./pages/Calendar";
 import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/cennik" element={<Pricing />} />
           <Route path="/kalendarz" element={<Calendar />} />
+          <Route path="/zaloguj" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>
