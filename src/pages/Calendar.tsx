@@ -57,7 +57,6 @@ const Calendar = () => {
         </div>
       ) : (
         <ReactCalendar
-          className="react-calendar"
           minDate={new Date()}
           view="month"
           onClickDay={(date) =>
