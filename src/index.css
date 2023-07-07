@@ -2,10 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  background-color: #E1DDDD;
+
+.pinyon {
+  font-family: 'Pinyon Script', cursive;
 }
 
-.text {
-  color: #927979;
+.josefin-light {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 100;
+}
+
+.josefin-normal {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
 }
