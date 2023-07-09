@@ -7,23 +7,23 @@ import "./Navbar.css";
 
 const Navbar = () => {
   return (
-    <nav className="flex items-stretch justify-between h-10 px-8 josefin-light navbar">
-      <Link to="/" className="flex items-center text-md">
-        <BiHomeHeart />
-        STRONA GŁÓWNA
+    <nav className="flex justify-between h-20 px-8 josefin-light navbar">
+      <Link to="/" className="flex items-center gap-2 text-lg">
+        <BiHomeHeart className="mb-1 text-2xl" />
+        <span>STRONA GŁÓWNA</span>
       </Link>
       <div className="flex">
-        <Link to="/kalendarz" className="flex items-center gap-2 px-8 text-sm">
-          <PiPencilThin />
-          ZAPISZ SIĘ
+        <Link to="/kalendarz" className="flex items-center gap-2 px-8 text-lg">
+          <PiPencilThin className="mb-1 text-2xl" />
+          <span>UMÓW SIĘ</span>
         </Link>
-        <Link to="/zaloguj" className="flex items-center gap-2 px-8 text-sm">
-          <MdOutlineAccountCircle />
-          ZALOGUJ SIĘ
+        <Link to="/zaloguj" className="flex items-center gap-2 px-8 text-lg">
+          <MdOutlineAccountCircle className="mb-1 text-2xl" />
+          <span>ZALOGUJ SIĘ</span>
         </Link>
-        <Link to="/cennik" className="flex items-center gap-2 px-8 text-sm">
-          <LiaMoneyBillWaveSolid />
-          CENNIK
+        <Link to="/cennik" className="flex items-center gap-2 px-8 text-lg">
+          <LiaMoneyBillWaveSolid className="mb-1 text-2xl" />
+          <span>CENNIK</span>
         </Link>
       </div>
     </nav>
