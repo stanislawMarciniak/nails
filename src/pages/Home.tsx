@@ -1,5 +1,5 @@
-// import Carousel from "react-multi-carousel";
-// import "react-multi-carousel/lib/styles.css";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import { homeImages } from "../config/data";
 import { Image } from "@chakra-ui/react";
 import "./Home.css";
@@ -29,20 +29,46 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-wrap justify-center mt-20 gap-9">
-      {/* <Carousel
+    <section className="mb-20 -mt-4 skill" style={{ position: "relative" }}>
+      <div className="transparent-element" />
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <div className="flex justify-center px-16 py-14 bg-darkCustom skill-bx">
+              <Carousel
                 responsive={responsive}
                 infinite={true}
                 className="owl-carousel owl-theme skill-slider"
-              > */}
-      {homeImages.map((image, id) => (
-        <div className="flex flex-col items-center photoram" key={id}>
-          <Image src={image.imgUrl} w={"sm"} h={"sm"} />
-          <span className="text-2xl">{image.service}</span>
+              >
+                {homeImages.map((image, id) => (
+                  <div
+                    className="flex flex-col items-center mx-3 photoram"
+                    key={id}
+                  >
+                    <Image src={image.imgUrl} w={"sm"} h={"sm"} />
+                    <span className="text-2xl">{image.service}</span>
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          </div>
         </div>
-      ))}
-      {/* </Carousel> */}
-    </div>
+      </div>
+    </section>
+    // <div className="flex flex-wrap justify-center mt-20 gap-9">
+    //   <Carousel
+    //     responsive={responsive}
+    //     infinite={true}
+    //     className="owl-carousel owl-theme skill-slider"
+    //   >
+    //     {homeImages.map((image, id) => (
+    //       <div className="flex flex-col items-center photoram" key={id}>
+    //         <Image src={image.imgUrl} w={"sm"} h={"sm"} />
+    //         <span className="text-2xl">{image.service}</span>
+    //       </div>
+    //     ))}
+    //   </Carousel>
+    // </div>
   );
 };
 
