@@ -4,8 +4,11 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: "#E1DDDD",
         color: "#927979",
+        backgroundImage: "url(/public/images/bg-pricing.PNG)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       },
     },
   },

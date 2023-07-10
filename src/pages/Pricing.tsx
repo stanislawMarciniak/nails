@@ -4,8 +4,8 @@ import { services } from "../config/data";
 const Pricing = () => {
   return (
     <Center>
-      <Stack w={"8xl"} mt={"16"}>
-        <Center fontSize={"8xl"} className="pinyon">
+      <Stack w={"6xl"} mt={"16"}>
+        <Center fontSize={"9xl"} className="pinyon">
           cennik
         </Center>
         <Box mt={"10"}>
@@ -15,6 +15,7 @@ const Pricing = () => {
               key={id}
               mt={"5"}
               className="josefin-light"
+              fontSize={"xl"}
             >
               <Box>
                 <strong className="josefin-normal">{service.name} </strong>

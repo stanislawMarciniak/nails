@@ -29,7 +29,7 @@ const Home = () => {
   };
 
   return (
-    <section className="flex justify-center photos ">
+    <section className="flex justify-center">
       <div className="container">
         <div className=" py-14 photo-bx">
           <Carousel
