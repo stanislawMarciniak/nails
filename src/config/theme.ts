@@ -5,10 +5,6 @@ const theme = extendTheme({
     global: {
       body: {
         color: "#927979",
-        backgroundImage: "url(/public/images/bg-pricing.PNG)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
       },
     },
   },
