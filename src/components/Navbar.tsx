@@ -17,13 +17,13 @@ const Navbar = () => {
           <PiPencilThin className="mb-1 text-2xl" />
           <span>UMÓW SIĘ</span>
         </Link>
-        <Link to="/zaloguj" className="flex items-center gap-2 px-8 text-lg">
-          <MdOutlineAccountCircle className="mb-1 text-2xl" />
-          <span>ZALOGUJ SIĘ</span>
-        </Link>
         <Link to="/cennik" className="flex items-center gap-2 px-8 text-lg">
           <LiaMoneyBillWaveSolid className="mb-1 text-2xl" />
           <span>CENNIK</span>
+        </Link>
+        <Link to="/zaloguj" className="flex items-center gap-2 px-8 text-lg">
+          <MdOutlineAccountCircle className="mb-1 text-2xl" />
+          <span>ZALOGUJ SIĘ</span>
         </Link>
       </div>
     </nav>

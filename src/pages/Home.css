@@ -1,17 +1,17 @@
 .photoram {
   background-color: white;
-  padding: 20px 20px 40px 20px; 
+  padding: 20px 20px 0px 20px; 
 }
-.skill-bx {
+
+.photo-bx {
   text-align: center;
 }
 
-.skill-slider {
-  width: 80%;
+.photo-slider {
   margin: 0 auto;
   position: relative;
 }
-.skill-slider .item {
-  width: 50%;
+
+.photo-slider .item {
   margin: 0 auto 15px auto;
 }

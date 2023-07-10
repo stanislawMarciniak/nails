@@ -10,9 +10,14 @@ const Pricing = () => {
         </Center>
         <Box mt={"10"}>
           {services.map((service, id) => (
-            <Flex justify={"space-between"} key={id} mt={"5"}>
+            <Flex
+              justify={"space-between"}
+              key={id}
+              mt={"5"}
+              className="josefin-light"
+            >
               <Box>
-                <strong>{service.name} </strong>
+                <strong className="josefin-normal">{service.name} </strong>
                 {id === services.length - 1 ? null : (
                   <span>
                     ({service.minTime}-{service.maxTime} H)

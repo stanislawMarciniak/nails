@@ -29,46 +29,29 @@ const Home = () => {
   };
 
   return (
-    <section className="mb-20 -mt-4 skill" style={{ position: "relative" }}>
-      <div className="transparent-element" />
+    <section className="flex justify-center photos ">
       <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <div className="flex justify-center px-16 py-14 bg-darkCustom skill-bx">
-              <Carousel
-                responsive={responsive}
-                infinite={true}
-                className="owl-carousel owl-theme skill-slider"
+        <div className=" py-14 photo-bx">
+          <Carousel
+            responsive={responsive}
+            infinite={true}
+            className=" photo-slider"
+          >
+            {homeImages.map((image, id) => (
+              <div
+                className="flex flex-col items-center mx-10 my-16 shadow-2xl photoram"
+                key={id}
               >
-                {homeImages.map((image, id) => (
-                  <div
-                    className="flex flex-col items-center mx-3 photoram"
-                    key={id}
-                  >
-                    <Image src={image.imgUrl} w={"sm"} h={"sm"} />
-                    <span className="text-2xl">{image.service}</span>
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-          </div>
+                <Image src={image.imgUrl} w={"sm"} h={"sm"} />
+                <span className="flex items-center h-16 text-2xl">
+                  {image.service}
+                </span>
+              </div>
+            ))}
+          </Carousel>
         </div>
       </div>
     </section>
-    // <div className="flex flex-wrap justify-center mt-20 gap-9">
-    //   <Carousel
-    //     responsive={responsive}
-    //     infinite={true}
-    //     className="owl-carousel owl-theme skill-slider"
-    //   >
-    //     {homeImages.map((image, id) => (
-    //       <div className="flex flex-col items-center photoram" key={id}>
-    //         <Image src={image.imgUrl} w={"sm"} h={"sm"} />
-    //         <span className="text-2xl">{image.service}</span>
-    //       </div>
-    //     ))}
-    //   </Carousel>
-    // </div>
   );
 };
 
