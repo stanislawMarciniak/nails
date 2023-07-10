@@ -49,7 +49,7 @@ const Home = () => {
   return (
     <section className="flex justify-center">
       <div className="container">
-        <div className="pt-14 photo-bx">
+        <div className=" photo-bx">
           <Carousel
             responsive={responsive}
             infinite={true}
@@ -63,10 +63,10 @@ const Home = () => {
                 <Image
                   onClick={() => handleImageClick(image)}
                   src={image.imgUrl}
-                  w={"sm"}
-                  h={"sm"}
                   _hover={{ transform: "scale(0.9)" }}
                   transition="transform 0.3s"
+                  maxWidth="80%"
+                  maxHeight="80%"
                 />
               </div>
             ))}
