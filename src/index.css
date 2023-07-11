@@ -22,4 +22,6 @@ body {
   padding: 0;
 }
 
-
+.chakra-modal__body {
+  padding: 2rem !important;
+}

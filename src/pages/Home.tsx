@@ -9,6 +9,8 @@ import {
   ModalContent,
   ModalCloseButton,
   ModalBody,
+  Box,
+  Text,
 } from "@chakra-ui/react";
 import "./Home.css";
 
@@ -47,57 +49,43 @@ const Home = () => {
   };
 
   return (
-    <section className="flex justify-center">
-      <div className="container">
-        <div className=" photo-bx">
-          <Carousel
-            responsive={responsive}
-            infinite={true}
-            className="photo-slider"
-          >
-            {homeImages.map((image, id) => (
-              <div
-                className="flex flex-col items-center pb-20 mx-10 my-16 shadow-2xl photoram"
-                key={id}
-              >
-                <Image
-                  onClick={() => handleImageClick(image)}
-                  src={image.imgUrl}
-                  _hover={{ transform: "scale(0.9)" }}
-                  transition="transform 0.3s"
-                  maxWidth="80%"
-                  maxHeight="80%"
-                />
-              </div>
-            ))}
-          </Carousel>
-        </div>
-        {selectedImage && (
-          <Modal
-            isOpen={true}
-            onClose={handleCloseModal}
-            size={"lg"}
-            isCentered
-          >
-            <ModalOverlay bg="none" backdropFilter="auto" backdropBlur="4px" />
-            <ModalContent>
-              <ModalCloseButton />
-              <ModalBody>
-                <Image
-                  src={selectedImage.imgUrl}
-                  w={"100%"}
-                  h={"100%"}
-                  alt="Selected Image"
-                />
-                <span className="flex items-center justify-center h-16 text-2xl">
-                  {selectedImage.service}
-                </span>
-              </ModalBody>
-            </ModalContent>
-          </Modal>
-        )}
-      </div>
-    </section>
+    <Box className="flex justify-center">
+      <Box className="container scale-90">
+        <Carousel responsive={responsive} infinite={true}>
+          {homeImages.map((image, id) => (
+            <Box
+              className="flex flex-col items-center pb-20 mx-10 my-16 shadow-2xl photoram"
+              key={id}
+            >
+              <Image
+                onClick={() => handleImageClick(image)}
+                src={image.imgUrl}
+                _hover={{ transform: "scale(0.9)" }}
+                transition="transform 0.3s"
+              />
+            </Box>
+          ))}
+        </Carousel>
+      </Box>
+      {selectedImage && (
+        <Modal isOpen={true} onClose={handleCloseModal} size={"lg"} isCentered>
+          <ModalOverlay bg="none" backdropFilter="auto" backdropBlur="4px" />
+          <ModalContent>
+            <ModalBody>
+              <Image
+                src={selectedImage.imgUrl}
+                w={"100%"}
+                h={"100%"}
+                alt="Selected Image"
+              />
+              <Text className="flex items-center justify-center h-16 text-2xl">
+                {selectedImage.service}
+              </Text>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      )}
+    </Box>
   );
 };
 
