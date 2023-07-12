@@ -78,7 +78,7 @@ const Home = () => {
                 h={"100%"}
                 alt="Selected Image"
               />
-              <Text className="flex items-center justify-center h-16 text-2xl">
+              <Text className="flex items-center justify-center h-24 text-2xl">
                 {selectedImage.service}
               </Text>
             </ModalBody>
