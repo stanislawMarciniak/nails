@@ -1,24 +1,22 @@
 import {
   Box,
   Button,
-  Center,
+  Divider,
+  Flex,
   FormControl,
-  FormErrorMessage,
   FormLabel,
   Heading,
   Image,
   Input,
   Text,
-  Textarea,
-  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import "./Login.css";
+import supabase from "../config/supabaseClient";
 
 interface FormValues {
-  name: string;
   email: string;
-  subject: string;
-  message: string;
+  password: string;
 }
 
 interface State {
@@ -28,10 +26,8 @@ interface State {
 }
 
 const initValues: FormValues = {
-  name: "",
   email: "",
-  subject: "",
-  message: "",
+  password: "",
 };
 
 const initState: State = {
@@ -43,6 +39,7 @@ const initState: State = {
 const Login = () => {
   const [state, setState] = useState<State>(initState);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [isSignUp, setIsSignUp] = useState<boolean>(false);
 
   const { values, isLoading, error } = state;
 
@@ -63,44 +60,119 @@ const Login = () => {
     }));
   };
 
+  const handleLogin = async () => {
+    try {
+      setState((prev) => ({ ...prev, isLoading: true, error: "" }));
+
+      const { user, error } = await supabase.auth.signIn({
+        email: values.email,
+        password: values.password,
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      console.log(user);
+    } catch (error) {
+      setState((prev) => ({ ...prev, error: error.message }));
+    } finally {
+      setState((prev) => ({ ...prev, isLoading: false }));
+    }
+  };
+
+  const handleSignUp = async () => {
+    try {
+      setState((prev) => ({ ...prev, isLoading: true, error: "" }));
+
+      const { user, error } = await supabase.auth.signUp({
+        email: values.email,
+        password: values.password,
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      console.log(user);
+    } catch (error) {
+      setState((prev) => ({ ...prev, error: error.message }));
+    } finally {
+      setState((prev) => ({ ...prev, isLoading: false }));
+    }
+  };
+
   return (
-    <Center>
-      <Box className="flex flex-col items-center pb-20 mx-10 my-16 shadow-2xl photoram">
-        <Image
-          w={"md"}
-          src={"/public/images/pazy_home_1.jpg"}
-          _hover={{ transform: "scale(0.9)" }}
-          transition="transform 0.3s"
-        />
+    <Flex
+      justify="space-between"
+      alignItems="center"
+      mt="10"
+      className="relative"
+    >
+      <Box>
+        <Box className="absolute flex flex-col items-center pb-20 ml-10 shadow-2xl left-64 top-10 photoram">
+          <Image w="sm" src={"/public/images/pazy_home_1.jpg"} />
+        </Box>
+        <Box className="absolute flex flex-col items-center pb-20 shadow-2xl left-1/3 top-1/3 photoram">
+          <Image w="xs" src={"/public/images/pazy_home_2.jpg"} />
+        </Box>
+        <Box className="absolute flex flex-col items-center pb-20 mr-10 shadow-2xl top-16 right-1/3 photoram">
+          <Image w="2xs" src={"/public/images/pazy_home_3.jpg"} />
+        </Box>
       </Box>
-      <Box className="w-1/2">
-        <Heading mb={8}>Get In Touch</Heading>
+      <Box w="md" px="20" pb="12" pt="6" mr={36} className="login-bg">
+        <Heading
+          mb={3}
+          fontWeight="light"
+          fontSize="7xl"
+          className="flex justify-center pinyon"
+        >
+          {isSignUp ? "nowe konto" : "logowanie"}
+        </Heading>
         {error && (
           <Text color="red.300" my={4} fontSize="xl">
             {error}
           </Text>
         )}
-
-        <FormControl isRequired isInvalid={touched.name && !values.name} mb={5}>
-          <FormLabel>Name</FormLabel>
+        {isSignUp && (
+          <Box>
+            <FormControl mb={3} isInvalid={touched.email && !values.email}>
+              <FormLabel fontSize="2xs">IMIĘ I NAZWISKO</FormLabel>
+              <Input
+                borderRadius="full"
+                background="white"
+                type="text"
+                name="name"
+                errorBorderColor="red.300"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={onBlur}
+              />
+            </FormControl>
+            <FormControl
+              mb={3}
+              isRequired
+              isInvalid={touched.email && !values.email}
+            >
+              <FormLabel fontSize="2xs">NUMER TELEFONU</FormLabel>
+              <Input
+                borderRadius="full"
+                background="white"
+                type="tel"
+                name="tel"
+                errorBorderColor="red.300"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={onBlur}
+              />
+            </FormControl>
+          </Box>
+        )}
+        <FormControl isInvalid={touched.email && !values.email} mb={3}>
+          <FormLabel fontSize="2xs">EMAIL</FormLabel>
           <Input
-            type="text"
-            name="name"
-            errorBorderColor="red.300"
-            value={values.name}
-            onChange={handleChange}
-            onBlur={onBlur}
-          />
-          <FormErrorMessage>Required</FormErrorMessage>
-        </FormControl>
-
-        <FormControl
-          isRequired
-          isInvalid={touched.email && !values.email}
-          mb={5}
-        >
-          <FormLabel>Email</FormLabel>
-          <Input
+            borderRadius="full"
+            background="white"
             type="email"
             name="email"
             errorBorderColor="red.300"
@@ -108,55 +180,90 @@ const Login = () => {
             onChange={handleChange}
             onBlur={onBlur}
           />
-          <FormErrorMessage>Required</FormErrorMessage>
         </FormControl>
 
-        <FormControl
-          mb={5}
-          isRequired
-          isInvalid={touched.subject && !values.subject}
-        >
-          <FormLabel>Subject</FormLabel>
+        <FormControl mb={3} isInvalid={touched.password && !values.password}>
+          <FormLabel fontSize="2xs">HASŁO</FormLabel>
           <Input
-            type="text"
-            name="subject"
+            borderRadius="full"
+            background="white"
+            type="password"
+            name="password"
             errorBorderColor="red.300"
-            value={values.subject}
+            value={values.password}
             onChange={handleChange}
             onBlur={onBlur}
           />
-          <FormErrorMessage>Required</FormErrorMessage>
         </FormControl>
-
-        <FormControl
-          isRequired
-          isInvalid={touched.message && !values.message}
-          mb={5}
-        >
-          <FormLabel>Message</FormLabel>
-          <Textarea
-            name="message"
-            rows={4}
-            errorBorderColor="red.300"
-            value={values.message}
-            onChange={handleChange}
-            onBlur={onBlur}
-          />
-          <FormErrorMessage>Required</FormErrorMessage>
-        </FormControl>
-
+        {isSignUp ? (
+          <Box>
+            <FormControl
+              mb={3}
+              isInvalid={touched.password && !values.password}
+            >
+              <FormLabel fontSize="2xs">POWTÓRZ HASŁO</FormLabel>
+              <Input
+                borderRadius="full"
+                background="white"
+                type="password"
+                name="password"
+                errorBorderColor="red.300"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={onBlur}
+              />
+            </FormControl>
+            <Text mb={3} fontSize="2xs">
+              <strong>*Pole obowiązkowe.</strong> Twojego numeru potrzebuje w
+              razie pilnego kontaktu (coś nagłego się stało i potrzebuję odwołać
+              lub przełozyć wizytę)
+            </Text>
+          </Box>
+        ) : (
+          <Text
+            mb={3}
+            cursor="pointer"
+            textAlign="center"
+            _hover={{ textDecoration: "underline" }}
+            onClick={null}
+          >
+            Nie pamietasz hasła?
+          </Text>
+        )}
         <Button
-          colorScheme="pink"
+          color="inherit"
+          fontSize="xl"
+          letterSpacing="widest"
+          w="full"
+          background="white"
+          borderRadius="full"
           isLoading={isLoading}
-          isDisabled={
-            !values.name || !values.email || !values.subject || !values.message
-          }
-          onClick={null}
+          isDisabled={!values.password || !values.email}
+          onClick={isSignUp ? handleSignUp : handleLogin}
         >
-          Submit
+          {isSignUp ? "UTWÓRZ KONTO" : "ZALOGUJ SIĘ"}
+        </Button>
+        <Flex direction="row" alignItems="center" my={3}>
+          <Divider flex={1} />
+          <Text fontSize="xs" mx={2} color="gray.200">
+            {isSignUp ? "Masz już konto?" : "Jesteś tu nowy?"}
+          </Text>
+          <Divider flex={1} />
+        </Flex>
+        <Button
+          color="inherit"
+          fontSize="xl"
+          letterSpacing="widest"
+          w="full"
+          background="white"
+          borderRadius="full"
+          isLoading={isLoading}
+          onClick={() => setIsSignUp(!isSignUp)}
+        >
+          {isSignUp ? "ZALOGUJ SIĘ" : "UTWÓRZ KONTO"}
         </Button>
       </Box>
-    </Center>
+    </Flex>
   );
 };
 
