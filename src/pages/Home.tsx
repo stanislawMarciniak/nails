@@ -49,7 +49,7 @@ const Home = () => {
 
   return (
     <Box className="flex justify-center">
-      <Box className="container scale-90">
+      <Box className="w-full">
         <Carousel responsive={responsive} infinite={true}>
           {homeImages.map((image, id) => (
             <Box

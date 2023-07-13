@@ -15,8 +15,11 @@ import "./Login.css";
 import supabase from "../config/supabaseClient";
 
 interface FormValues {
+  name: string;
+  tel: number;
   email: string;
   password: string;
+  passwordRepeat: string;
 }
 
 interface State {
@@ -26,8 +29,11 @@ interface State {
 }
 
 const initValues: FormValues = {
+  name: "",
+  tel: null,
   email: "",
   password: "",
+  passwordRepeat: "",
 };
 
 const initState: State = {
@@ -108,12 +114,13 @@ const Login = () => {
       alignItems="center"
       mt="10"
       className="relative"
+      h={"3xl"}
     >
       <Box>
         <Box className="absolute flex flex-col items-center pb-20 ml-10 shadow-2xl left-64 top-10 photoram">
           <Image w="sm" src={"/public/images/pazy_home_1.jpg"} />
         </Box>
-        <Box className="absolute flex flex-col items-center pb-20 shadow-2xl left-1/3 top-1/3 photoram">
+        <Box className="absolute flex flex-col items-center pb-20 shadow-2xl left-1/3 top-64 photoram">
           <Image w="xs" src={"/public/images/pazy_home_2.jpg"} />
         </Box>
         <Box className="absolute flex flex-col items-center pb-20 mr-10 shadow-2xl top-16 right-1/3 photoram">
@@ -136,7 +143,7 @@ const Login = () => {
         )}
         {isSignUp && (
           <Box>
-            <FormControl mb={3} isInvalid={touched.email && !values.email}>
+            <FormControl mb={3} isInvalid={touched.name && !values.name}>
               <FormLabel fontSize="2xs">IMIĘ I NAZWISKO</FormLabel>
               <Input
                 borderRadius="full"
@@ -144,7 +151,7 @@ const Login = () => {
                 type="text"
                 name="name"
                 errorBorderColor="red.300"
-                value={values.email}
+                value={values.name}
                 onChange={handleChange}
                 onBlur={onBlur}
               />
@@ -152,7 +159,7 @@ const Login = () => {
             <FormControl
               mb={3}
               isRequired
-              isInvalid={touched.email && !values.email}
+              isInvalid={touched.tel && !values.tel}
             >
               <FormLabel fontSize="2xs">NUMER TELEFONU</FormLabel>
               <Input
@@ -161,7 +168,7 @@ const Login = () => {
                 type="tel"
                 name="tel"
                 errorBorderColor="red.300"
-                value={values.email}
+                value={values.tel}
                 onChange={handleChange}
                 onBlur={onBlur}
               />
@@ -199,16 +206,16 @@ const Login = () => {
           <Box>
             <FormControl
               mb={3}
-              isInvalid={touched.password && !values.password}
+              isInvalid={touched.passwordRepeat && !values.passwordRepeat}
             >
               <FormLabel fontSize="2xs">POWTÓRZ HASŁO</FormLabel>
               <Input
                 borderRadius="full"
                 background="white"
                 type="password"
-                name="password"
+                name="passwordRepeat"
                 errorBorderColor="red.300"
-                value={values.password}
+                value={values.passwordRepeat}
                 onChange={handleChange}
                 onBlur={onBlur}
               />
