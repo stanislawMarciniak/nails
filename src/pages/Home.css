@@ -11,3 +11,27 @@
   margin: 0 auto;
   position: relative;
 }
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-container::before,
+.carousel-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 100%;
+  box-shadow: 0 0 5rem 10rem rgb(255, 255, 255, 0.75); /* Adjust the shadow properties */
+}
+
+.carousel-container::before {
+  left: 0;
+  z-index: 1;
+}
+
+.carousel-container::after {
+  right: 0;
+}
