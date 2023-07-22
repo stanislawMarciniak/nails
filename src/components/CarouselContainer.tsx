@@ -16,7 +16,7 @@ const CarouselContainer = ({ setSelectedImage }) => {
   const handleImageMouseUp = (event) => setEndX(event.clientX);
 
   useEffect(() => {
-    if (endX - startX === 0) {
+    if (endX - startX < 10 && endX - startX > -10) {
       setSelectedImage(clickedImage);
     }
   }, [endX, startX]);
@@ -24,9 +24,12 @@ const CarouselContainer = ({ setSelectedImage }) => {
   const arr = [null, null];
 
   return (
-    <Box className="logos">
+    <Box className="logos mt-14">
       {arr.map(() => (
-        <Box height={"-webkit-fit-content"} className="logos-slide speed0">
+        <Box
+          height={"-webkit-fit-content"}
+          className="gap-48 logos-slide speed0"
+        >
           {homeImages.map((image, id) => (
             <Box
               width={"sm"}
@@ -44,12 +47,33 @@ const CarouselContainer = ({ setSelectedImage }) => {
           ))}
         </Box>
       ))}
-      <Box className="logos-slider">
+      <Box className="mt-32 ml-80 logos-slider">
         {arr.map(() => (
-          <Box height={"-webkit-fit-content"} className="flex speed1">
+          <Box height={"-webkit-fit-content"} className="flex gap-52 speed1">
             {homeImages.map((image, id) => (
               <Box
                 width={"xs"}
+                className="flex flex-col items-center pb-20 mx-10 my-16 shadow-2xl photoram"
+                key={id}
+              >
+                <Image
+                  src={image.imgUrl}
+                  _hover={{ transform: "scale(0.9)" }}
+                  draggable={false}
+                  onMouseDown={(event) => handleImageMouseDown(event, image)}
+                  onMouseUp={handleImageMouseUp}
+                />
+              </Box>
+            ))}
+          </Box>
+        ))}
+      </Box>
+      <Box className="mt-20 ml-20 logos-slider">
+        {arr.map(() => (
+          <Box height={"-webkit-fit-content"} className="flex gap-80 speed2">
+            {homeImages.map((image, id) => (
+              <Box
+                width={"2xs"}
                 className="flex flex-col items-center pb-20 mx-10 my-16 shadow-2xl photoram"
                 key={id}
               >
