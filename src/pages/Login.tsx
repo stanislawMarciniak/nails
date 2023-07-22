@@ -16,7 +16,7 @@ import supabase from "../config/supabaseClient";
 
 interface FormValues {
   name: string;
-  tel: number;
+  tel?: number;
   email: string;
   password: string;
   passwordRepeat: string;
@@ -30,7 +30,6 @@ interface State {
 
 const initValues: FormValues = {
   name: "",
-  tel: null,
   email: "",
   password: "",
   passwordRepeat: "",
@@ -70,7 +69,7 @@ const Login = () => {
     try {
       setState((prev) => ({ ...prev, isLoading: true, error: "" }));
 
-      const { user, error } = await supabase.auth.signIn({
+      const { user, error } = await supabase.auth.signInWithPassword({
         email: values.email,
         password: values.password,
       });
@@ -94,6 +93,12 @@ const Login = () => {
       const { user, error } = await supabase.auth.signUp({
         email: values.email,
         password: values.password,
+        options: {
+          data: {
+            name: values.name,
+            tel: values.tel,
+          },
+        },
       });
 
       if (error) {
@@ -168,7 +173,7 @@ const Login = () => {
                 type="tel"
                 name="tel"
                 errorBorderColor="red.300"
-                value={values.tel}
+                value={values.tel ?? ""}
                 onChange={handleChange}
                 onBlur={onBlur}
               />
