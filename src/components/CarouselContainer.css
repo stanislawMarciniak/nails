@@ -47,14 +47,14 @@
 }
 
 .speed0{
-  animation: 300s slide infinite linear;
+  animation: 900s slide infinite linear;
 }
 
 .speed1{
-  animation: 180s slide infinite linear;
+  animation: 450s slide infinite linear;
 }
 .speed2{
-  animation: 150s slide infinite linear;
+  animation: 300s slide infinite linear;
 }
 
 .photoram {
