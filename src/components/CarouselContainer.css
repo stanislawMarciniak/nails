@@ -15,6 +15,11 @@
   /* animation: updown 3s linear infinite; */
 }
 
+.carousel-item {
+  position: relative;
+  height: 91vh;
+}
+
 @keyframes updown {
     0% {
         transform: translateY(-18px);

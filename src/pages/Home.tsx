@@ -28,7 +28,8 @@ const Home = () => {
         <Center
           background={"#E1DDDD"}
           w={"40"}
-          className="absolute z-10 mt-6 text-4xl border-4 rounded-full shadow-xl bottom-10 border-secoundColor"
+          className="fixed z-10 mt-6 text-4xl border-4 rounded-full shadow-xl bottom-10 border-secoundColor"
+          _hover={{ cursor: "pointer" }}
         >
           <HiOutlineSquare2Stack
             onClick={() => setIsGallery(false)}
@@ -44,9 +45,15 @@ const Home = () => {
           />
         </Center>
       </Center>
-      <Box w={"full"} className="carousel-container">
-        {isGallery ? <Gallery /> : <CarouselContainer />}
-      </Box>
+
+      {isGallery ? (
+        <Gallery />
+      ) : (
+        <Box w={"full"} className="carousel-container">
+          <CarouselContainer />
+        </Box>
+      )}
+
       {selectedImage && (
         <Modal isOpen={true} onClose={handleCloseModal} size={"lg"} isCentered>
           <ModalOverlay bg="none" backdropFilter="auto" backdropBlur="4px" />

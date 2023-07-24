@@ -9,8 +9,7 @@ const CarouselContainer = () => {
     <Carousel
       infinite={true}
       responsive={RESPONSIVENESS_1}
-      itemClass="h-screen relative"
-      containerClass="-mt-10"
+      itemClass="carousel-item"
     >
       <Flex>
         <CarouselItem id={0} top="40%" left="-3%" zIndex={3} size="2xs" />

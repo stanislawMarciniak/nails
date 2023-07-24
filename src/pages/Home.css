@@ -1,6 +1,8 @@
 .carousel-container {
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .carousel-container::before,

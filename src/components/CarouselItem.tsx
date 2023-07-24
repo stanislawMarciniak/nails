@@ -38,7 +38,7 @@ const CarouselItem = ({
     >
       <Image
         src={homeImages[id].imgUrl}
-        _hover={{ transform: "scale(0.9)" }}
+        _hover={{ transform: "scale(0.96)", cursor: "pointer" }}
         draggable={false}
         onMouseDown={(event) => handleImageMouseDown(event, homeImages[id])}
         onMouseUp={handleImageMouseUp}

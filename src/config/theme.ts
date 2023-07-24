@@ -24,7 +24,6 @@ const theme = extendTheme({
     global: {
       body: {
         color: "#927979",
-        overflow: "hidden",
       },
     },
   },
