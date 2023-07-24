@@ -123,13 +123,13 @@ const Login = () => {
     >
       <Box>
         <Box className="absolute flex flex-col items-center ml-10 shadow-2xl left-64 top-10 photoram-sm">
-          <Image w="sm" src={"/public/images/pazy_home_1.jpg"} />
+          <Image w="sm" src={"/images/pazy_home_1.jpg"} />
         </Box>
         <Box className="absolute flex flex-col items-center shadow-2xl left-1/3 top-64 photoram-xs">
-          <Image w="xs" src={"/public/images/pazy_home_2.jpg"} />
+          <Image w="xs" src={"/images/pazy_home_2.jpg"} />
         </Box>
         <Box className="absolute flex flex-col items-center mr-10 shadow-2xl top-16 right-1/3 photoram-2xs">
-          <Image w="2xs" src={"/public/images/pazy_home_3.jpg"} />
+          <Image w="2xs" src={"/images/pazy_home_3.jpg"} />
         </Box>
       </Box>
       <Box w="md" px="20" pb="12" pt="6" mr={36} className="login-bg">

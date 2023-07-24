@@ -33,75 +33,75 @@ export const services = [
 
 export const homeImages = [
   {
-    imgUrl: "/public/images/pazy_home_1.jpg",
+    imgUrl: "/images/pazy_home_1.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_2.jpg",
+    imgUrl: "/images/pazy_home_2.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_3.jpg",
+    imgUrl: "/images/pazy_home_3.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_4.jpg",
+    imgUrl: "/images/pazy_home_4.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_5.jpg",
+    imgUrl: "/images/pazy_home_5.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_6.jpg",
+    imgUrl: "/images/pazy_home_6.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_7.jpg",
+    imgUrl: "/images/pazy_home_7.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_8.jpg",
+    imgUrl: "/images/pazy_home_8.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_9.jpg",
+    imgUrl: "/images/pazy_home_9.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_10.jpg",
+    imgUrl: "/images/pazy_home_10.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_11.jpg",
+    imgUrl: "/images/pazy_home_11.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_12.jpg",
+    imgUrl: "/images/pazy_home_12.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_13.jpg",
+    imgUrl: "/images/pazy_home_13.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_14.jpg",
+    imgUrl: "/images/pazy_home_14.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_15.jpg",
+    imgUrl: "/images/pazy_home_15.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_16.jpg",
+    imgUrl: "/images/pazy_home_16.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_17.jpg",
+    imgUrl: "/images/pazy_home_17.jpg",
     service: "name of service",
   },
   {
-    imgUrl: "/public/images/pazy_home_18.jpg",
+    imgUrl: "/images/pazy_home_18.jpg",
     service: "name of service",
   },
 ];

@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import CarouselContainer from "../components/CarouselContainer";
 import { useImageContext } from "../components/ImageContext";
-import './Home.css'
+import "./Home.css";
 
 const Home = () => {
   const { selectedImage, setSelectedImage } = useImageContext();

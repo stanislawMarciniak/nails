@@ -14,13 +14,13 @@ function BackgroundWrapper() {
   const getBackgroundImage = () => {
     switch (location.pathname) {
       case "/":
-        return "url(/public/images/bg-pricing.PNG)";
+        return "url(/images/bg-pricing.PNG)";
       case "/cennik":
-        return "url(/public/images/bg-pricing.PNG)";
+        return "url(/images/bg-pricing.PNG)";
       case "/kalendarz":
-        return "url(/public/images/bg-calendar.PNG)";
+        return "url(/images/bg-calendar.PNG)";
       case "/zaloguj":
-        return "url(/public/images/bg-login.PNG)";
+        return "url(/images/bg-login.PNG)";
       default:
         return "";
     }

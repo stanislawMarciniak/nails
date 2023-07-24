@@ -1,7 +1,4 @@
 .logos {
-  display: flex;
-  overflow: hidden;
-  white-space: nowrap;
   position: relative;
 }
 
