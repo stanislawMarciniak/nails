@@ -7,20 +7,45 @@ import {
   ModalBody,
   Box,
   Text,
+  Center,
 } from "@chakra-ui/react";
 import CarouselContainer from "../components/CarouselContainer";
 import { useImageContext } from "../components/ImageContext";
 import "./Home.css";
+import { HiOutlineSquare2Stack, HiOutlineSquares2X2 } from "react-icons/hi2";
+import { useState } from "react";
+import Gallery from "../components/Gallery";
 
 const Home = () => {
+  const [isGallery, setIsGallery] = useState(false);
   const { selectedImage, setSelectedImage } = useImageContext();
 
   const handleCloseModal = () => setSelectedImage(null);
 
   return (
-    <Box className="flex justify-center h-screen">
-      <Box w={"full"} className="logos">
-        <CarouselContainer />
+    <Box>
+      <Center>
+        <Center
+          background={"#E1DDDD"}
+          w={"40"}
+          className="absolute z-10 mt-6 text-4xl border-4 rounded-full shadow-xl bottom-10 border-secoundColor"
+        >
+          <HiOutlineSquare2Stack
+            onClick={() => setIsGallery(false)}
+            className={`flex-grow rounded-l-full ${
+              !isGallery && "text-firstColor bg-secoundColor"
+            }`}
+          />
+          <HiOutlineSquares2X2
+            onClick={() => setIsGallery(true)}
+            className={`flex-grow rounded-r-full ${
+              isGallery && "text-firstColor bg-secoundColor"
+            }`}
+          />
+        </Center>
+      </Center>
+      <Box w={"full"} className="carousel-container">
+        {isGallery ? <Gallery /> : <CarouselContainer />}
       </Box>
       {selectedImage && (
         <Modal isOpen={true} onClose={handleCloseModal} size={"lg"} isCentered>

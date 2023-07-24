@@ -1,14 +1,28 @@
 .photoram-sm {
-  background-color: white;
   padding: 25px 25px 6rem 25px; 
 }
 
 .photoram-xs {
-  background-color: white;
   padding: 20px 20px 5rem 20px; 
 }
 
 .photoram-2xs {
-  background-color: white;
   padding: 15px 15px 4rem 15px; 
+}
+
+.photoram-sm, .photoram-2xs, .photoram-xs {
+  background-color: white;
+  /* animation: updown 3s linear infinite; */
+}
+
+@keyframes updown {
+    0% {
+        transform: translateY(-18px);
+    }
+    50% {
+        transform: translateY(22px);
+    }
+    100% {
+        transform: translateY(-18px);
+    }
 }

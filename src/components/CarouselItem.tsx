@@ -33,7 +33,7 @@ const CarouselItem = ({
   return (
     <Box
       width={size}
-      className={`absolute flex flex-col items-center shadow-2xl photoram-sm`}
+      className={`absolute flex flex-col items-center shadow-2xl photoram-${size}`}
       style={{ left, right, top, bottom, zIndex }}
     >
       <Image
