@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "react-multi-carousel/lib/styles.css";
 import {
   Image,
@@ -10,15 +9,19 @@ import {
   Text,
 } from "@chakra-ui/react";
 import CarouselContainer from "../components/CarouselContainer";
+import { useImageContext } from "../components/ImageContext";
+import './Home.css'
 
 const Home = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const { selectedImage, setSelectedImage } = useImageContext();
 
   const handleCloseModal = () => setSelectedImage(null);
 
   return (
     <Box className="flex justify-center h-screen">
-      <CarouselContainer setSelectedImage={setSelectedImage} />
+      <Box w={"full"} className="logos">
+        <CarouselContainer />
+      </Box>
       {selectedImage && (
         <Modal isOpen={true} onClose={handleCloseModal} size={"lg"} isCentered>
           <ModalOverlay bg="none" backdropFilter="auto" backdropBlur="4px" />

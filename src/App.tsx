@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./config/theme";
+import { ImageProvider } from "./components/ImageContext";
 
 function BackgroundWrapper() {
   const location = useLocation();
@@ -50,9 +51,11 @@ function BackgroundWrapper() {
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <BrowserRouter>
-        <BackgroundWrapper />
-      </BrowserRouter>
+      <ImageProvider>
+        <BrowserRouter>
+          <BackgroundWrapper />
+        </BrowserRouter>
+      </ImageProvider>
     </ChakraProvider>
   );
 }
