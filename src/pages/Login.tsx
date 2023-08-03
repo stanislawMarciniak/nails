@@ -77,8 +77,6 @@ const Login = () => {
       if (error) {
         throw new Error(error.message);
       }
-
-      console.log(user);
     } catch (error) {
       setState((prev) => ({ ...prev, error: error.message }));
     } finally {
@@ -119,13 +117,13 @@ const Login = () => {
       alignItems="center"
       mt="10"
       className="relative"
-      h={"3xl"}
+      h={"2xl"}
     >
       <Box>
-        <Box className="absolute flex flex-col items-center ml-10 shadow-2xl left-64 top-10 photoram-sm">
+        <Box className="absolute top-0 flex flex-col items-center ml-10 shadow-2xl left-64 photoram-sm">
           <Image w="sm" src={"/images/pazy_home_1.jpg"} />
         </Box>
-        <Box className="absolute flex flex-col items-center shadow-2xl left-1/3 top-64 photoram-xs">
+        <Box className="absolute flex flex-col items-center shadow-2xl left-1/3 top-44 photoram-xs">
           <Image w="xs" src={"/images/pazy_home_2.jpg"} />
         </Box>
         <Box className="absolute flex flex-col items-center mr-10 shadow-2xl top-16 right-1/3 photoram-2xs">
