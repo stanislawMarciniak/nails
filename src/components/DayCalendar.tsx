@@ -1,19 +1,25 @@
-import { add, format } from "date-fns";
+import { add, format, set } from "date-fns";
 import {
   OPENING_HOURS_BEGINNING,
   OPENING_HOURS_END,
   OPENING_HOURS_INTERVAL,
 } from "../constants/config";
-import { Box, Flex, Select, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import getUserLocale from "get-user-locale";
-import { formatLongDate } from "./calendar/react-calendar/src/shared/dateFormatter";
+import {
+  formatLongDate,
+  formatWeekday,
+} from "./calendar/react-calendar/src/shared/dateFormatter";
 import { CloseIcon } from "@chakra-ui/icons";
-import { services } from "../config/data";
 import Dropdown from "./Dropdown";
+import { useState } from "react";
+import { services } from "../config/data";
 
 const DayCalendar = ({ date, setDate, click, setClick }) => {
-  const cloneServices = [...services];
-  cloneServices.pop();
+  const [selectedService, setSelectedService] = useState("Wybierz usługę");
+  const [selectedTime, setSelectedTime] = useState("Wybierz godzinę");
+  const [active, setActive] = useState(-1);
+
   console.log(date.justDate);
   const locale = getUserLocale();
 
@@ -34,9 +40,17 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
     return times;
   };
 
-  const [day, month, year] = formatLongDate(locale, date.justDate).split(" ");
+  const [day, month] = formatLongDate(locale, date.justDate).split(" ");
+  const weekday = formatWeekday(locale, date.justDate);
+  const clonedServices = services.map((service) => service.name);
+  clonedServices.pop();
 
   const times = getTimes();
+  const mappedTimes = times.map((time) => {
+    format(time, "kk:mm");
+  });
+  console.log(mappedTimes);
+
   return (
     <Box p="10" className="mb-10 shadow-xl calendar-bg josefin-light">
       <Stack w="4xl" gap={7}>
@@ -46,7 +60,7 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
             <Text className="mb-4 text-7xl pinyon">
               {day} {month}
             </Text>
-            <Text className="mb=3 text-3xl">{year}</Text>
+            <Text className="mb=3 text-4xl">{weekday}</Text>
           </Stack>
 
           <CloseIcon
@@ -57,20 +71,23 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
             }}
           />
         </Flex>
-        {times?.map((time, i) => (
-          <Flex align={"center"} justify={"center"} gap={8} mb={2}>
-            <Text>{format(time, "kk:mm")}</Text>
-            <Dropdown />
-            {/* <Select variant={"filled"} bg={"#E1DDDD"} shadow={"md"} size={"lg"}>
-              <option>Wybierz usługę</option>
-              {cloneServices.map((service) => (
-                <option value={service.name} key={service.name}>
-                  {service.name}
-                </option>
-              ))}
-            </Select> */}
-          </Flex>
-        ))}
+
+        <Dropdown
+          id={0}
+          data={clonedServices}
+          selected={selectedService}
+          setSelected={setSelectedService}
+          active={active}
+          setActive={setActive}
+        />
+        <Dropdown
+          id={1}
+          data={mappedTimes}
+          selected={selectedTime}
+          setSelected={setSelectedTime}
+          active={active}
+          setActive={setActive}
+        />
         <Flex justify={"end"} mt={3}>
           <button
             className="px-3 py-1 text-xl border rounded-full border-secoundColor bg-firstColor josefin-light"

@@ -1,18 +1,30 @@
-import { useState } from "react";
 import "./Dropdown.css";
 
-const Dropdown = () => {
-  const [isActive, setIsActive] = useState(false);
+const Dropdown = ({ selected, setSelected, id, active, setActive, data }) => {
   return (
     <div className="dropdown">
-      <div className="dropdown-btn" onClick={() => setIsActive(!isActive)}>
-        Choose One
-        <span className="fas fa-caret-down"></span>
+      <div
+        className="dropdown-btn"
+        onClick={() => {
+          active === id ? setActive(-1) : setActive(id);
+        }}
+      >
+        <span className="fas fa-caret-down">{selected}</span>
       </div>
-      {isActive && (
+      {active === id && (
         <div className="dropdown-content">
-          <div className="dropdown-item">React</div>
-          <div className="dropdown-item">Vue</div>
+          {data.map((service, id) => (
+            <div
+              key={id}
+              onClick={() => {
+                setSelected(service);
+                setActive(-1);
+              }}
+              className="dropdown-item"
+            >
+              {service}
+            </div>
+          ))}
         </div>
       )}
     </div>
