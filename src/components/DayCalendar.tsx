@@ -48,9 +48,9 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
   clonedServices.pop();
 
   return (
-    <Box p="10" className="mb-10 shadow-xl calendar-bg josefin-light">
-      <Stack w="xl" gap={7}>
-        <Flex justify={"space-between"}>
+    <Box p="10" className="mt-20 mb-10 shadow-xl calendar-bg josefin-light">
+      <Stack w="xl" align={"center"}>
+        <Flex w={"full"} mb={9} justify={"space-between"}>
           <Box />
           <Stack align={"center"}>
             <Text className="mb-4 text-7xl pinyon">
@@ -76,16 +76,18 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
           setActive={setActive}
         />
         <Dropdown
+          wasServiceChoosen={selectedService !== "Wybierz usługę"}
           isService={false}
           data={times}
           selected={selectedTime}
           setSelected={setSelectedTime}
           active={active}
           setActive={setActive}
+          service={selectedService}
         />
         <Flex justify={"center"} mt={3}>
           <button
-            className="px-8 py-3 text-xl rounded-full bg-thirdColor josefin-light"
+            className="px-8 py-3 text-2xl rounded-full bg-thirdColor josefin-light"
             type="button"
             onClick={() => setDate((prev) => ({ ...prev, dateTime: time }))}
           >
