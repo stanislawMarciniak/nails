@@ -6,9 +6,11 @@ import {
 } from "../constants/config";
 import { Box, Stack } from "@chakra-ui/react";
 import { formatMonthYear } from "./calendar/react-calendar/src/shared/dateFormatter";
+import getUserLocale from "get-user-locale";
 
 const DayCalendar = ({ date, setDate, click, setClick }) => {
   console.log(date.justDate);
+  const locale = getUserLocale();
   formatMonthYear(locale, date);
 
   const getTimes = () => {
