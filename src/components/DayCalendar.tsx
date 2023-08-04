@@ -9,6 +9,7 @@ import getUserLocale from "get-user-locale";
 import { formatLongDate } from "./calendar/react-calendar/src/shared/dateFormatter";
 import { CloseIcon } from "@chakra-ui/icons";
 import { services } from "../config/data";
+import Dropdown from "./Dropdown";
 
 const DayCalendar = ({ date, setDate, click, setClick }) => {
   const cloneServices = [...services];
@@ -59,14 +60,15 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
         {times?.map((time, i) => (
           <Flex align={"center"} justify={"center"} gap={8} mb={2}>
             <Text>{format(time, "kk:mm")}</Text>
-            <Select variant={"filled"} bg={"#E1DDDD"} shadow={"md"} size={"lg"}>
+            <Dropdown />
+            {/* <Select variant={"filled"} bg={"#E1DDDD"} shadow={"md"} size={"lg"}>
               <option>Wybierz usługę</option>
               {cloneServices.map((service) => (
                 <option value={service.name} key={service.name}>
                   {service.name}
                 </option>
               ))}
-            </Select>
+            </Select> */}
           </Flex>
         ))}
         <Flex justify={"end"} mt={3}>
