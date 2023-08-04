@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { getUserLocale } from 'get-user-locale';
+import React from "react";
+import { getUserLocale } from "get-user-locale";
 
 import {
   getCenturyLabel,
@@ -12,15 +12,19 @@ import {
   getBeginPrevious2,
   getEndPrevious,
   getEndPrevious2,
-} from '../shared/dates.js';
+} from "../shared/dates.js";
 import {
   formatMonthYear as defaultFormatMonthYear,
   formatYear as defaultFormatYear,
-} from '../shared/dateFormatter.js';
+} from "../shared/dateFormatter.js";
 
-import type { Action, NavigationLabelFunc, RangeType } from '../shared/types.js';
+import type {
+  Action,
+  NavigationLabelFunc,
+  RangeType,
+} from "../shared/types.js";
 
-const className = 'react-calendar__navigation';
+const className = "react-calendar__navigation";
 
 type NavigationProps = {
   activeStartDate: Date;
@@ -31,7 +35,7 @@ type NavigationProps = {
   maxDate?: Date;
   minDate?: Date;
   navigationAriaLabel?: string;
-  navigationAriaLive?: 'off' | 'polite' | 'assertive';
+  navigationAriaLive?: "off" | "polite" | "assertive";
   navigationLabel?: NavigationLabelFunc;
   next2AriaLabel?: string;
   next2Label?: React.ReactNode;
@@ -55,24 +59,24 @@ export default function Navigation({
   locale,
   maxDate,
   minDate,
-  navigationAriaLabel = '',
+  navigationAriaLabel = "",
   navigationAriaLive,
   navigationLabel,
-  next2AriaLabel = '',
-  next2Label = '»',
-  nextAriaLabel = '',
-  nextLabel = '›',
-  prev2AriaLabel = '',
-  prev2Label = '«',
-  prevAriaLabel = '',
-  prevLabel = '‹',
+  next2AriaLabel = "",
+  next2Label = "»",
+  nextAriaLabel = "",
+  nextLabel = "›",
+  prev2AriaLabel = "",
+  prev2Label = "«",
+  prevAriaLabel = "",
+  prevLabel = "‹",
   setActiveStartDate,
   showDoubleView,
   view,
   views,
 }: NavigationProps) {
   const drillUpAvailable = views.indexOf(view) > 0;
-  const shouldShowPrevNext2Buttons = view !== 'century';
+  const shouldShowPrevNext2Buttons = view !== "century";
 
   const previousActiveStartDate = getBeginPrevious(view, activeStartDate);
   const previousActiveStartDate2 = shouldShowPrevNext2Buttons
@@ -104,34 +108,36 @@ export default function Navigation({
   const nextButtonDisabled = maxDate && maxDate < nextActiveStartDate;
 
   const next2ButtonDisabled =
-    shouldShowPrevNext2Buttons && maxDate && maxDate < (nextActiveStartDate2 as Date);
+    shouldShowPrevNext2Buttons &&
+    maxDate &&
+    maxDate < (nextActiveStartDate2 as Date);
 
   function onClickPrevious() {
-    setActiveStartDate(previousActiveStartDate, 'prev');
+    setActiveStartDate(previousActiveStartDate, "prev");
   }
 
   function onClickPrevious2() {
-    setActiveStartDate(previousActiveStartDate2 as Date, 'prev2');
+    setActiveStartDate(previousActiveStartDate2 as Date, "prev2");
   }
 
   function onClickNext() {
-    setActiveStartDate(nextActiveStartDate, 'next');
+    setActiveStartDate(nextActiveStartDate, "next");
   }
 
   function onClickNext2() {
-    setActiveStartDate(nextActiveStartDate2 as Date, 'next2');
+    setActiveStartDate(nextActiveStartDate2 as Date, "next2");
   }
 
   function renderLabel(date: Date) {
     const label = (() => {
       switch (view) {
-        case 'century':
+        case "century":
           return getCenturyLabel(locale, formatYear, date);
-        case 'decade':
+        case "decade":
           return getDecadeLabel(locale, formatYear, date);
-        case 'year':
+        case "year":
           return formatYear(locale, date);
-        case 'month':
+        case "month":
           return formatMonthYear(locale, date);
         default:
           throw new Error(`Invalid view: ${view}.`);
@@ -150,6 +156,7 @@ export default function Navigation({
 
   function renderButton() {
     const labelClassName = `${className}__label`;
+    const [month, year] = renderLabel(activeStartDate).split(" ");
     return (
       <button
         aria-label={navigationAriaLabel}
@@ -160,13 +167,18 @@ export default function Navigation({
         style={{ flexGrow: 1 }}
         type="button"
       >
-        <span className={`${labelClassName}__labelText ${labelClassName}__labelText--from`}>
-          {renderLabel(activeStartDate)}
+        <span
+          className={`${labelClassName}__labelText ${labelClassName}__labelText--from`}
+        >
+          <span className="pinyon">{month}</span>
+          <span>{year}</span>
         </span>
         {showDoubleView ? (
           <>
             <span className={`${labelClassName}__divider`}> – </span>
-            <span className={`${labelClassName}__labelText ${labelClassName}__labelText--to`}>
+            <span
+              className={`${labelClassName}__labelText ${labelClassName}__labelText--to`}
+            >
               {renderLabel(nextActiveStartDate)}
             </span>
           </>

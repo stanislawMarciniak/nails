@@ -18,7 +18,9 @@ const Pricing = () => {
               fontSize={"xl"}
             >
               <Box>
-                <strong className="josefin-normal">{service.name} </strong>
+                <strong className="josefin-normal">
+                  {service.name.toUpperCase()}{" "}
+                </strong>
                 {id === services.length - 1 ? null : (
                   <span>
                     ({service.minTime}-{service.maxTime} H)

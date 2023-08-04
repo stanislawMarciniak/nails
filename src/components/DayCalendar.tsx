@@ -4,14 +4,17 @@ import {
   OPENING_HOURS_END,
   OPENING_HOURS_INTERVAL,
 } from "../constants/config";
-import { Box, Stack } from "@chakra-ui/react";
-import { formatMonthYear } from "./calendar/react-calendar/src/shared/dateFormatter";
+import { Box, Flex, Select, Stack, Text } from "@chakra-ui/react";
 import getUserLocale from "get-user-locale";
+import { formatLongDate } from "./calendar/react-calendar/src/shared/dateFormatter";
+import { CloseIcon } from "@chakra-ui/icons";
+import { services } from "../config/data";
 
 const DayCalendar = ({ date, setDate, click, setClick }) => {
+  const cloneServices = [...services];
+  cloneServices.pop();
   console.log(date.justDate);
   const locale = getUserLocale();
-  formatMonthYear(locale, date);
 
   const getTimes = () => {
     if (!date.justDate) return;
@@ -30,28 +33,51 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
     return times;
   };
 
+  const [day, month, year] = formatLongDate(locale, date.justDate).split(" ");
+
   const times = getTimes();
   return (
-    <Box p="10" className="shadow-xl calendar-bg">
-      <Stack w="xl" className="gap-4">
-        <button
-          onClick={() => {
-            setDate({ justDate: null, dateTime: null });
-            setClick(!click);
-          }}
-        >
-          wróć
-        </button>
+    <Box p="10" className="mb-10 shadow-xl calendar-bg josefin-light">
+      <Stack w="4xl" gap={7}>
+        <Flex justify={"space-between"}>
+          <Box />
+          <Stack align={"center"}>
+            <Text className="mb-4 text-7xl pinyon">
+              {day} {month}
+            </Text>
+            <Text className="mb=3 text-3xl">{year}</Text>
+          </Stack>
+
+          <CloseIcon
+            cursor={"pointer"}
+            onClick={() => {
+              setDate({ justDate: null, dateTime: null });
+              setClick(!click);
+            }}
+          />
+        </Flex>
         {times?.map((time, i) => (
-          <div key={i} className="p-2 bg-gray-200 rounded-md">
-            <button
-              type="button"
-              onClick={() => setDate((prev) => ({ ...prev, dateTime: time }))}
-            >
-              {format(time, "kk:mm")}
-            </button>
-          </div>
+          <Flex align={"center"} justify={"center"} gap={8} mb={2}>
+            <Text>{format(time, "kk:mm")}</Text>
+            <Select variant={"filled"} bg={"#E1DDDD"} shadow={"md"} size={"lg"}>
+              <option>Wybierz usługę</option>
+              {cloneServices.map((service) => (
+                <option value={service.name} key={service.name}>
+                  {service.name}
+                </option>
+              ))}
+            </Select>
+          </Flex>
         ))}
+        <Flex justify={"end"} mt={3}>
+          <button
+            className="px-3 py-1 text-xl border rounded-full border-secoundColor bg-firstColor josefin-light"
+            type="button"
+            onClick={() => setDate((prev) => ({ ...prev, dateTime: time }))}
+          >
+            Zapisz się
+          </button>
+        </Flex>
       </Stack>
     </Box>
   );

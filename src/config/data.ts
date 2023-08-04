@@ -1,30 +1,30 @@
 export const services = [
   {
-    name: "PRZEDŁUŻANIE METODĄ ŻELOWA",
+    name: "Przedłużanie metodą żelową",
     minTime: 2.5,
     maxTime: 3,
     cost: 100,
   },
   {
-    name: "WZMOCNIENIE ŻELOWE NATURALNEJ PŁYTKI",
+    name: "Wzmocnienie naturalnej płytki",
     minTime: 2,
     maxTime: 2.5,
     cost: 80,
   },
   {
-    name: "HYBRYDA NA NATURLANEJ PŁYTCE",
+    name: "Hybryda na naturalnej płytce",
     minTime: 1.5,
     maxTime: 2,
     cost: 75,
   },
   {
-    name: "UZUPEŁNIENIE ŻELOWE",
+    name: "Uzupełnienie żelowe",
     minTime: 2,
     maxTime: 2.5,
     cost: 85,
   },
   {
-    name: "SKOMPLIKOWANE / CZASOCHŁONNE ZDOBIENIE", //keep it the last one
+    name: "Skomplikowane / czasochłonne zdobienie", //keep it the last one
     minTime: null,
     maxTime: null,
     cost: 10,

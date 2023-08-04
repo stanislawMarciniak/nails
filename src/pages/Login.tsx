@@ -115,7 +115,7 @@ const Login = () => {
     <Flex
       justify="space-between"
       alignItems="center"
-      mt="10"
+      mt="20"
       className="relative"
       h={"2xl"}
     >
