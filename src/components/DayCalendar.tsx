@@ -18,7 +18,7 @@ import { services } from "../config/data";
 const DayCalendar = ({ date, setDate, click, setClick }) => {
   const [selectedService, setSelectedService] = useState("Wybierz usługę");
   const [selectedTime, setSelectedTime] = useState("Wybierz godzinę");
-  const [active, setActive] = useState(-1);
+  const [active, setActive] = useState("");
 
   console.log(date.justDate);
   const locale = getUserLocale();
@@ -39,21 +39,17 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
 
     return times;
   };
+  const times = getTimes();
 
   const [day, month] = formatLongDate(locale, date.justDate).split(" ");
   const weekday = formatWeekday(locale, date.justDate);
-  const clonedServices = services.map((service) => service.name);
-  clonedServices.pop();
 
-  const times = getTimes();
-  const mappedTimes = times.map((time) => {
-    format(time, "kk:mm");
-  });
-  console.log(mappedTimes);
+  const clonedServices = [...services];
+  clonedServices.pop();
 
   return (
     <Box p="10" className="mb-10 shadow-xl calendar-bg josefin-light">
-      <Stack w="4xl" gap={7}>
+      <Stack w="xl" gap={7}>
         <Flex justify={"space-between"}>
           <Box />
           <Stack align={"center"}>
@@ -73,7 +69,6 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
         </Flex>
 
         <Dropdown
-          id={0}
           data={clonedServices}
           selected={selectedService}
           setSelected={setSelectedService}
@@ -81,20 +76,20 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
           setActive={setActive}
         />
         <Dropdown
-          id={1}
-          data={mappedTimes}
+          isService={false}
+          data={times}
           selected={selectedTime}
           setSelected={setSelectedTime}
           active={active}
           setActive={setActive}
         />
-        <Flex justify={"end"} mt={3}>
+        <Flex justify={"center"} mt={3}>
           <button
-            className="px-3 py-1 text-xl border rounded-full border-secoundColor bg-firstColor josefin-light"
+            className="px-8 py-3 text-xl rounded-full bg-thirdColor josefin-light"
             type="button"
             onClick={() => setDate((prev) => ({ ...prev, dateTime: time }))}
           >
-            Zapisz się
+            ZAPISZ MNIE
           </button>
         </Flex>
       </Stack>

@@ -1,16 +1,26 @@
-'use client';
+"use client";
 
-import React, { forwardRef, useCallback, useImperativeHandle, useState } from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useState,
+} from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
 
-import Navigation from './Calendar/Navigation.js';
-import CenturyView from './CenturyView.js';
-import DecadeView from './DecadeView.js';
-import YearView from './YearView.js';
-import MonthView from './MonthView.js';
+import Navigation from "./Calendar/Navigation.js";
+import CenturyView from "./CenturyView.js";
+import DecadeView from "./DecadeView.js";
+import YearView from "./YearView.js";
+import MonthView from "./MonthView.js";
 
-import { getBegin, getBeginNext, getEnd, getValueRange } from './shared/dates.js';
+import {
+  getBegin,
+  getBeginNext,
+  getEnd,
+  getValueRange,
+} from "./shared/dates.js";
 import {
   isCalendarType,
   isClassName,
@@ -19,8 +29,8 @@ import {
   isRef,
   isView,
   rangeOf,
-} from './shared/propTypes.js';
-import { between } from './shared/utils.js';
+} from "./shared/propTypes.js";
+import { between } from "./shared/utils.js";
 
 import type {
   Action,
@@ -39,7 +49,7 @@ import type {
   TileDisabledFunc,
   Value,
   View,
-} from './shared/types.js';
+} from "./shared/types.js";
 
 import type {
   formatDay as defaultFormatDay,
@@ -49,11 +59,11 @@ import type {
   formatShortWeekday as defaultFormatShortWeekday,
   formatWeekday as defaultFormatWeekday,
   formatYear as defaultFormatYear,
-} from './shared/dateFormatter.js';
+} from "./shared/dateFormatter.js";
 
-const baseClassName = 'react-calendar';
-const allViews = ['century', 'decade', 'year', 'month'] as const;
-const allValueTypes = ['decade', 'year', 'month', 'day'] as const;
+const baseClassName = "react-calendar";
+const allViews = ["century", "decade", "year", "month"] as const;
+const allValueTypes = ["decade", "year", "month", "day"] as const;
 
 const defaultMinDate = new Date();
 defaultMinDate.setFullYear(1, 0, 1);
@@ -83,13 +93,18 @@ export type CalendarProps = {
   minDate?: Date;
   minDetail?: Detail;
   navigationAriaLabel?: string;
-  navigationAriaLive?: 'off' | 'polite' | 'assertive';
+  navigationAriaLive?: "off" | "polite" | "assertive";
   navigationLabel?: NavigationLabelFunc;
   next2AriaLabel?: string;
   next2Label?: React.ReactNode;
   nextAriaLabel?: string;
   nextLabel?: React.ReactNode;
-  onActiveStartDateChange?: ({ action, activeStartDate, value, view }: OnArgs) => void;
+  onActiveStartDateChange?: ({
+    action,
+    activeStartDate,
+    value,
+    view,
+  }: OnArgs) => void;
   onChange?: (value: Value, event: React.MouseEvent<HTMLButtonElement>) => void;
   onClickDay?: OnClickFunc;
   onClickDecade?: OnClickFunc;
@@ -103,7 +118,7 @@ export type CalendarProps = {
   prev2Label?: React.ReactNode;
   prevAriaLabel?: string;
   prevLabel?: React.ReactNode;
-  returnValue?: 'start' | 'end' | 'range';
+  returnValue?: "start" | "end" | "range";
   selectRange?: boolean;
   showDoubleView?: boolean;
   showFixedNumberOfWeeks?: boolean;
@@ -129,7 +144,10 @@ function toDate(value: Date | string): Date {
  * Returns views array with disallowed values cut off.
  */
 function getLimitedViews(minDetail: Detail, maxDetail: Detail) {
-  return allViews.slice(allViews.indexOf(minDetail), allViews.indexOf(maxDetail) + 1);
+  return allViews.slice(
+    allViews.indexOf(minDetail),
+    allViews.indexOf(maxDetail) + 1
+  );
 }
 
 /**
@@ -145,7 +163,11 @@ function isViewAllowed(view: Detail, minDetail: Detail, maxDetail: Detail) {
  * Gets either provided view if allowed by minDetail and maxDetail, or gets
  * the default view if not allowed.
  */
-function getView(view: View | undefined, minDetail: Detail, maxDetail: Detail): View {
+function getView(
+  view: View | undefined,
+  minDetail: Detail,
+  maxDetail: Detail
+): View {
   if (!view) {
     return maxDetail;
   }
@@ -160,7 +182,9 @@ function getView(view: View | undefined, minDetail: Detail, maxDetail: Detail): 
 /**
  * Returns value type that can be returned with currently applied settings.
  */
-function getValueType<T extends number>(view: (typeof allViews)[T]): (typeof allValueTypes)[T] {
+function getValueType<T extends number>(
+  view: (typeof allViews)[T]
+): (typeof allValueTypes)[T] {
   const index = allViews.indexOf(view) as T;
 
   return allValueTypes[index];
@@ -189,7 +213,10 @@ type DetailArgs = {
   maxDetail: Detail;
 };
 
-function getDetailValue({ value, minDate, maxDate, maxDetail }: DetailArgs, index: 0 | 1) {
+function getDetailValue(
+  { value, minDate, maxDate, maxDetail }: DetailArgs,
+  index: 0 | 1
+) {
   const valuePiece = getValue(value, index);
 
   if (!valuePiece) {
@@ -219,7 +246,7 @@ const getDetailValueTo = (args: DetailArgs) => getDetailValue(args, 1);
 const getDetailValueArray = (args: DetailArgs) =>
   [getDetailValueFrom, getDetailValueTo].map((fn) => fn(args)) as [
     ReturnType<typeof getDetailValueFrom>,
-    ReturnType<typeof getDetailValueTo>,
+    ReturnType<typeof getDetailValueTo>
   ];
 
 function getActiveStartDate({
@@ -290,7 +317,11 @@ function getIsSingleValue<T>(value: T | T[]): value is T {
 }
 
 function areDatesEqual(date1?: Date | null, date2?: Date | null) {
-  return date1 instanceof Date && date2 instanceof Date && date1.getTime() === date2.getTime();
+  return (
+    date1 instanceof Date &&
+    date2 instanceof Date &&
+    date1.getTime() === date2.getTime()
+  );
 }
 
 const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
@@ -313,9 +344,9 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
     inputRef,
     locale,
     maxDate = defaultMaxDate,
-    maxDetail = 'month',
+    maxDetail = "month",
     minDate = defaultMinDate,
-    minDetail = 'century',
+    minDetail = "century",
     navigationAriaLabel,
     navigationAriaLive,
     navigationLabel,
@@ -337,7 +368,7 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
     prev2Label,
     prevAriaLabel,
     prevLabel,
-    returnValue = 'start',
+    returnValue = "start",
     selectRange,
     showDoubleView,
     showFixedNumberOfWeeks,
@@ -351,16 +382,18 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
     view: viewProps,
   } = props;
 
-  const [activeStartDateState, setActiveStartDateState] = useState<Date | null | undefined>(
-    defaultActiveStartDate,
-  );
+  const [activeStartDateState, setActiveStartDateState] = useState<
+    Date | null | undefined
+  >(defaultActiveStartDate);
   const [hoverState, setHoverState] = useState<Date | null>(null);
   const [valueState, setValueState] = useState<Value | undefined>(
     Array.isArray(defaultValue)
-      ? (defaultValue.map((el) => (el !== null ? toDate(el) : null)) as Range<Date | null>)
+      ? (defaultValue.map((el) =>
+          el !== null ? toDate(el) : null
+        ) as Range<Date | null>)
       : defaultValue !== null && defaultValue !== undefined
       ? toDate(defaultValue)
-      : null,
+      : null
   );
   const [viewState, setViewState] = useState<View | undefined>(defaultView);
 
@@ -395,7 +428,9 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
     }
 
     return Array.isArray(rawValue)
-      ? (rawValue.map((el) => (el !== null ? toDate(el) : null)) as Range<Date | null>)
+      ? (rawValue.map((el) =>
+          el !== null ? toDate(el) : null
+        ) as Range<Date | null>)
       : rawValue !== null
       ? toDate(rawValue)
       : null;
@@ -417,14 +452,14 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
     (value: Date) => {
       const processFunction = (() => {
         switch (returnValue) {
-          case 'start':
+          case "start":
             return getDetailValueFrom;
-          case 'end':
+          case "end":
             return getDetailValueTo;
-          case 'range':
+          case "range":
             return getDetailValueArray;
           default:
-            throw new Error('Invalid returnValue.');
+            throw new Error("Invalid returnValue.");
         }
       })();
 
@@ -435,7 +470,7 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
         value,
       });
     },
-    [maxDate, maxDetail, minDate, returnValue],
+    [maxDate, maxDetail, minDate, returnValue]
   );
 
   const setActiveStartDate = useCallback(
@@ -449,24 +484,27 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
         view,
       };
 
-      if (onActiveStartDateChange && !areDatesEqual(activeStartDate, nextActiveStartDate)) {
+      if (
+        onActiveStartDateChange &&
+        !areDatesEqual(activeStartDate, nextActiveStartDate)
+      ) {
         onActiveStartDateChange(args);
       }
     },
-    [activeStartDate, onActiveStartDateChange, value, view],
+    [activeStartDate, onActiveStartDateChange, value, view]
   );
 
   const onClickTile = useCallback(
     (value: Date, event: React.MouseEvent<HTMLButtonElement>) => {
       const callback = (() => {
         switch (view) {
-          case 'century':
+          case "century":
             return onClickDecade;
-          case 'decade':
+          case "decade":
             return onClickYear;
-          case 'year':
+          case "year":
             return onClickMonth;
-          case 'month':
+          case "month":
             return onClickDay;
           default:
             throw new Error(`Invalid view: ${view}.`);
@@ -475,7 +513,7 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
 
       if (callback) callback(value, event);
     },
-    [onClickDay, onClickDecade, onClickMonth, onClickYear, view],
+    [onClickDay, onClickDecade, onClickMonth, onClickYear, view]
   );
 
   const drillDown = useCallback(
@@ -489,20 +527,23 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
       const nextView = views[views.indexOf(view) + 1];
 
       if (!nextView) {
-        throw new Error('Attempted to drill down from the lowest view.');
+        throw new Error("Attempted to drill down from the lowest view.");
       }
 
       setActiveStartDateState(nextActiveStartDate);
       setViewState(nextView);
 
       const args: OnArgs = {
-        action: 'drillDown',
+        action: "drillDown",
         activeStartDate: nextActiveStartDate,
         value,
         view: nextView,
       };
 
-      if (onActiveStartDateChange && !areDatesEqual(activeStartDate, nextActiveStartDate)) {
+      if (
+        onActiveStartDateChange &&
+        !areDatesEqual(activeStartDate, nextActiveStartDate)
+      ) {
         onActiveStartDateChange(args);
       }
 
@@ -524,7 +565,7 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
       value,
       view,
       views,
-    ],
+    ]
   );
 
   const drillUp = useCallback(() => {
@@ -535,7 +576,7 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
     const nextView = views[views.indexOf(view) - 1];
 
     if (!nextView) {
-      throw new Error('Attempted to drill up from the highest view.');
+      throw new Error("Attempted to drill up from the highest view.");
     }
 
     const nextActiveStartDate = getBegin(nextView, activeStartDate);
@@ -544,13 +585,16 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
     setViewState(nextView);
 
     const args: OnArgs = {
-      action: 'drillUp',
+      action: "drillUp",
       activeStartDate: nextActiveStartDate,
       value,
       view: nextView,
     };
 
-    if (onActiveStartDateChange && !areDatesEqual(activeStartDate, nextActiveStartDate)) {
+    if (
+      onActiveStartDateChange &&
+      !areDatesEqual(activeStartDate, nextActiveStartDate)
+    ) {
       onActiveStartDateChange(args);
     }
 
@@ -578,7 +622,8 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
 
       onClickTile(rawNextValue, event);
 
-      const isFirstValueInRange = selectRange && !getIsSingleValue(previousValue);
+      const isFirstValueInRange =
+        selectRange && !getIsSingleValue(previousValue);
 
       let nextValue: Value;
       if (selectRange) {
@@ -590,11 +635,11 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
           nextValue = getBegin(valueType, rawNextValue);
         } else {
           if (!previousValue) {
-            throw new Error('previousValue is required');
+            throw new Error("previousValue is required");
           }
 
           if (Array.isArray(previousValue)) {
-            throw new Error('previousValue must not be an array');
+            throw new Error("previousValue must not be an array");
           }
 
           // Second value
@@ -628,13 +673,16 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
       setValueState(nextValue);
 
       const args: OnArgs = {
-        action: 'onChange',
+        action: "onChange",
         activeStartDate: nextActiveStartDate,
         value: nextValue,
         view,
       };
 
-      if (onActiveStartDateChange && !areDatesEqual(activeStartDate, nextActiveStartDate)) {
+      if (
+        onActiveStartDateChange &&
+        !areDatesEqual(activeStartDate, nextActiveStartDate)
+      ) {
         onActiveStartDateChange(args);
       }
 
@@ -646,7 +694,7 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
             onChangeProps(nextValue || null, event);
           } else if (allowPartialRange) {
             if (Array.isArray(nextValue)) {
-              throw new Error('value must not be an array');
+              throw new Error("value must not be an array");
             }
 
             onChangeProps([nextValue || null, null], event);
@@ -672,7 +720,7 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
       value,
       valueType,
       view,
-    ],
+    ]
   );
 
   function onMouseOver(nextHover: Date) {
@@ -694,7 +742,15 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
       value,
       view,
     }),
-    [activeStartDate, drillDown, drillUp, onChange, setActiveStartDate, value, view],
+    [
+      activeStartDate,
+      drillDown,
+      drillUp,
+      onChange,
+      setActiveStartDate,
+      value,
+      view,
+    ]
   );
 
   function renderContent(next?: boolean) {
@@ -720,18 +776,22 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
     };
 
     switch (view) {
-      case 'century': {
+      case "century": {
         return <CenturyView formatYear={formatYear} {...commonProps} />;
       }
-      case 'decade': {
+      case "decade": {
         return <DecadeView formatYear={formatYear} {...commonProps} />;
       }
-      case 'year': {
+      case "year": {
         return (
-          <YearView formatMonth={formatMonth} formatMonthYear={formatMonthYear} {...commonProps} />
+          <YearView
+            formatMonth={formatMonth}
+            formatMonthYear={formatMonthYear}
+            {...commonProps}
+          />
         );
       }
-      case 'month': {
+      case "month": {
         return (
           <MonthView
             calendarType={calendarType}
@@ -742,7 +802,7 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
             onClickWeekNumber={onClickWeekNumber}
             onMouseLeave={selectRange ? onMouseLeave : undefined}
             showFixedNumberOfWeeks={
-              typeof showFixedNumberOfWeeks !== 'undefined'
+              typeof showFixedNumberOfWeeks !== "undefined"
                 ? showFixedNumberOfWeeks
                 : showDoubleView
             }
@@ -796,9 +856,11 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
     <div
       className={clsx(
         baseClassName,
-        selectRange && valueArray.length === 1 && `${baseClassName}--selectRange`,
+        selectRange &&
+          valueArray.length === 1 &&
+          `${baseClassName}--selectRange`,
         showDoubleView && `${baseClassName}--doubleView`,
-        className,
+        className
       )}
       ref={inputRef}
     >
@@ -817,7 +879,10 @@ const Calendar = forwardRef(function Calendar(props: CalendarProps, ref) {
 
 const isActiveStartDate = PropTypes.instanceOf(Date);
 
-const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]);
+const isValue = PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.instanceOf(Date),
+]);
 
 const isValueOrValueArray = PropTypes.oneOfType([isValue, rangeOf(isValue)]);
 
@@ -844,7 +909,7 @@ Calendar.propTypes = {
   minDate: isMinDate,
   minDetail: PropTypes.oneOf(allViews),
   navigationAriaLabel: PropTypes.string,
-  navigationAriaLive: PropTypes.oneOf(['off', 'polite', 'assertive'] as const),
+  navigationAriaLive: PropTypes.oneOf(["off", "polite", "assertive"] as const),
   navigationLabel: PropTypes.func,
   next2AriaLabel: PropTypes.string,
   next2Label: PropTypes.node,
@@ -864,7 +929,7 @@ Calendar.propTypes = {
   prev2Label: PropTypes.node,
   prevAriaLabel: PropTypes.string,
   prevLabel: PropTypes.node,
-  returnValue: PropTypes.oneOf(['start', 'end', 'range'] as const),
+  returnValue: PropTypes.oneOf(["start", "end", "range"] as const),
   selectRange: PropTypes.bool,
   showDoubleView: PropTypes.bool,
   showFixedNumberOfWeeks: PropTypes.bool,

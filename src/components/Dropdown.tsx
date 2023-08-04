@@ -1,38 +1,61 @@
 import { format } from "date-fns";
 import "./Dropdown.css";
+import { useState } from "react";
 
-const Dropdown = ({ selected, setSelected, id, active, setActive, data }) => {
+const Dropdown = ({
+  isService = true,
+  selected,
+  setSelected,
+  data,
+  active,
+  setActive,
+}) => {
+  const [isChoosen, setIsChoosen] = useState(false);
   return (
     <div className="dropdown">
       <div
         className="dropdown-btn"
         onClick={() => {
-          active === id ? setActive(-1) : setActive(id);
+          if (isService && active != "services") setActive("services");
+          else if (!isService && active != "times") setActive("times");
+          else setActive("");
         }}
       >
-        <span className="fas fa-caret-down">{selected}</span>
+        <span className="fas fa-caret-down">
+          {isChoosen
+            ? isService
+              ? selected.name
+              : format(selected, "kk:mm")
+            : selected}
+        </span>
       </div>
-      {active === id && (
+      {((active == "services" && isService) ||
+        (active == "times" && !isService)) && (
         <div className="dropdown-content">
-          {id === 0
-            ? formatedData.map((service, id) => (
+          {isService
+            ? data.map((service, id) => (
                 <div
                   key={id}
                   onClick={() => {
+                    setIsChoosen(true);
                     setSelected(service);
-                    setActive(-1);
+                    setActive(!active);
                   }}
                   className="dropdown-item"
                 >
-                  {service.name}
+                  {service.name}{" "}
+                  <span>
+                    ({service.minTime}-{service.maxTime}h)
+                  </span>
                 </div>
               ))
-            : formatedData.map((time, id) => (
+            : data.map((time, id) => (
                 <div
                   key={id}
                   onClick={() => {
+                    setIsChoosen(true);
                     setSelected(time);
-                    setActive(-1);
+                    setActive(!active);
                   }}
                   className="dropdown-item"
                 >

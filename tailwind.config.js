@@ -6,6 +6,8 @@ export default {
       colors: {
         secoundColor: "#927979",
         firstColor: "#E1DDDD",
+        thirdColor: "#F4F4F4",
+        fourthColor: "#C49494",
       },
     },
   },
