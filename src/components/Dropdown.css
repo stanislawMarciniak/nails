@@ -33,6 +33,7 @@
 
 }
 .dropdown .dropdown-content-times{
+  width: 200%;
   display: flex;
   flex-wrap: wrap;
 }
