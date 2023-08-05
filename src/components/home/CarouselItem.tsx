@@ -1,7 +1,7 @@
 import { Box, Image } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { homeImages } from "../config/data";
-import { useImageContext } from "./ImageContext";
+import { homeImages } from "../../config/data";
+import { useImageContext } from "../ImageContext";
 
 const CarouselItem = ({
   id,

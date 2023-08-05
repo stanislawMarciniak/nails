@@ -1,19 +1,20 @@
-import { add, format, set } from "date-fns";
+import { add } from "date-fns";
 import {
   OPENING_HOURS_BEGINNING,
   OPENING_HOURS_END,
   OPENING_HOURS_INTERVAL,
-} from "../constants/config";
+} from "../../constants/config";
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import getUserLocale from "get-user-locale";
 import {
   formatLongDate,
   formatWeekday,
-} from "./calendar/react-calendar/src/shared/dateFormatter";
+} from "./react-calendar/src/shared/dateFormatter";
 import { CloseIcon } from "@chakra-ui/icons";
-import Dropdown from "./Dropdown";
 import { useState } from "react";
-import { services } from "../config/data";
+import { services } from "../../config/data";
+import DropdownService from "./DropdownService";
+import DropdownTime from "./DropdownTime";
 
 const DayCalendar = ({ date, setDate, click, setClick }) => {
   const [selectedService, setSelectedService] = useState("Wybierz usługę");
@@ -68,16 +69,15 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
           />
         </Flex>
 
-        <Dropdown
+        <DropdownService
           data={clonedServices}
           selected={selectedService}
           setSelected={setSelectedService}
           active={active}
           setActive={setActive}
         />
-        <Dropdown
+        <DropdownTime
           wasServiceChoosen={selectedService !== "Wybierz usługę"}
-          isService={false}
           data={times}
           selected={selectedTime}
           setSelected={setSelectedTime}

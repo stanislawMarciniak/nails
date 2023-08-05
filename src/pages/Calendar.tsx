@@ -1,8 +1,8 @@
 import "./Calendar.css";
 import { useState } from "react";
 
-import MonthCalendar from "../components/MonthCalendar";
-import DayCalendar from "../components/DayCalendar";
+import MonthCalendar from "../components/calendar/MonthCalendar";
+import DayCalendar from "../components/calendar/DayCalendar";
 
 interface DataType {
   justDate: Date | null;

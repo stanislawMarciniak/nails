@@ -9,12 +9,12 @@ import {
   Text,
   Center,
 } from "@chakra-ui/react";
-import CarouselContainer from "../components/CarouselContainer";
+import CarouselContainer from "../components/home/CarouselContainer";
 import { useImageContext } from "../components/ImageContext";
 import "./Home.css";
 import { HiOutlineSquare2Stack, HiOutlineSquares2X2 } from "react-icons/hi2";
 import { useState } from "react";
-import Gallery from "../components/Gallery";
+import Gallery from "../components/home/Gallery";
 
 const Home = () => {
   const [isGallery, setIsGallery] = useState(false);

@@ -5,7 +5,7 @@ import {
   MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
 import { Box, Flex, Stack } from "@chakra-ui/react";
-import ReactCalendar from "./calendar/react-calendar/src/index";
+import ReactCalendar from "./react-calendar/src/index";
 import { addDays } from "date-fns";
 
 const MonthCalendar = ({ setClick, setDate, click }) => {

@@ -1,6 +1,6 @@
 import { Box, Center, Image } from "@chakra-ui/react";
-import { homeImages } from "../config/data";
-import { useImageContext } from "./ImageContext";
+import { homeImages } from "../../config/data";
+import { useImageContext } from "../ImageContext";
 
 const Gallery = () => {
   const { setSelectedImage } = useImageContext();
