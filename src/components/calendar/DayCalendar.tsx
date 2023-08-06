@@ -21,7 +21,6 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
   const [selectedTime, setSelectedTime] = useState("Wybierz godzinę");
   const [active, setActive] = useState("");
 
-  console.log(date.justDate);
   const locale = getUserLocale();
 
   const getTimes = () => {

@@ -11,7 +11,7 @@ const DropdownService = ({
   const [isChoosen, setIsChoosen] = useState(false);
 
   return (
-    <div className="mb-6 dropdown">
+    <div className="mb-6 dropdown ">
       <div
         className="flex justify-center dropdown-btn"
         onClick={() => {
@@ -25,7 +25,7 @@ const DropdownService = ({
       </div>
 
       {active == "services" && (
-        <div className=" dropdown-content">
+        <div className=" dropdown-content dropdown-content-service">
           {data.map((service, id) => (
             <div
               key={id}

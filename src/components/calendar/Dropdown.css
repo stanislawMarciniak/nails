@@ -23,8 +23,11 @@
   box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
   z-index: 1;
 }
+.dropdown .dropdown-content-service {
+  top: 130%;
+}
 .dropdown .dropdown-content .dropdown-item {
-  padding: 0.5rem;
+  padding: 0.7rem;
   cursor: pointer;
 }
 .dropdown .dropdown-content .dropdown-item:hover {
@@ -33,7 +36,33 @@
 
 }
 .dropdown .dropdown-content-times{
-  width: 200%;
+  overflow-y: auto;
+  max-height: 12rem;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
+}
+
+/* Apply styles to the scrollbar */
+.dropdown .dropdown-content-times::-webkit-scrollbar {
+  width: 1.5rem; /* Set the width of the scrollbar */
+}
+
+/* Track styles */
+.dropdown .dropdown-content-times::-webkit-scrollbar-track {
+  background: transparent; /* Background color of the track */
+}
+
+/* Handle styles */
+.dropdown .dropdown-content-times::-webkit-scrollbar-thumb {
+  background: rgba(196, 148, 148, 0.4);
+  border-radius: 2rem; 
+  background-clip: content-box;
+  border: 0.4rem solid transparent;
+}
+
+/* Handle hover styles */
+.dropdown .dropdown-content-times::-webkit-scrollbar-thumb:hover {
+  background: rgba(196, 148, 148, 0.8);
+  background-clip: content-box;
 }
