@@ -116,7 +116,7 @@ const DropdownTime = ({
               </div>
             ))
           ) : (
-            <span>brak wolnych godzin na wybraną usługę</span>
+            <span>Brak wolnych godzin na wybraną usługę</span>
           )}
         </div>
       )}
