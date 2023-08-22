@@ -9,14 +9,16 @@ import {
   Image,
   Input,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import "./Login.css";
 import supabase from "../config/supabaseClient";
+import { useNavigate } from "react-router-dom";
 
 interface FormValues {
   name: string;
-  tel?: number;
+  phone?: number;
   email: string;
   password: string;
   passwordRepeat: string;
@@ -45,17 +47,18 @@ const Login = () => {
   const [state, setState] = useState<State>(initState);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
-
+  const navigate = useNavigate();
+  const toast = useToast();
   const { values, isLoading, error } = state;
 
   const onBlur = ({
     target,
-  }: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+  }: React.FocusEvent<HTMLInpuphoneement | HTMLTextAreaElement>) =>
     setTouched((prev) => ({ ...prev, [target.name]: true }));
 
   const handleChange = ({
     target,
-  }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  }: React.ChangeEvent<HTMLInpuphoneement | HTMLTextAreaElement>) => {
     setState((prev) => ({
       ...prev,
       values: {
@@ -69,16 +72,27 @@ const Login = () => {
     try {
       setState((prev) => ({ ...prev, isLoading: true, error: "" }));
 
-      const { user, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: values.email,
         password: values.password,
       });
 
       if (error) {
         throw new Error(error.message);
+      } else {
+        navigate("/");
+        toast({
+          title: "Pomyślnie zalogowano.",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
       }
     } catch (error) {
-      setState((prev) => ({ ...prev, error: error.message }));
+      setState((prev) => ({
+        ...prev,
+        error: "Podany mail lub hasło jest niepoprawne",
+      }));
     } finally {
       setState((prev) => ({ ...prev, isLoading: false }));
     }
@@ -88,22 +102,49 @@ const Login = () => {
     try {
       setState((prev) => ({ ...prev, isLoading: true, error: "" }));
 
-      const { user, error } = await supabase.auth.signUp({
+      // const { data: existingUser, error: existingUserError } = await supabase
+      //   .from("users")
+      //   .select("*")
+      //   .eq("email", values.email)
+      //   .single();
+
+      // if (existingUserError) {
+      //   throw new Error(existingUserError.message);
+      // }
+
+      // if (existingUser) {
+      //   toast({
+      //     title: "Konto istnieje.",
+      //     description: "Konto z podanym mailem już istnieje.",
+      //     status: "error",
+      //     duration: 4000,
+      //     isClosable: true,
+      //   });
+      //   throw new Error("An account with this email already exists.");
+      // }
+
+      const { data, error } = await supabase.auth.signUp({
         email: values.email,
         password: values.password,
         options: {
           data: {
             name: values.name,
-            tel: values.tel,
+            phone: values.phone,
+            email: values.email,
           },
         },
       });
 
       if (error) {
         throw new Error(error.message);
-      }
-
-      console.log(user);
+      } else
+        toast({
+          title: "Aktywuj konto.",
+          description: "Wysłano potwierdzenie na maila",
+          status: "info",
+          duration: 9000,
+          isClosable: true,
+        });
     } catch (error) {
       setState((prev) => ({ ...prev, error: error.message }));
     } finally {
@@ -139,11 +180,6 @@ const Login = () => {
         >
           {isSignUp ? "nowe konto" : "logowanie"}
         </Heading>
-        {error && (
-          <Text color="red.300" my={4} fontSize="xl">
-            {error}
-          </Text>
-        )}
         {isSignUp && (
           <Box>
             <FormControl mb={3} isInvalid={touched.name && !values.name}>
@@ -162,16 +198,16 @@ const Login = () => {
             <FormControl
               mb={3}
               isRequired
-              isInvalid={touched.tel && !values.tel}
+              isInvalid={touched.phone && !values.phone}
             >
               <FormLabel fontSize="2xs">NUMER TELEFONU</FormLabel>
               <Input
                 borderRadius="full"
                 background="white"
-                type="tel"
-                name="tel"
+                type="phone"
+                name="phone"
                 errorBorderColor="red.300"
-                value={values.tel ?? ""}
+                value={values.phone ?? ""}
                 onChange={handleChange}
                 onBlur={onBlur}
               />
@@ -248,11 +284,22 @@ const Login = () => {
           background="white"
           borderRadius="full"
           isLoading={isLoading}
-          isDisabled={!values.password || !values.email}
+          isDisabled={
+            !isSignUp
+              ? !values.password || !values.email
+              : !values.password ||
+                !values.email ||
+                !values.passwordRepeat ||
+                !values.phone
+          }
           onClick={isSignUp ? handleSignUp : handleLogin}
         >
           {isSignUp ? "UTWÓRZ KONTO" : "ZALOGUJ SIĘ"}
         </Button>
+        <Text my={2} style={{ opacity: error ? 1 : 0 }}>
+          {error}
+        </Text>
+
         <Flex direction="row" alignItems="center" my={3}>
           <Divider flex={1} />
           <Text fontSize="xs" mx={2} color="gray.200">

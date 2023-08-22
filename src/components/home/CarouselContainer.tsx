@@ -1,6 +1,6 @@
 import "./CarouselContainer.css";
 import Carousel from "react-multi-carousel";
-import { RESPONSIVENESS_1 } from "../../constants/config";
+import { RESPONSIVENESS_1 } from "../../config/constants";
 import CarouselItem from "./CarouselItem";
 import { Flex } from "@chakra-ui/react";
 

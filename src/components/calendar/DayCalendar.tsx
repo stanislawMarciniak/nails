@@ -3,7 +3,7 @@ import {
   OPENING_HOURS_BEGINNING,
   OPENING_HOURS_END,
   OPENING_HOURS_INTERVAL,
-} from "../../constants/config";
+} from "../../config/constants";
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import getUserLocale from "get-user-locale";
 import {

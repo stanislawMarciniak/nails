@@ -1,7 +1,7 @@
 import { add, addMinutes, format } from "date-fns";
 import "./Dropdown.css";
 import { useState } from "react";
-import { OPENING_HOURS_END } from "../../constants/config";
+import { OPENING_HOURS_END } from "../../config/constants";
 
 const DropdownTime = ({
   service,
@@ -26,7 +26,7 @@ const DropdownTime = ({
     {
       start:
         "Tue Aug 21 2023 18:00:00 GMT+0200 (czas środkowoeuropejski letni)",
-      end: "Tue Aug 21 2023 21:00:00 GMT+0200 (czas środkowoeuropejski letni)",
+      end: "Tue Aug 21 2023 20:00:00 GMT+0200 (czas środkowoeuropejski letni)",
     },
   ];
 
