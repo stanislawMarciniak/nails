@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import MonthCalendar from "../components/calendar/MonthCalendar";
 import DayCalendar from "../components/calendar/DayCalendar";
 import { useToast } from "@chakra-ui/react";
-import supabase from "../config/supabaseClient";
+import { getUser } from "../config/supabaseClient";
 
 interface DataType {
   justDate: Date | null;
@@ -18,30 +18,21 @@ const Calendar = () => {
     dateTime: null,
   });
   const toast = useToast();
-  const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      try {
-        const { data: user } = await supabase.auth.getUser();
-        if (user) setIsLogged(true);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setIsLogged(false);
-      }
+      const user = await getUser();
+      !user &&
+        toast({
+          title: "Zaloguj się.",
+          description:
+            "Aby umówić się na konkretną godzinę, musisz się zalogować.",
+          status: "info",
+          duration: 4000,
+          isClosable: true,
+        });
     };
-
     fetchUserData();
-    console.log(isLogged);
-    !isLogged &&
-      toast({
-        title: "Zaloguj się.",
-        description:
-          "Aby umówić się na konkretną godzinę, musisz się zalogować.",
-        status: "info",
-        duration: 4000,
-        isClosable: true,
-      });
   }, []);
 
   return (

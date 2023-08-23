@@ -163,6 +163,15 @@ const Login = () => {
       });
     } catch (error) {
       setState((prev) => ({ ...prev, error: error.message }));
+      if (error.message === "Password should be at least 6 characters") {
+        toast({
+          title: "Błąd.",
+          description: "Hasło musi mieć conajmniej 6 znaków.",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
     } finally {
       setState((prev) => ({ ...prev, isLoading: false }));
     }
