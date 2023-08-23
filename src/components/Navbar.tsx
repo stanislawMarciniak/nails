@@ -5,7 +5,7 @@ import { MdOutlineAccountCircle } from "react-icons/md";
 import { LiaMoneyBillWaveSolid } from "react-icons/lia";
 import "./Navbar.css";
 import { useEffect, useState } from "react";
-import supabase from "../config/supabaseClient";
+import supabase, { getUser } from "../config/supabaseClient";
 
 const Navbar = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -14,7 +14,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const { data: user } = await supabase.auth.getUser();
+        const user = await getUser();
         user && setIsLogged(true);
       } catch (error) {
         console.error("Error fetching user data:", error);

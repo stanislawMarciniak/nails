@@ -10,3 +10,8 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default supabase;
+
+export const getUser = async () => {
+  const { data: user } = await supabase.auth.getUser();
+  return user;
+};

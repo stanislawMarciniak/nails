@@ -19,38 +19,20 @@ const Calendar = () => {
   });
   const toast = useToast();
   const [isLogged, setIsLogged] = useState(false);
-  const [isListening, setIsListening] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const { data: user } = await supabase.auth.getUser();
-        console.log(user);
-        user && setIsLogged(true);
+        if (user) setIsLogged(true);
       } catch (error) {
         console.error("Error fetching user data:", error);
         setIsLogged(false);
       }
     };
 
-    if (isListening) {
-      const sessionListener = supabase.auth.onAuthStateChange(
-        (event, session) => {
-          if (event === "SIGNED_IN") {
-            fetchUserData();
-          } else if (event === "SIGNED_OUT") {
-            setIsLogged(false);
-          }
-        }
-      );
-
-      return () => {
-        sessionListener.data.subscription.unsubscribe();
-      };
-    }
-  }, [isListening]);
-
-  useEffect(() => {
+    fetchUserData();
+    console.log(isLogged);
     !isLogged &&
       toast({
         title: "Zaloguj się.",
