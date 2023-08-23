@@ -89,6 +89,13 @@ const Login = () => {
         });
       }
     } catch (error) {
+      toast({
+        title: "Błąd.",
+        description: "Podany mail lub hasło jest niepoprawne.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
       setState((prev) => ({
         ...prev,
         error: "Podany mail lub hasło jest niepoprawne",
@@ -102,26 +109,37 @@ const Login = () => {
     try {
       setState((prev) => ({ ...prev, isLoading: true, error: "" }));
 
-      // const { data: existingUser, error: existingUserError } = await supabase
-      //   .from("users")
-      //   .select("*")
-      //   .eq("email", values.email)
-      //   .single();
+      if (values.password !== values.passwordRepeat) {
+        toast({
+          title: "Błąd.",
+          description: "Podane hasła muszą być identyczne.",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+        throw new Error("Podane hasła muszą być identyczne");
+      }
 
-      // if (existingUserError) {
-      //   throw new Error(existingUserError.message);
-      // }
+      const { data: existingUser, error: existingUserError } = await supabase
+        .from("users")
+        .select("email")
+        .eq("email", values.email)
+        .limit(1);
 
-      // if (existingUser) {
-      //   toast({
-      //     title: "Konto istnieje.",
-      //     description: "Konto z podanym mailem już istnieje.",
-      //     status: "error",
-      //     duration: 4000,
-      //     isClosable: true,
-      //   });
-      //   throw new Error("An account with this email already exists.");
-      // }
+      if (existingUserError) {
+        throw new Error(existingUserError.message);
+      }
+
+      if (existingUser !== null && existingUser.length > 0) {
+        toast({
+          title: "Konto istnieje.",
+          description: "Konto z podanym mailem już istnieje.",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+        throw new Error("An account with this email already exists.");
+      }
 
       const { data, error } = await supabase.auth.signUp({
         email: values.email,
@@ -130,21 +148,19 @@ const Login = () => {
           data: {
             name: values.name,
             phone: values.phone,
-            email: values.email,
           },
         },
       });
 
       if (error) {
         throw new Error(error.message);
-      } else
-        toast({
-          title: "Aktywuj konto.",
-          description: "Wysłano potwierdzenie na maila",
-          status: "info",
-          duration: 9000,
-          isClosable: true,
-        });
+      } else navigate("/");
+      toast({
+        title: "Konto zostało utworzone.",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
     } catch (error) {
       setState((prev) => ({ ...prev, error: error.message }));
     } finally {
@@ -296,9 +312,9 @@ const Login = () => {
         >
           {isSignUp ? "UTWÓRZ KONTO" : "ZALOGUJ SIĘ"}
         </Button>
-        <Text my={2} style={{ opacity: error ? 1 : 0 }}>
+        {/* <Text my={2} style={{ opacity: error ? 1 : 0 }}>
           {error}
-        </Text>
+        </Text> */}
 
         <Flex direction="row" alignItems="center" my={3}>
           <Divider flex={1} />
