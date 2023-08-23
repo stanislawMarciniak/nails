@@ -42,8 +42,6 @@ const DropdownTime = ({
           new Date(dataItem.start) >= interval.start &&
           new Date(dataItem.start) <= interval.end
       );
-      console.log(isDataOverlapping);
-      console.log(interval);
       const doesNotOverlap =
         endTime <= OPENING_HOURS_END &&
         !isOverlap(time, demoData) &&

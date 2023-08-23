@@ -15,6 +15,7 @@ import { useState } from "react";
 import { services } from "../../config/data";
 import DropdownService from "./DropdownService";
 import DropdownTime from "./DropdownTime";
+import { BiHandicap } from "react-icons/bi";
 
 const DayCalendar = ({ date, setDate, click, setClick }) => {
   const [selectedService, setSelectedService] = useState("Wybierz usługę");
@@ -88,7 +89,9 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
           <button
             className="px-8 py-3 text-2xl rounded-full bg-thirdColor josefin-light"
             type="button"
-            onClick={() => setDate((prev) => ({ ...prev, dateTime: time }))}
+            onClick={() =>
+              setDate((prev) => ({ ...prev, dateTime: selectedTime }))
+            }
           >
             ZAPISZ MNIE
           </button>
