@@ -49,7 +49,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between h-20 px-8 josefin-light navbar">
+    <nav className="flex justify-between px-8 josefin-light navbar">
       <Link to="/" className="flex items-center gap-2 text-lg">
         <BiHomeHeart className="mb-1 text-2xl" />
         <span>STRONA GŁÓWNA</span>

@@ -7,6 +7,7 @@ const DropdownService = ({
   data,
   active,
   setActive,
+  setSelectedTime,
 }) => {
   const [isChoosen, setIsChoosen] = useState(false);
 
@@ -33,6 +34,7 @@ const DropdownService = ({
                 setIsChoosen(true);
                 setSelected(service);
                 setActive(!active);
+                setSelectedTime("Wybierz godzinę");
               }}
               className="dropdown-item"
             >

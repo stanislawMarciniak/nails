@@ -11,41 +11,24 @@ const DropdownTime = ({
   data,
   active,
   setActive,
+  dayMeetings,
 }) => {
-  const demoData = [
-    {
-      start:
-        "Tue Aug 21 2023 09:00:00 GMT+0200 (czas środkowoeuropejski letni)",
-      end: "Tue Aug 21 2023 11:30:00 GMT+0200 (czas środkowoeuropejski letni)",
-    },
-    {
-      start:
-        "Tue Aug 21 2023 13:00:00 GMT+0200 (czas środkowoeuropejski letni)",
-      end: "Tue Aug 21 2023 15:00:00 GMT+0200 (czas środkowoeuropejski letni)",
-    },
-    {
-      start:
-        "Tue Aug 21 2023 18:00:00 GMT+0200 (czas środkowoeuropejski letni)",
-      end: "Tue Aug 21 2023 20:00:00 GMT+0200 (czas środkowoeuropejski letni)",
-    },
-  ];
-
   const formatTime = (data) => {
     const times = data.filter((time) => {
       const endTime =
         time.getHours() + time.getMinutes() / 60 + service.maxTime;
 
       const fullEndTime = add(time, { minutes: service.maxTime * 60 });
-      const interval = { start: time, end: fullEndTime };
-      const isDataOverlapping = demoData.some(
+      const interval = { start_hour: time, end_hour: fullEndTime };
+      const isDataOverlapping = dayMeetings.some(
         (dataItem) =>
-          new Date(dataItem.start) >= interval.start &&
-          new Date(dataItem.start) <= interval.end
+          new Date(dataItem.start_hour) >= interval.start_hour &&
+          new Date(dataItem.start_hour) <= interval.end_hour
       );
       const doesNotOverlap =
         endTime <= OPENING_HOURS_END &&
-        !isOverlap(time, demoData) &&
-        !isOverlap(fullEndTime, demoData) &&
+        !isOverlap(time, dayMeetings) &&
+        !isOverlap(fullEndTime, dayMeetings) &&
         !isDataOverlapping;
 
       return doesNotOverlap;
@@ -57,14 +40,23 @@ const DropdownTime = ({
   const isOverlap = (time, ranges) => {
     const currentTime = time.getTime();
     for (const range of ranges) {
-      const startRange = new Date(range.start).getTime();
-      const endRange = new Date(range.end).getTime();
+      const startDateString = `${range.day.split(" ")[1]} ${
+        range.day.split(" ")[2]
+      } ${range.day.split(" ")[3]} ${range.start_hour}`;
+      const endDateString = `${range.day.split(" ")[1]} ${
+        range.day.split(" ")[2]
+      } ${range.day.split(" ")[3]} ${range.end_hour}`;
+
+      const startRange = new Date(startDateString);
+      const endRange = new Date(endDateString);
+
       if (currentTime >= startRange && currentTime <= endRange) {
         return true;
       }
     }
     return false;
   };
+
   const [isChoosen, setIsChoosen] = useState(false);
   const [isTimeAlert, setIsTimeAlert] = useState(false);
   return (
@@ -78,7 +70,7 @@ const DropdownTime = ({
         }}
       >
         <span className="text-xl josefin-light">
-          {!isChoosen
+          {selected === "Wybierz godzinę"
             ? selected.toUpperCase()
             : format(selected.start, "kk:mm") +
               " - " +
@@ -95,7 +87,7 @@ const DropdownTime = ({
 
       {active == "times" && (
         <div className="dropdown-content-times dropdown-content">
-          {formatTime(data) ? (
+          {formatTime(data).length > 0 ? (
             formatTime(data).map((time, id) => (
               <div
                 key={id}

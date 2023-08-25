@@ -177,6 +177,16 @@ const Login = () => {
     }
   };
 
+  const handleForgottenPassword = () => {
+    toast({
+      title: "Ups.",
+      description: "Musisz sobie przypomnieć hasło lub utworzyć nowe konto.",
+      status: "info",
+      duration: 4000,
+      isClosable: true,
+    });
+  };
+
   return (
     <Flex
       justify="space-between"
@@ -296,7 +306,7 @@ const Login = () => {
             cursor="pointer"
             textAlign="center"
             _hover={{ textDecoration: "underline" }}
-            onClick={null}
+            onClick={handleForgottenPassword}
           >
             Nie pamietasz hasła?
           </Text>
