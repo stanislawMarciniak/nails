@@ -8,7 +8,7 @@ import { Box, Flex, Stack } from "@chakra-ui/react";
 import ReactCalendar from "./react-calendar/src/index";
 import { addDays } from "date-fns";
 
-const MonthCalendar = ({ setClick, setDate, click }) => {
+const MonthCalendar = ({ setClick, setMeeting, click }) => {
   return (
     <Stack>
       <Box p="10" className="shadow-xl calendar-bg">
@@ -23,9 +23,7 @@ const MonthCalendar = ({ setClick, setDate, click }) => {
           }
           minDate={addDays(new Date(), 1)}
           view="month"
-          onClickDay={(date) =>
-            setDate((prev) => ({ ...prev, justDate: date }))
-          }
+          onClickDay={(date) => setMeeting((prev) => ({ ...prev, day: date }))}
         />
       </Box>
       <Flex justify={"space-around"} align={"center"}>

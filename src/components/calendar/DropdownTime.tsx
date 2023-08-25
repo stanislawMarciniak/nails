@@ -4,10 +4,8 @@ import { useState } from "react";
 import { OPENING_HOURS_END } from "../../config/constants";
 
 const DropdownTime = ({
-  service,
-  wasServiceChoosen,
-  selected,
-  setSelected,
+  meeting,
+  setMeeting,
   data,
   active,
   setActive,
@@ -16,15 +14,23 @@ const DropdownTime = ({
   const formatTime = (data) => {
     const times = data.filter((time) => {
       const endTime =
-        time.getHours() + time.getMinutes() / 60 + service.maxTime;
+        time.getHours() + time.getMinutes() / 60 + meeting.service.maxTime;
 
-      const fullEndTime = add(time, { minutes: service.maxTime * 60 });
+      const fullEndTime = add(time, { minutes: meeting.service.maxTime * 60 });
       const interval = { start_hour: time, end_hour: fullEndTime };
-      const isDataOverlapping = dayMeetings.some(
-        (dataItem) =>
-          new Date(dataItem.start_hour) >= interval.start_hour &&
-          new Date(dataItem.start_hour) <= interval.end_hour
-      );
+      const isDataOverlapping = dayMeetings.some((dataItem) => {
+        const dataItemDate = new Date(dataItem.day);
+        const dataStartParts = dataItem.start_hour.split(":");
+        const dataStartHour = parseInt(dataStartParts[0]);
+        const dataStartMinute = parseInt(dataStartParts[1]);
+
+        dataItemDate.setHours(dataStartHour, dataStartMinute, 0, 0);
+
+        return (
+          dataItemDate >= interval.start_hour &&
+          dataItemDate <= interval.end_hour
+        );
+      });
       const doesNotOverlap =
         endTime <= OPENING_HOURS_END &&
         !isOverlap(time, dayMeetings) &&
@@ -57,7 +63,6 @@ const DropdownTime = ({
     return false;
   };
 
-  const [isChoosen, setIsChoosen] = useState(false);
   const [isTimeAlert, setIsTimeAlert] = useState(false);
   return (
     <div className="dropdown">
@@ -65,21 +70,25 @@ const DropdownTime = ({
         className="flex justify-center dropdown-btn"
         onClick={() => {
           if (active != "times")
-            wasServiceChoosen ? setActive("times") : setIsTimeAlert(true);
+            meeting.service !== "Wybierz usługę"
+              ? setActive("times")
+              : setIsTimeAlert(true);
           else setActive("");
         }}
       >
         <span className="text-xl josefin-light">
-          {selected === "Wybierz godzinę"
-            ? selected.toUpperCase()
-            : format(selected.start, "kk:mm") +
+          {meeting.time === "Wybierz godzinę"
+            ? meeting.time.toUpperCase()
+            : format(meeting.time.start, "kk:mm") +
               " - " +
-              format(selected.end, "kk:mm")}
+              format(meeting.time.end, "kk:mm")}
         </span>
       </div>
       <span
         className={`${
-          isTimeAlert && !wasServiceChoosen ? "opacity-1" : "opacity-0"
+          isTimeAlert && meeting.service === "Wybierz usługę"
+            ? "opacity-1"
+            : "opacity-0"
         } flex justify-center text-xl mt-3`}
       >
         wybierz najpierw usługę
@@ -92,17 +101,22 @@ const DropdownTime = ({
               <div
                 key={id}
                 onClick={() => {
-                  setIsChoosen(true);
-                  setSelected({
-                    start: time,
-                    end: addMinutes(time, 60 * service.maxTime),
-                  });
+                  setMeeting((prev) => ({
+                    ...prev,
+                    time: {
+                      start: time,
+                      end: addMinutes(time, 60 * meeting.service.maxTime),
+                    },
+                  }));
                   setActive(!active);
                 }}
                 className="m-1 dropdown-item"
               >
                 {format(time, "kk:mm")} -{" "}
-                {format(addMinutes(time, 60 * service.maxTime), "kk:mm")}
+                {format(
+                  addMinutes(time, 60 * meeting.service.maxTime),
+                  "kk:mm"
+                )}
               </div>
             ))
           ) : (

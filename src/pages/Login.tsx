@@ -15,6 +15,7 @@ import { useState } from "react";
 import "./Login.css";
 import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs";
 
 interface FormValues {
   name: string;
@@ -47,6 +48,9 @@ const Login = () => {
   const [state, setState] = useState<State>(initState);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
+  const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
+  const [isPasswordRepeatShown, setIsPasswordRepeatShown] =
+    useState<boolean>(false);
   const navigate = useNavigate();
   const toast = useToast();
   const { values, isLoading, error } = state;
@@ -263,37 +267,66 @@ const Login = () => {
           />
         </FormControl>
 
-        <FormControl mb={3} isInvalid={touched.password && !values.password}>
+        <FormControl mb={7} isInvalid={touched.password && !values.password}>
           <FormLabel fontSize="2xs">HASŁO</FormLabel>
           <Input
             borderRadius="full"
             background="white"
-            type="password"
+            type={isPasswordShown ? "text" : "password"}
             name="password"
             errorBorderColor="red.300"
             value={values.password}
             onChange={handleChange}
             onBlur={onBlur}
+            position={"absolute"}
           />
+          {isPasswordShown ? (
+            <BsFillEyeFill
+              className="relative z-10 text-2xl cursor-pointer left-64 top-2 text-firstColor"
+              onClick={() => setIsPasswordShown(!isPasswordShown)}
+            />
+          ) : (
+            <BsFillEyeSlashFill
+              className="relative z-10 text-2xl cursor-pointer left-64 top-2 text-firstColor"
+              onClick={() => setIsPasswordShown(!isPasswordShown)}
+            />
+          )}
         </FormControl>
         {isSignUp ? (
           <Box>
             <FormControl
-              mb={3}
+              mb={6}
               isInvalid={touched.passwordRepeat && !values.passwordRepeat}
             >
               <FormLabel fontSize="2xs">POWTÓRZ HASŁO</FormLabel>
               <Input
                 borderRadius="full"
                 background="white"
-                type="password"
+                type={isPasswordRepeatShown ? "text" : "password"}
                 name="passwordRepeat"
                 errorBorderColor="red.300"
                 value={values.passwordRepeat}
                 onChange={handleChange}
                 onBlur={onBlur}
+                position={"absolute"}
               />
+              {isPasswordRepeatShown ? (
+                <BsFillEyeFill
+                  className="relative z-10 text-2xl cursor-pointer left-64 top-2 text-firstColor"
+                  onClick={() =>
+                    setIsPasswordRepeatShown(!isPasswordRepeatShown)
+                  }
+                />
+              ) : (
+                <BsFillEyeSlashFill
+                  className="relative z-10 text-2xl cursor-pointer left-64 top-2 text-firstColor"
+                  onClick={() =>
+                    setIsPasswordRepeatShown(!isPasswordRepeatShown)
+                  }
+                />
+              )}
             </FormControl>
+
             <Text mb={3} fontSize="2xs">
               <strong>*Pole obowiązkowe.</strong> Twojego numeru potrzebuje w
               razie pilnego kontaktu (coś nagłego się stało i potrzebuję odwołać

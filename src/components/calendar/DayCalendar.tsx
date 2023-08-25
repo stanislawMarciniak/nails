@@ -15,11 +15,15 @@ import { useEffect, useState } from "react";
 import { services } from "../../config/data";
 import DropdownService from "./DropdownService";
 import DropdownTime from "./DropdownTime";
-import supabase from "../../config/supabaseClient";
+import supabase, { getUser } from "../../config/supabaseClient";
 
-const DayCalendar = ({ date, setDate, click, setClick }) => {
-  const [selectedService, setSelectedService] = useState("Wybierz usługę");
-  const [selectedTime, setSelectedTime] = useState("Wybierz godzinę");
+const DayCalendar = ({
+  meeting,
+  setMeeting,
+  click,
+  setClick,
+  setIsSummary,
+}) => {
   const [active, setActive] = useState("");
   const [dayMeetings, setDayMeetings] = useState();
 
@@ -30,19 +34,19 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
       const { data, error } = await supabase
         .from("meetings")
         .select("*")
-        .eq("day", date.justDate);
+        .eq("day", meeting.day);
       setDayMeetings(data);
     };
     fetchMeetings();
   }, []);
 
   const getTimes = () => {
-    if (!date.justDate) return;
+    if (!meeting.day) return;
 
-    const { justDate } = date;
+    const { day } = meeting;
 
-    const beginning = add(justDate, { hours: OPENING_HOURS_BEGINNING });
-    const end = add(justDate, { hours: OPENING_HOURS_END });
+    const beginning = add(day, { hours: OPENING_HOURS_BEGINNING });
+    const end = add(day, { hours: OPENING_HOURS_END });
     const interval = OPENING_HOURS_INTERVAL;
 
     const times = [];
@@ -54,36 +58,34 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
   };
   const times = getTimes();
 
-  const [day, month] = formatLongDate(locale, date.justDate).split(" ");
-  const weekday = formatWeekday(locale, date.justDate);
+  const [day, month] = formatLongDate(locale, meeting.day).split(" ");
+  const weekday = formatWeekday(locale, meeting.day);
 
   const clonedServices = [...services];
   clonedServices.pop();
   const toast = useToast();
 
   const handleEnrollment = async () => {
-    try {
-      console.log(date.justDate);
-      const { error } = await supabase.from("meetings").insert({
-        day: date.justDate.toString(),
-        start_hour: format(selectedTime.start, "kk:mm:ss"),
-        end_hour: format(selectedTime.end, "kk:mm:ss"),
-        service: selectedService.name,
+    const user = await getUser();
+    if (!user) {
+      toast({
+        title: "Zaloguj się.",
+        description:
+          "Aby umówić się na konkretną godzinę, musisz się zalogować.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
       });
-
-      if (error) {
-        console.error("Error inserting meeting:", error);
-      } else {
-        toast({
-          title: "Konto zostało utworzone.",
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-        });
-      }
-    } catch (exception) {
-      console.error("An unexpected error occurred:", exception);
-    }
+      return;
+    } else if (meeting.time === "Wybierz godzinę") {
+      toast({
+        title: "Wybierz usługę oraz godzinę.",
+        status: "info",
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    } else setIsSummary(true);
   };
 
   return (
@@ -101,7 +103,11 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
           <CloseIcon
             cursor={"pointer"}
             onClick={() => {
-              setDate({ justDate: null, dateTime: null });
+              setMeeting({
+                day: null,
+                time: "Wybierz godzinę",
+                service: "Wybierz usługę",
+              });
               setClick(!click);
             }}
           />
@@ -109,20 +115,17 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
 
         <DropdownService
           data={clonedServices}
-          selected={selectedService}
-          setSelected={setSelectedService}
+          selected={meeting.service}
+          setMeeting={setMeeting}
           active={active}
           setActive={setActive}
-          setSelectedTime={setSelectedTime}
         />
         <DropdownTime
-          wasServiceChoosen={selectedService !== "Wybierz usługę"}
+          meeting={meeting}
           data={times}
-          selected={selectedTime}
-          setSelected={setSelectedTime}
+          setMeeting={setMeeting}
           active={active}
           setActive={setActive}
-          service={selectedService}
           dayMeetings={dayMeetings}
         />
         <Flex justify={"center"} mt={3}>
@@ -131,7 +134,7 @@ const DayCalendar = ({ date, setDate, click, setClick }) => {
             type="button"
             onClick={handleEnrollment}
           >
-            ZAPISZ MNIE
+            DALEJ
           </button>
         </Flex>
       </Stack>

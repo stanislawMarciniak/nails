@@ -1,8 +1,8 @@
 export const services = [
   {
     name: "Przedłużanie metodą żelową",
-    minTime: 2.5,
-    maxTime: 3,
+    minTime: 3,
+    maxTime: 3.5,
     cost: 100,
   },
   {

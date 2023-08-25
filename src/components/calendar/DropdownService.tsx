@@ -1,14 +1,7 @@
 import "./Dropdown.css";
 import { useState } from "react";
 
-const DropdownService = ({
-  selected,
-  setSelected,
-  data,
-  active,
-  setActive,
-  setSelectedTime,
-}) => {
+const DropdownService = ({ selected, setMeeting, data, active, setActive }) => {
   const [isChoosen, setIsChoosen] = useState(false);
 
   return (
@@ -32,9 +25,12 @@ const DropdownService = ({
               key={id}
               onClick={() => {
                 setIsChoosen(true);
-                setSelected(service);
+                setMeeting((prev) => ({
+                  ...prev,
+                  service: service,
+                  time: "Wybierz godzinę",
+                }));
                 setActive(!active);
-                setSelectedTime("Wybierz godzinę");
               }}
               className="dropdown-item"
             >

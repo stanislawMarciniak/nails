@@ -5,17 +5,16 @@ import MonthCalendar from "../components/calendar/MonthCalendar";
 import DayCalendar from "../components/calendar/DayCalendar";
 import { useToast } from "@chakra-ui/react";
 import { getUser } from "../config/supabaseClient";
-
-interface DataType {
-  justDate: Date | null;
-  dateTime: Date | null;
-}
+import Summary from "../components/Summary";
+import { Route } from "react-router-dom";
 
 const Calendar = () => {
   const [click, setClick] = useState(true);
-  const [date, setDate] = useState<DataType>({
-    justDate: null,
-    dateTime: null,
+  const [isSummary, setIsSummary] = useState(false);
+  const [meeting, setMeeting] = useState({
+    day: null,
+    time: "Wybierz godzinę",
+    service: "Wybierz usługę",
   });
   const toast = useToast();
 
@@ -37,15 +36,28 @@ const Calendar = () => {
 
   return (
     <div className="flex flex-col items-center justify-center mt-10">
-      {date.justDate ? (
-        <DayCalendar
-          date={date}
-          setDate={setDate}
-          click={click}
-          setClick={setClick}
-        />
+      {meeting.day ? (
+        isSummary ? (
+          <Summary
+            meeting={meeting}
+            setMeeting={setMeeting}
+            setIsSummary={setIsSummary}
+          />
+        ) : (
+          <DayCalendar
+            meeting={meeting}
+            setMeeting={setMeeting}
+            click={click}
+            setClick={setClick}
+            setIsSummary={setIsSummary}
+          />
+        )
       ) : (
-        <MonthCalendar setClick={setClick} setDate={setDate} click={click} />
+        <MonthCalendar
+          setClick={setClick}
+          setMeeting={setMeeting}
+          click={click}
+        />
       )}
     </div>
   );
