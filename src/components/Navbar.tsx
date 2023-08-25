@@ -11,17 +11,16 @@ const Navbar = () => {
   const [isLogged, setIsLogged] = useState(false);
   const [isListening, setIsListening] = useState(true);
 
+  const fetchUserData = async () => {
+    try {
+      const user = await getUser();
+      user && setIsLogged(true);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      setIsLogged(false);
+    }
+  };
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const user = await getUser();
-        user && setIsLogged(true);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setIsLogged(false);
-      }
-    };
-
     if (isListening) {
       const sessionListener = supabase.auth.onAuthStateChange(
         (event, session) => {
@@ -38,6 +37,10 @@ const Navbar = () => {
       };
     }
   }, [isListening]);
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   const handleLogout = async () => {
     try {

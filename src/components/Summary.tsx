@@ -6,14 +6,22 @@ import { CloseIcon } from "@chakra-ui/icons";
 
 import supabase, { getUser } from "../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Summary = ({ meeting, setMeeting, setIsSummary }) => {
+  const [user, setUser] = useState({});
   const toast = useToast();
   const navigate = useNavigate();
 
-  const handleEnrollment = async () => {
-    const user = await getUser();
+  useEffect(() => {
+    const fetchUser = async () => {
+      const fetchedUser = await getUser();
+      setUser(fetchedUser);
+    };
+    fetchUser();
+  }, []);
 
+  const handleEnrollment = async () => {
     try {
       const { error } = await supabase.from("meetings").insert({
         day: meeting.day.toString(),
@@ -21,7 +29,6 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
         end_hour: format(meeting.time.end, "kk:mm:ss"),
         service: meeting.service.name,
       });
-
       if (error) {
         console.error("Error inserting meeting:", error);
       } else {
@@ -45,7 +52,6 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
           <Box />
           <Stack align={"center"}>
             <Text className="mb-4 text-7xl pinyon">Podsumowanie</Text>
-            <Text className="mb=3 text-4xl">coś</Text>
           </Stack>
 
           <CloseIcon
@@ -60,7 +66,9 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
             }}
           />
         </Flex>
-
+        <Text>IMIĘ I NAZWISKO: {user?.user_metadata?.name}</Text>
+        <Text>NUMER TELEFONU: {user?.user_metadata?.phone}</Text>
+        <Text>DATA: {meeting.day.toString()}</Text>
         <Flex justify={"center"} mt={3}>
           <button
             className="px-8 py-3 text-2xl rounded-full bg-thirdColor josefin-light"

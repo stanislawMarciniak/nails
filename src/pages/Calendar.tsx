@@ -6,7 +6,6 @@ import DayCalendar from "../components/calendar/DayCalendar";
 import { useToast } from "@chakra-ui/react";
 import { getUser } from "../config/supabaseClient";
 import Summary from "../components/Summary";
-import { Route } from "react-router-dom";
 
 const Calendar = () => {
   const [click, setClick] = useState(true);
