@@ -13,5 +13,11 @@ export default supabase;
 
 export const getUser = async () => {
   const { data: user } = await supabase.auth.getUser();
-  return user.user;
+  if (!user.user) return null;
+
+  const { data: publicUser, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("id", user?.user.id);
+  return publicUser[0];
 };

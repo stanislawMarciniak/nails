@@ -14,6 +14,7 @@ const Navbar = () => {
   const fetchUserData = async () => {
     try {
       const user = await getUser();
+
       user && setIsLogged(true);
     } catch (error) {
       console.error("Error fetching user data:", error);

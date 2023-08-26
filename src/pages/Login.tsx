@@ -364,9 +364,6 @@ const Login = () => {
         >
           {isSignUp ? "UTWÓRZ KONTO" : "ZALOGUJ SIĘ"}
         </Button>
-        {/* <Text my={2} style={{ opacity: error ? 1 : 0 }}>
-          {error}
-        </Text> */}
 
         <Flex direction="row" alignItems="center" my={3}>
           <Divider flex={1} />

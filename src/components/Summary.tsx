@@ -16,15 +16,21 @@ import SummaryItem from "./SummaryItem";
 
 const Summary = ({ meeting, setMeeting, setIsSummary }) => {
   const [user, setUser] = useState({});
+  const [message, setMessage] = useState("");
   const toast = useToast();
   const navigate = useNavigate();
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await getUser();
       setUser(fetchedUser);
+      console.log(fetchedUser);
     };
     fetchUser();
   }, []);
+
+  const handleMessageChange = (event) => {
+    setMessage(event.target.value);
+  };
 
   const handleEnrollment = async () => {
     try {
@@ -33,6 +39,8 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
         start_hour: format(meeting.time.start, "kk:mm:ss"),
         end_hour: format(meeting.time.end, "kk:mm:ss"),
         service: meeting.service.name,
+        user_id: user.id,
+        message: message,
       });
       if (error) {
         console.error("Error inserting meeting:", error);
@@ -40,6 +48,7 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
         navigate("/");
         toast({
           title: "Dodano spotkanie.",
+          description: "Widzimy się niedługo.",
           status: "success",
           duration: 4000,
           isClosable: true,
@@ -76,14 +85,8 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
           }}
         />
       </Flex>
-      <SummaryItem
-        title="IMIĘ I NAZWISKO"
-        content={user?.user_metadata?.name}
-      />
-      <SummaryItem
-        title="NUMER TELEFONU"
-        content={user?.user_metadata?.phone}
-      />
+      <SummaryItem title="IMIĘ I NAZWISKO" content={user?.name} />
+      <SummaryItem title="NUMER TELEFONU" content={user?.phone} />
       <SummaryItem
         title="TERMIN"
         content={`${day} ${month} (${weekday}) ${format(
@@ -104,13 +107,15 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
         <textarea
           placeholder="Jeśli masz jakieś uwagi, śmiało pisz..."
           spellCheck={false}
-          className="w-full py-2 pl-4 mb-2 text-2xl shadow-lg rounded-3xl calendar-bg josefin-light"
+          className="w-full py-2 pl-4 mb-2 text-2xl shadow-lg rounded-3xl calendar-bg josefin-light text-secoundColor"
+          value={message}
+          onChange={handleMessageChange}
         />
       </Box>
 
       <Flex justify={"center"} mt={1}>
         <button
-          className="px-8 py-3 text-2xl rounded-full shadow-xl bg-thirdColor josefin-light"
+          className="px-8 py-3 text-2xl rounded-full shadow-xl bg-thirdColor josefin-light "
           type="button"
           onClick={handleEnrollment}
         >
