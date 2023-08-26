@@ -130,7 +130,7 @@ const DayCalendar = ({
         />
         <Flex justify={"center"} mt={3}>
           <button
-            className="px-8 py-3 text-2xl rounded-full bg-thirdColor josefin-light"
+            className="px-8 py-3 text-2xl rounded-full shadow-xl bg-thirdColor josefin-light"
             type="button"
             onClick={handleEnrollment}
           >

@@ -7,12 +7,17 @@ import { CloseIcon } from "@chakra-ui/icons";
 import supabase, { getUser } from "../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import {
+  formatLongDate,
+  formatWeekday,
+} from "./calendar/react-calendar/src/shared/dateFormatter";
+import getUserLocale from "get-user-locale";
+import SummaryItem from "./SummaryItem";
 
 const Summary = ({ meeting, setMeeting, setIsSummary }) => {
   const [user, setUser] = useState({});
   const toast = useToast();
   const navigate = useNavigate();
-
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await getUser();
@@ -44,42 +49,75 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
       console.error("An unexpected error occurred:", exception);
     }
   };
+  const locale = getUserLocale();
+  const [day, month] = formatLongDate(locale, meeting.day).split(" ");
+  const weekday = formatWeekday(locale, meeting.day);
 
   return (
-    <Box p="10" className="mt-20 mb-10 shadow-xl calendar-bg josefin-light">
-      <Stack w="xl" align={"center"}>
-        <Flex w={"full"} mb={9} justify={"space-between"}>
-          <Box />
-          <Stack align={"center"}>
-            <Text className="mb-4 text-7xl pinyon">Podsumowanie</Text>
-          </Stack>
+    <Stack mt={8} w="xl" align={"center"} fontSize={"xl"}>
+      <Flex w={"full"} justify={"space-between"}>
+        <Box />
+        <Stack align={"center"}>
+          <Text className="mb-10 text-7xl pinyon">Podsumowanie</Text>
+        </Stack>
 
-          <CloseIcon
-            cursor={"pointer"}
-            onClick={() => {
-              setMeeting((prev) => ({
-                ...prev,
-                time: "Wybierz godzinę",
-                service: "Wybierz usługę",
-              }));
-              setIsSummary(false);
-            }}
-          />
-        </Flex>
-        <Text>IMIĘ I NAZWISKO: {user?.user_metadata?.name}</Text>
-        <Text>NUMER TELEFONU: {user?.user_metadata?.phone}</Text>
-        <Text>DATA: {meeting.day.toString()}</Text>
-        <Flex justify={"center"} mt={3}>
-          <button
-            className="px-8 py-3 text-2xl rounded-full bg-thirdColor josefin-light"
-            type="button"
-            onClick={handleEnrollment}
-          >
-            ZAPISZ MNIE
-          </button>
-        </Flex>
-      </Stack>
-    </Box>
+        <CloseIcon
+          w={"10"}
+          h={"10"}
+          className="p-2 shadow-xl calendar-bg"
+          cursor={"pointer"}
+          onClick={() => {
+            setMeeting((prev) => ({
+              ...prev,
+              time: "Wybierz godzinę",
+              service: "Wybierz usługę",
+            }));
+            setIsSummary(false);
+          }}
+        />
+      </Flex>
+      <SummaryItem
+        title="IMIĘ I NAZWISKO"
+        content={user?.user_metadata?.name}
+      />
+      <SummaryItem
+        title="NUMER TELEFONU"
+        content={user?.user_metadata?.phone}
+      />
+      <SummaryItem
+        title="TERMIN"
+        content={`${day} ${month} (${weekday}) ${format(
+          meeting.time.start,
+          "kk:mm"
+        )} -
+        ${format(meeting.time.end, "kk:mm")}`}
+      />
+      <SummaryItem
+        title="USŁUGA ORAZ KOSZT"
+        content={`${meeting.service.name} - ${meeting.service.cost}zł`}
+      />
+      <Box w={"full"}>
+        <Text fontSize={"md"} mb={2}>
+          UWAGI
+        </Text>
+
+        <textarea
+          placeholder="Jeśli masz jakieś uwagi, śmiało pisz..."
+          spellCheck={false}
+          className="w-full py-2 pl-4 mb-2 text-2xl shadow-lg rounded-3xl calendar-bg josefin-light"
+        />
+      </Box>
+
+      <Flex justify={"center"} mt={1}>
+        <button
+          className="px-8 py-3 text-2xl rounded-full shadow-xl bg-thirdColor josefin-light"
+          type="button"
+          onClick={handleEnrollment}
+        >
+          ZAPISZ MNIE
+        </button>
+      </Flex>
+    </Stack>
   );
 };
 
