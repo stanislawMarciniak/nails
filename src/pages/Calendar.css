@@ -88,15 +88,15 @@ abbr[title] {
   color: whitesmoke;
   aspect-ratio: 1/1;
   max-width: 100%;
-  background: url(../../public/images/calendar-blob2.svg);
+  background: url(/images/calendar-blob2.svg);
   opacity: 0.7;
   text-align: center;
 }
 .full{
-  background: url(../../public/images/calendar-blob3.svg);
+  background: url(/images/calendar-blob3.svg);
 }
 .freeDay{
-  background: url(../../public/images/calendar-blob1.svg);
+  background: url(/images/calendar-blob1.svg);
   color: #927979;
 }
 .wasAlready, .react-calendar__month-view__days__day--neighboringMonth{

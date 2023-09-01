@@ -45,10 +45,7 @@ const MonthCalendar = ({ setClick, setMeeting, click }) => {
           </Flex>
           <Flex align="center">
             <svg className="blob-svg">
-              <image
-                className="blob-image"
-                href="public/images/calendar-blob1.svg"
-              />
+              <image className="blob-image" href="/images/calendar-blob1.svg" />
             </svg>
             <span>DNI WOLNE OD PRACY</span>
           </Flex>

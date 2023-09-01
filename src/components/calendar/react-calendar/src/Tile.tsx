@@ -9,8 +9,8 @@ import type {
   View,
 } from "./shared/types.js";
 import supabase from "../../../../config/supabaseClient.js";
-import { format, parse } from "date-fns";
-import { formatLongDate } from "./shared/dateFormatter.js";
+import { format, isSunday, parse } from "date-fns";
+import { formatLongDate, formatWeekday } from "./shared/dateFormatter.js";
 
 type TileProps = {
   activeStartDate: Date;
@@ -69,23 +69,13 @@ export default function Tile(props: TileProps) {
       : tileContentProps;
   }, [activeStartDate, date, tileContentProps, view]);
 
-  // const data = [
-  //   { date: "23 sierpnia 2023", dateType: "full" },
-  //   { date: "24 sierpnia 2023", dateType: "full" },
-  //   { date: "25 sierpnia 2023", dateType: "full" },
-  //   { date: "10 sierpnia 2023", dateType: "full" },
-  //   { date: "20 września 2023", dateType: "freeDay" },
-  //   { date: "20 sierpnia 2023", dateType: "freeDay" },
-  //   { date: "13 sierpnia 2023", dateType: "freeDay" },
-  //   { date: "6 sierpnia 2023", dateType: "freeDay" },
-  //   { date: "27 sierpnia 2023", dateType: "freeDay" },
-  // ];
-
   const [type, setType] = useState("");
   const [formattedData, setFormattedData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
+      const isSundayDate = isSunday(date);
+      isSundayDate && setType("freeDay");
       const { data, error } = await supabase
         .from("special_days")
         .select("*")
@@ -95,7 +85,7 @@ export default function Tile(props: TileProps) {
         const date = formatLongDate(locale, day.day);
 
         return {
-          date: date,
+          date,
           dateType: day.count === -1 ? "freeDay" : "full",
         };
       });
@@ -112,11 +102,7 @@ export default function Tile(props: TileProps) {
     const wasIt = minDate && minDateTransform(minDate) > date;
     const wasAlready = wasIt ? "wasAlready" : "";
 
-    if (isDate) {
-      setType(isDate.dateType + " " + wasAlready);
-    } else {
-      setType(wasAlready);
-    }
+    isDate && setType(isDate.dateType + " " + wasAlready);
   }, [formattedData]);
 
   return (
