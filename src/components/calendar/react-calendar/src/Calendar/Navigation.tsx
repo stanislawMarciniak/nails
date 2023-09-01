@@ -168,7 +168,7 @@ export default function Navigation({
         type="button"
       >
         <span
-          className={`${labelClassName}__labelText ${labelClassName}__labelText--from`}
+          className={`${labelClassName}__labelText ${labelClassName}__labelText--from -mt-6`}
         >
           <span className="pinyon">{month}</span>
           <span>{year}</span>

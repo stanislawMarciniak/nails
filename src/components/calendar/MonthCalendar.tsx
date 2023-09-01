@@ -10,8 +10,8 @@ import { addDays } from "date-fns";
 
 const MonthCalendar = ({ setClick, setMeeting, click }) => {
   return (
-    <Stack>
-      <Box p="10" className="shadow-xl calendar-bg">
+    <Flex justify="center" align="center">
+      <Box p="10" position={"relative"} className="shadow-xl calendar-bg">
         <ReactCalendar
           nextLabel={<MdKeyboardArrowRight onClick={() => setClick(!click)} />}
           next2Label={
@@ -25,32 +25,36 @@ const MonthCalendar = ({ setClick, setMeeting, click }) => {
           view="month"
           onClickDay={(date) => setMeeting((prev) => ({ ...prev, day: date }))}
         />
+        <Stack
+          spacing={4}
+          position={"absolute"}
+          className="top-1/4 josefin-light"
+          right={-80}
+        >
+          <Flex align="center">
+            <svg className="blob-svg">
+              <image className="blob-image" href="/images/calendar-blob2.svg" />
+            </svg>
+            <span>WOLNE TERMINY</span>
+          </Flex>
+          <Flex align="center">
+            <svg className="blob-svg">
+              <image className="blob-image" href="/images/calendar-blob3.svg" />
+            </svg>
+            <span>BRAK TERMINÓW</span>
+          </Flex>
+          <Flex align="center">
+            <svg className="blob-svg">
+              <image
+                className="blob-image"
+                href="public/images/calendar-blob1.svg"
+              />
+            </svg>
+            <span>DNI WOLNE OD PRACY</span>
+          </Flex>
+        </Stack>
       </Box>
-      <Flex justify={"space-around"} align={"center"}>
-        <svg className="blob-svg">
-          <image
-            className="blob-image"
-            href="../../public/images/calendar-blob2.svg"
-          />
-        </svg>
-        <span>WOLNE TERMINY</span>
-        <svg className="blob-svg">
-          <image
-            className="blob-image"
-            href="../../public/images/calendar-blob3.svg"
-          />
-        </svg>
-        <span>BRAK TERMINÓW</span>
-
-        <svg className="blob-svg">
-          <image
-            className="blob-image"
-            href="../../public/images/calendar-blob1.svg"
-          />
-        </svg>
-        <span>DNI WOLNE OD PRACY</span>
-      </Flex>
-    </Stack>
+    </Flex>
   );
 };
 

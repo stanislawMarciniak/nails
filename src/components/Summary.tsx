@@ -115,7 +115,7 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
 
       <Flex justify={"center"} mt={1}>
         <button
-          className="px-8 py-3 text-2xl rounded-full shadow-xl bg-thirdColor josefin-light "
+          className="px-8 pt-4 pb-3 text-2xl rounded-full shadow-xl bg-thirdColor josefin-light "
           type="button"
           onClick={handleEnrollment}
         >
