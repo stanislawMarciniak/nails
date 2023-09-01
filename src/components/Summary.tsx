@@ -23,7 +23,6 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
     const fetchUser = async () => {
       const fetchedUser = await getUser();
       setUser(fetchedUser);
-      console.log(fetchedUser);
     };
     fetchUser();
   }, []);
@@ -113,7 +112,7 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
         />
       </Box>
 
-      <Flex justify={"center"} mt={1}>
+      <Flex justify={"center"} mt={1} mb="5">
         <button
           className="px-8 pt-4 pb-3 text-2xl rounded-full shadow-xl bg-thirdColor josefin-light "
           type="button"

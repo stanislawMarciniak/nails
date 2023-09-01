@@ -1,19 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
+import React from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
 
-import Days from './MonthView/Days.js';
-import Weekdays from './MonthView/Weekdays.js';
-import WeekNumbers from './MonthView/WeekNumbers.js';
+import Days from "./MonthView/Days.js";
+import Weekdays from "./MonthView/Weekdays.js";
+import WeekNumbers from "./MonthView/WeekNumbers.js";
 
-import { CALENDAR_TYPES, CALENDAR_TYPE_LOCALES } from './shared/const.js';
-import { isCalendarType, tileGroupProps } from './shared/propTypes.js';
+import { CALENDAR_TYPES, CALENDAR_TYPE_LOCALES } from "./shared/const.js";
+import { isCalendarType, tileGroupProps } from "./shared/propTypes.js";
 
-import type { CalendarType } from './shared/types.js';
+import type { CalendarType } from "./shared/types.js";
 
 function getCalendarTypeFromLocale(locale: string | undefined): CalendarType {
   if (locale) {
-    for (const [calendarType, locales] of Object.entries(CALENDAR_TYPE_LOCALES)) {
+    for (const [calendarType, locales] of Object.entries(
+      CALENDAR_TYPE_LOCALES
+    )) {
       if (locales.includes(locale)) {
         return calendarType as CalendarType;
       }
@@ -30,13 +32,15 @@ type MonthViewProps = {
   React.ComponentProps<typeof Days>;
 
 const MonthView: React.FC<MonthViewProps> = function MonthView(props) {
-  const { activeStartDate, locale, onMouseLeave, showFixedNumberOfWeeks } = props;
+  const { activeStartDate, locale, onMouseLeave, showFixedNumberOfWeeks } =
+    props;
   const {
     calendarType = getCalendarTypeFromLocale(locale),
     formatShortWeekday,
     formatWeekday,
     onClickWeekNumber,
     showWeekNumbers,
+
     ...childProps
   } = props;
 
@@ -72,21 +76,26 @@ const MonthView: React.FC<MonthViewProps> = function MonthView(props) {
     return <Days calendarType={calendarType} {...childProps} />;
   }
 
-  const className = 'react-calendar__month-view';
+  const className = "react-calendar__month-view";
 
   return (
-    <div className={clsx(className, showWeekNumbers ? `${className}--weekNumbers` : '')}>
+    <div
+      className={clsx(
+        className,
+        showWeekNumbers ? `${className}--weekNumbers` : ""
+      )}
+    >
       <div
         style={{
-          display: 'flex',
-          alignItems: 'flex-end',
+          display: "flex",
+          alignItems: "flex-end",
         }}
       >
         {renderWeekNumbers()}
         <div
           style={{
             flexGrow: 1,
-            width: '100%',
+            width: "100%",
           }}
         >
           {renderWeekdays()}

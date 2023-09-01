@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import Flex from './Flex.js';
+import Flex from "./Flex.js";
 
-import { getTileClasses } from './shared/utils.js';
+import { getTileClasses } from "./shared/utils.js";
 
-import type { RangeType, Value } from './shared/types.js';
+import type { RangeType, Value } from "./shared/types.js";
 
 type TileGroupProps = {
   className?: string;
@@ -49,7 +49,7 @@ export default function TileGroup({
           valueType,
         }),
         date,
-      }),
+      })
     );
   }
 

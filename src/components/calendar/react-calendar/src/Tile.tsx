@@ -8,9 +8,14 @@ import type {
   TileDisabledFunc,
   View,
 } from "./shared/types.js";
-import supabase from "../../../../config/supabaseClient.js";
-import { format, isSunday, parse } from "date-fns";
-import { formatLongDate, formatWeekday } from "./shared/dateFormatter.js";
+import { isSunday } from "date-fns";
+
+interface IFormattedDataItem {
+  date?: string;
+  dateType?: string;
+}
+
+type IForrmatedData = IFormattedDataItem[] | never[];
 
 type TileProps = {
   activeStartDate: Date;
@@ -30,6 +35,7 @@ type TileProps = {
   tileContent?: TileContentFunc | React.ReactNode;
   tileDisabled?: TileDisabledFunc;
   view: View;
+  formattedData: IForrmatedData;
 };
 
 export default function Tile(props: TileProps) {
@@ -51,6 +57,7 @@ export default function Tile(props: TileProps) {
     tileContent: tileContentProps,
     tileDisabled,
     view,
+    formattedData,
   } = props;
 
   const tileClassName = useMemo(() => {
@@ -70,29 +77,10 @@ export default function Tile(props: TileProps) {
   }, [activeStartDate, date, tileContentProps, view]);
 
   const [type, setType] = useState("");
-  const [formattedData, setFormattedData] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const isSundayDate = isSunday(date);
-      isSundayDate && setType("freeDay");
-      const { data, error } = await supabase
-        .from("special_days")
-        .select("*")
-        .or("count.eq.-1,count.gte.3");
-
-      const changedData = data?.map((day) => {
-        const date = formatLongDate(locale, day.day);
-
-        return {
-          date,
-          dateType: day.count === -1 ? "freeDay" : "full",
-        };
-      });
-      setFormattedData(changedData);
-    };
-
-    fetchData();
+    const isSundayDate = isSunday(date);
+    isSundayDate && setType("freeDay");
   }, []);
 
   useEffect(() => {

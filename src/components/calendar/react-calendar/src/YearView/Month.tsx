@@ -1,14 +1,14 @@
-import React from 'react';
-import { getMonthStart, getMonthEnd } from '@wojtekmaj/date-utils';
+import React from "react";
+import { getMonthStart, getMonthEnd } from "@wojtekmaj/date-utils";
 
-import Tile from '../Tile.js';
+import Tile from "../Tile.js";
 
 import {
   formatMonth as defaultFormatMonth,
   formatMonthYear as defaultFormatMonthYear,
-} from '../shared/dateFormatter.js';
+} from "../shared/dateFormatter.js";
 
-const className = 'react-calendar__year-view__months__month';
+const className = "react-calendar__year-view__months__month";
 
 type MonthProps = {
   classes?: string[];
@@ -16,7 +16,7 @@ type MonthProps = {
   formatMonthYear?: typeof defaultFormatMonthYear;
 } & Omit<
   React.ComponentProps<typeof Tile>,
-  'children' | 'formatAbbr' | 'maxDateTransform' | 'minDateTransform' | 'view'
+  "children" | "formatAbbr" | "maxDateTransform" | "minDateTransform" | "view"
 >;
 
 export default function Month({
