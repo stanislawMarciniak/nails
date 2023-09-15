@@ -1,19 +1,58 @@
 import { Link } from "react-router-dom";
 import supabase, { getUser } from "../config/supabaseClient";
-import { Center, Flex, Stack, Text } from "@chakra-ui/react";
+import { Center, Flex, Stack, Text, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import AccountItem from "../components/AccountItem";
 
 const Account = () => {
   const [user, setUser] = useState({});
+  const [isDirty, setIsDirty] = useState(false);
+  const toast = useToast();
+
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await getUser();
       setUser(fetchedUser);
     };
     fetchUser();
-    console.log(user);
   }, []);
+
+  const handleUpdate = async () => {
+    try {
+      const { data, errorOne } = await supabase.auth.updateUser({
+        data: { phone: user.phone, name: user.name },
+        email: user.email,
+      });
+
+      if (errorOne) throw errorOne;
+
+      const { errorTwo } = await supabase
+        .from("users")
+        .update({ name: user.name, email: user.email, phone: user.phone })
+        .eq("id", user.id);
+
+      if (errorTwo) throw errorTwo;
+      else {
+        setIsDirty(false);
+        toast({
+          title: "Konto zostało zaktualizowane.",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.error("Error updating user:", error);
+      toast({
+        title: "Błąd.",
+        description: "Podane dane są nieprawidłowe.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  };
+
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut();
@@ -21,6 +60,11 @@ const Account = () => {
       console.error("Error logging out:", error);
     }
   };
+
+  const handleItemChange = () => {
+    setIsDirty(true);
+  };
+
   return (
     <Center>
       <Stack w={"6xl"} align={"center"} fontSize={"xl"}>
@@ -34,23 +78,32 @@ const Account = () => {
               content={user?.name}
               setUser={setUser}
               attribute="name"
+              onChange={handleItemChange}
             />
             <AccountItem
               title="NUMER TELEFONU"
               content={user?.phone}
               setUser={setUser}
               attribute="phone"
+              onChange={handleItemChange}
             />
             <AccountItem
               title="EMAIL"
               content={user?.email}
               setUser={setUser}
               attribute="email"
+              onChange={handleItemChange}
             />
           </Stack>
         </Flex>
         <Flex gap={5}>
-          <button className="px-6 py-2 mt-6 text-2xl rounded-full shadow-lg bg-firstColor">
+          <button
+            onClick={handleUpdate}
+            className={`px-6 py-2 mt-6 text-2xl rounded-full shadow-lg  ${
+              isDirty ? "bg-thirdColor" : "bg-firstColor"
+            }`}
+            disabled={!isDirty}
+          >
             ZAPISZ
           </button>
           <Link

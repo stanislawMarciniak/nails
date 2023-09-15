@@ -1,20 +1,26 @@
 import { EditIcon } from "@chakra-ui/icons";
 import { Box, Flex, Input, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const AccountItem = ({ title, content, setUser, attribute }) => {
+const AccountItem = ({ title, content, setUser, attribute, onChange }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState(content);
+  const [value, setValue] = useState("");
+  console.log(value);
 
-  const handleEdit = () => {
-    if (isEditing) {
-      setUser((user) => ({
-        ...user,
-        [attribute]: value,
-      }));
-    }
-    setIsEditing(!isEditing);
+  useEffect(() => {
+    setValue(content);
+  }, [content]);
+
+  const handleChange = (e) => {
+    onChange();
+    setUser((user) => ({
+      ...user,
+      [attribute]: e.target.value,
+    }));
+    setValue(e.target.value);
   };
+
+  const handleEdit = () => setIsEditing(!isEditing);
 
   const handleBlur = () => {
     setIsEditing(false);
@@ -36,19 +42,14 @@ const AccountItem = ({ title, content, setUser, attribute }) => {
         {isEditing ? (
           <Input
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={handleChange}
             onBlur={handleBlur}
             autoFocus
           />
         ) : (
           <Text className="pl-6 josefin-normal">{content}</Text>
         )}
-        <EditIcon
-          mr={5}
-          onClick={handleEdit}
-          cursor={"pointer"}
-          color={isEditing ? "green.500" : "gray.500"}
-        />
+        <EditIcon mr={5} onClick={handleEdit} cursor={"pointer"} />
       </Flex>
     </Box>
   );
