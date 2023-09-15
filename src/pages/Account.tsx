@@ -67,7 +67,7 @@ const Account = () => {
 
   return (
     <Center>
-      <Stack w={"6xl"} align={"center"} fontSize={"xl"}>
+      <Stack w={"6xl"} align={"center"} fontSize={"xl"} mt={12}>
         <Text fontSize={"8xl"} className="pinyon">
           Moje Konto
         </Text>

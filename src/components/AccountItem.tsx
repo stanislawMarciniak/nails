@@ -41,6 +41,10 @@ const AccountItem = ({ title, content, setUser, attribute, onChange }) => {
       >
         {isEditing ? (
           <Input
+            my={-1}
+            mx={4}
+            fontSize={"xl"}
+            bg={"transparent"}
             value={value}
             onChange={handleChange}
             onBlur={handleBlur}
