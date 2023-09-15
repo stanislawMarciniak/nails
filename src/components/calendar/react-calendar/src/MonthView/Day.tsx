@@ -52,6 +52,7 @@ export default function Day({
         };
       });
       setFormattedData(changedData);
+      console.log(changedData);
     };
 
     fetchData();

@@ -35,15 +35,6 @@ const Navbar = () => {
     };
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      await supabase.auth.signOut();
-      setIsLogged(false);
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
-  };
-
   return (
     <nav className="flex justify-between px-8 josefin-light navbar">
       <Link to="/" className="flex items-center gap-2 text-lg">
@@ -65,13 +56,9 @@ const Navbar = () => {
             <span>ZALOGUJ SIĘ</span>
           </Link>
         ) : (
-          <Link
-            to="/zaloguj"
-            onClick={handleLogout}
-            className="flex items-center gap-2 px-8 text-lg"
-          >
+          <Link to="/konto" className="flex items-center gap-2 px-8 text-lg">
             <MdOutlineAccountCircle className="text-2xl" />
-            <span>WYLOGUJ SIĘ</span>
+            <span>MOJE KONTO</span>
           </Link>
         )}
       </div>

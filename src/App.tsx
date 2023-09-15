@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./config/theme";
 import { ImageProvider } from "./components/ImageContext";
+import Account from "./pages/Account";
 
 function BackgroundWrapper() {
   const location = useLocation();
@@ -18,6 +19,8 @@ function BackgroundWrapper() {
       case "/cennik":
         return "url(/images/bg-pricing.PNG)";
       case "/kalendarz":
+        return "url(/images/bg-calendar.PNG)";
+      case "/konto":
         return "url(/images/bg-calendar.PNG)";
       case "/zaloguj":
         return "url(/images/bg-login.PNG)";
@@ -43,6 +46,7 @@ function BackgroundWrapper() {
         <Route path="/cennik" element={<Pricing />} />
         <Route path="/kalendarz" element={<Calendar />} />
         <Route path="/zaloguj" element={<Login />} />
+        <Route path="/konto" element={<Account />} />
       </Routes>
     </div>
   );

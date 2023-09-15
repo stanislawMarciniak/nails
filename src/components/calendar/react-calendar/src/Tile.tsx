@@ -9,6 +9,7 @@ import type {
   View,
 } from "./shared/types.js";
 import { isSunday } from "date-fns";
+import { IS_SUNDAY_NOT_WORKING } from "../../../../config/constants.js";
 
 interface IFormattedDataItem {
   date?: string;
@@ -84,7 +85,7 @@ export default function Tile(props: TileProps) {
     );
     const wasIt = minDate && minDateTransform(minDate) > date;
     const wasAlready = wasIt ? "wasAlready" : "";
-    const sundayType = isSunday(date) ? "freeDay" : "";
+    const sundayType = isSunday(date) && IS_SUNDAY_NOT_WORKING ? "freeDay" : "";
 
     setType(
       isDate
