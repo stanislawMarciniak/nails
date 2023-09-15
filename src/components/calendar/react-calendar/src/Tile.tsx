@@ -79,19 +79,19 @@ export default function Tile(props: TileProps) {
   const [type, setType] = useState("");
 
   useEffect(() => {
-    const isSundayDate = isSunday(date);
-    isSundayDate && setType("freeDay");
-  }, []);
-
-  useEffect(() => {
     const isDate = formattedData?.find(
       (data) => data.date === formatAbbr(locale, date)
     );
     const wasIt = minDate && minDateTransform(minDate) > date;
     const wasAlready = wasIt ? "wasAlready" : "";
+    const sundayType = isSunday(date) ? "freeDay" : "";
 
-    isDate && setType(isDate.dateType + " " + wasAlready);
-  }, [formattedData]);
+    setType(
+      isDate
+        ? isDate.dateType + " " + wasAlready + " " + sundayType
+        : sundayType + " " + wasAlready
+    );
+  }, [formattedData, date, formatAbbr, locale, minDate, minDateTransform]);
 
   return (
     <button
@@ -100,7 +100,9 @@ export default function Tile(props: TileProps) {
         (minDate && minDateTransform(minDate) > date) ||
         (maxDate && maxDateTransform(maxDate) < date) ||
         (tileDisabled && tileDisabled({ activeStartDate, date, view })) ||
-        type
+        type.includes("wasAlready") ||
+        type.includes("full") ||
+        type.includes("freeDay")
       }
       onClick={onClick ? (event) => onClick(date, event) : undefined}
       onFocus={onMouseOver ? () => onMouseOver(date) : undefined}
