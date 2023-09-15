@@ -9,7 +9,6 @@ import supabase, { getUser } from "../config/supabaseClient";
 
 const Navbar = () => {
   const [isLogged, setIsLogged] = useState(false);
-  const [isListening, setIsListening] = useState(true);
 
   const fetchUserData = async () => {
     try {
@@ -22,31 +21,24 @@ const Navbar = () => {
     }
   };
   useEffect(() => {
-    if (isListening) {
-      const sessionListener = supabase.auth.onAuthStateChange(
-        (event, session) => {
-          if (event === "SIGNED_IN") {
-            fetchUserData();
-          } else if (event === "SIGNED_OUT") {
-            setIsLogged(false);
-          }
-        }
-      );
-
-      return () => {
-        sessionListener.data.subscription.unsubscribe();
-      };
-    }
-  }, [isListening]);
-
-  useEffect(() => {
     fetchUserData();
+    const sessionListener = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN") {
+        fetchUserData();
+      } else if (event === "SIGNED_OUT") {
+        setIsLogged(false);
+      }
+    });
+
+    return () => {
+      sessionListener.data.subscription.unsubscribe();
+    };
   }, []);
 
   const handleLogout = async () => {
     try {
-      await supabase.auth.signOut(); // Sign out using Supabase
-      setIsLogged(false); // Update the login status
+      await supabase.auth.signOut();
+      setIsLogged(false);
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -74,7 +66,7 @@ const Navbar = () => {
           </Link>
         ) : (
           <Link
-            to="/zaloguj" // Change this route to the desired route when the user is logged out
+            to="/zaloguj"
             onClick={handleLogout}
             className="flex items-center gap-2 px-8 text-lg"
           >
