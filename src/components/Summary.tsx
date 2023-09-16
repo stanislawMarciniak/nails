@@ -41,9 +41,7 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
         user_id: user.id,
         message: message,
       });
-      if (error) {
-        console.error("Error inserting meeting:", error);
-      } else {
+      if (!error) {
         navigate("/");
         toast({
           title: "Dodano spotkanie.",
@@ -54,6 +52,13 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
         });
       }
     } catch (exception) {
+      toast({
+        title: "Błąd.",
+        description: "Nie dodano spotkania.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
       console.error("An unexpected error occurred:", exception);
     }
   };
