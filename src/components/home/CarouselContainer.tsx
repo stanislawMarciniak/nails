@@ -10,6 +10,8 @@ const CarouselContainer = () => {
       infinite={true}
       responsive={RESPONSIVENESS_1}
       itemClass="carousel-item"
+      swipeable={true}
+      ssr={true}
     >
       <Flex>
         <CarouselItem id={0} top="40%" left="-3%" zIndex={3} size="2xs" />

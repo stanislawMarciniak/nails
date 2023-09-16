@@ -31,3 +31,18 @@
         transform: translateY(-18px);
     }
 }
+
+.react-multiple-carousel__arrow--right::before, .react-multiple-carousel__arrow--left::before {
+        color: #C49494;
+  font-size: xxx-large;
+  font-weight: 900;
+}
+
+.react-multiple-carousel__arrow {
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.react-multiple-carousel__arrow:hover {
+  background: rgba(213, 199, 199, 0.5);
+}
