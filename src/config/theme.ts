@@ -17,6 +17,12 @@ const modalTheme = defineMultiStyleConfig({
 });
 
 const theme = extendTheme({
+  colors: {
+    firstColor: "#E1DDDD",
+    secoundColor: "#927979",
+    thirdColor: "#F4F4F4",
+    fourthColor: "#C49494",
+  },
   components: {
     Modal: modalTheme,
   },

@@ -20,7 +20,3 @@
   background: rgba(196, 148, 148, 0.8);
   background-clip: content-box;
 }
-
-.css-p27qcy[data-checked] {
-  --switch-bg: #c49494 !important;
-}

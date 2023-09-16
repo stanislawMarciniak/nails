@@ -10,6 +10,7 @@ import { addHours, addMinutes, format, parse } from "date-fns";
 
 const TableRow = ({ meeting, id }) => {
   const [user, setUser] = useState({});
+  const [status, setStatus] = useState("");
 
   const locale = getUserLocale();
   const [day, month, year] = formatLongDate(locale, meeting.day).split(" ");
@@ -27,6 +28,7 @@ const TableRow = ({ meeting, id }) => {
         setUser(data[0]);
       };
       fetchUser();
+      setStatus(meeting.status);
     } catch (error) {
       toast({
         title: "Błąd.",
@@ -38,12 +40,14 @@ const TableRow = ({ meeting, id }) => {
     }
   }, []);
 
-  const handleStatusChange = async (status) => {
+  const handleStatusChange = async (e) => {
     try {
       const { error } = await supabase
         .from("meetings")
-        .update({ status })
+        .update({ status: e })
         .eq("id", meeting.id);
+
+      setStatus(e);
 
       !error &&
         toast({
@@ -72,7 +76,7 @@ const TableRow = ({ meeting, id }) => {
     startHour.getMinutes()
   );
   const transformStatus = () => {
-    switch (meeting.status) {
+    switch (status) {
       case "waiting":
         return meetingDay >= new Date() ? (
           <Flex gap={5}>
@@ -119,7 +123,7 @@ const TableRow = ({ meeting, id }) => {
     }
   };
   const timeDifference = meetingDay.getTime() - new Date().getTime();
-  const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+  const minutesDifference = Math.ceil(timeDifference / 1000);
 
   return (
     user && (
@@ -128,7 +132,9 @@ const TableRow = ({ meeting, id }) => {
         <Td>{user?.phone}</Td>
         <Td
           className={
-            daysDifference <= 2 && daysDifference >= 0 ? "text-red-500" : ""
+            minutesDifference <= 48 * 3600 && minutesDifference >= 0
+              ? "text-red-500"
+              : ""
           }
         >{`${day} ${month} ${year} (${weekday}) ${format(startHour, "kk:mm")} -
           ${format(endHour, "kk:mm")}`}</Td>

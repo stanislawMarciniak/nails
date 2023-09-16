@@ -1,6 +1,18 @@
 import { useEffect, useState } from "react";
 import supabase from "../config/supabaseClient";
-import { Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  FormControl,
+  FormLabel,
+  Switch,
+  Table,
+  TableContainer,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import TableRow from "../components/TableRow";
 import "./Admin.css";
 import { addHours, addMinutes, parse } from "date-fns";
@@ -66,32 +78,40 @@ const Admin = () => {
   };
 
   return (
-    <div>
-      <label>
-        Show Past Dates:
-        <input
-          type="checkbox"
-          checked={showPastDates}
-          onChange={toggleShowPastDates}
-        />
-      </label>
+    <Box mx={16} mt={16}>
+      <FormControl display="flex" mb={3} alignItems="center">
+        <FormLabel mb="0">Pokazać minione spotkania?</FormLabel>
+        <Switch checked={showPastDates} onChange={toggleShowPastDates} />
+      </FormControl>
       <TableContainer
-        mx={16}
-        mt={16}
-        p={5}
+        px={5}
+        py={3}
         overflowY={"auto"}
         className="calendar-bg table-container"
         maxHeight={"2xl"}
+        shadow={"xl"}
       >
         <Table size="lg" variant={"simple"}>
           <Thead>
             <Tr>
-              <Th>Imię i Nazwisko</Th>
-              <Th>Numer Telefonu</Th>
-              <Th>Termin</Th>
-              <Th>Usługa i Cena</Th>
-              <Th>Dodatkowe info</Th>
-              <Th>Zaakceptuj / Odrzuć</Th>
+              <Th>
+                <span className="text-secoundColor">Imię i Nazwisko</span>
+              </Th>
+              <Th>
+                <span className="text-secoundColor">Numer Telefonu</span>
+              </Th>
+              <Th>
+                <span className="text-secoundColor">Termin</span>
+              </Th>
+              <Th>
+                <span className="text-secoundColor">Usługa</span>
+              </Th>
+              <Th>
+                <span className="text-secoundColor">Dodatkowe Info</span>
+              </Th>
+              <Th>
+                <span className="text-secoundColor">Zaakceptuj / Odrzuć</span>
+              </Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -101,7 +121,7 @@ const Admin = () => {
           </Tbody>
         </Table>
       </TableContainer>
-    </div>
+    </Box>
   );
 };
 

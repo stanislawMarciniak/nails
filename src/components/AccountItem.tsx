@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 const AccountItem = ({ title, content, setUser, attribute, onChange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState("");
-  console.log(value);
 
   useEffect(() => {
     setValue(content);

@@ -30,6 +30,7 @@ const Navbar = () => {
         fetchUserData();
       } else if (event === "SIGNED_OUT") {
         setIsLogged(false);
+        setIsAdmin(false);
       }
     });
 

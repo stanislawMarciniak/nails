@@ -3,6 +3,7 @@ import supabase, { getUser } from "../config/supabaseClient";
 import { Center, Flex, Stack, Text, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import AccountItem from "../components/AccountItem";
+import MeetingHistory from "../components/MeetingHistory";
 
 const Account = () => {
   const [user, setUser] = useState({});
@@ -67,12 +68,12 @@ const Account = () => {
 
   return (
     <Center>
-      <Stack w={"6xl"} align={"center"} fontSize={"xl"} mt={12}>
+      <Stack w={"full"} align={"center"} fontSize={"xl"} mt={12}>
         <Text fontSize={"8xl"} className="pinyon">
           Moje Konto
         </Text>
-        <Flex>
-          <Stack w={"xl"}>
+        <Flex gap={16}>
+          <Stack w={"sm"}>
             <AccountItem
               title="IMIĘ I NAZWISKO"
               content={user?.name}
@@ -95,6 +96,7 @@ const Account = () => {
               onChange={handleItemChange}
             />
           </Stack>
+          <MeetingHistory user={user} />
         </Flex>
         <Flex gap={5}>
           <button
