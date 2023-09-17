@@ -63,6 +63,7 @@ const DayCalendar = ({
 
   const clonedServices = [...services];
   clonedServices.pop();
+  clonedServices.pop();
   const toast = useToast();
 
   const handleEnrollment = async () => {

@@ -24,6 +24,18 @@ export const services = [
     cost: 85,
   },
   {
+    name: "Ściągnięcie stylizacji",
+    minTime: null,
+    maxTime: null,
+    cost: 20,
+  },
+  {
+    name: "Nail charms / ozdoby 3D",
+    minTime: null,
+    maxTime: null,
+    cost: "5 - 25",
+  },
+  {
     name: "Skomplikowane / czasochłonne zdobienie", //keep it the last one
     minTime: null,
     maxTime: null,

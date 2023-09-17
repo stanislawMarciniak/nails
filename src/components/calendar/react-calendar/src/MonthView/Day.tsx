@@ -52,10 +52,45 @@ export default function Day({
         };
       });
       setFormattedData(changedData);
-      console.log(changedData);
+    };
+
+    const clearData = async () => {
+      try {
+        const currentDate = new Date();
+        const { data, error } = await supabase.from("special_days").select("*");
+
+        if (error) {
+          throw new Error("Error while fetching data");
+        }
+
+        const expiredRows = data.filter((day) => {
+          try {
+            // Convert the date string to a JavaScript Date object
+            const date = new Date(day.day);
+
+            // Check if the date is in the past
+            return date < currentDate;
+          } catch (dateConversionError) {
+            console.error("Error converting date:", dateConversionError);
+            return false;
+          }
+        });
+
+        // Delete the expired rows
+        for (const day of expiredRows) {
+          try {
+            await supabase.from("special_days").delete().eq("id", day.id);
+          } catch (deleteError) {
+            console.error("Error deleting row:", deleteError);
+          }
+        }
+      } catch (overallError) {
+        console.error("Overall error:", overallError);
+      }
     };
 
     fetchData();
+    clearData();
   }, []);
   const calendarType = mapCalendarType(calendarTypeOrDeprecatedCalendarType);
   const { date, locale } = otherProps;

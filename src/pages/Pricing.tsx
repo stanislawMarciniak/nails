@@ -14,14 +14,16 @@ const Pricing = () => {
               justify={"space-between"}
               key={id}
               mt={"5"}
-              className="josefin-light"
+              className="josefin-light-nomral"
               fontSize={"xl"}
             >
               <Box>
                 <strong className="josefin-normal">
                   {service.name.toUpperCase()}{" "}
                 </strong>
-                {id === services.length - 1 ? null : (
+                {id === services.length - 1 ||
+                id === services.length - 2 ||
+                id === services.length - 3 ? null : (
                   <span>
                     ({service.minTime}-{service.maxTime} H)
                   </span>
