@@ -99,19 +99,25 @@ const Navbar = () => {
       ) : (
         <>
           <Menu isOpen={isMenuOpen}>
-            <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)} h={1}>
               <HamburgerIcon />
             </MenuButton>
-            <MenuList className="menu-list" fontSize={"3xl"}>
+            <MenuList className="menu-list">
               <VStack spacing={0}>
-                <MenuItem className="menu-item">
+                <MenuItem
+                  className="menu-item"
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   <Link to="/kalendarz" className="flex items-center gap-2">
                     <PiPencilThin />
                     <span>UMÓW SIĘ</span>
                   </Link>
                 </MenuItem>
                 <Divider />
-                <MenuItem className="menu-item">
+                <MenuItem
+                  className="menu-item"
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   <Link to="/cennik" className="flex items-center gap-2 ">
                     <LiaMoneyBillWaveSolid />
                     <span>CENNIK</span>
@@ -120,14 +126,20 @@ const Navbar = () => {
                 <Divider />
 
                 {!isLogged ? (
-                  <MenuItem className="menu-item">
+                  <MenuItem
+                    className="menu-item"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
                     <Link to="/zaloguj" className="flex items-center gap-2">
                       <MdOutlineAccountCircle />
                       <span>ZALOGUJ SIĘ</span>
                     </Link>
                   </MenuItem>
                 ) : (
-                  <MenuItem className="menu-item">
+                  <MenuItem
+                    className="menu-item"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
                     <Link to="/konto" className="flex items-center gap-2">
                       <MdOutlineAccountCircle />
                       <span>MOJE KONTO</span>
@@ -138,7 +150,10 @@ const Navbar = () => {
                 {isAdmin && (
                   <>
                     <Divider />
-                    <MenuItem className="menu-item">
+                    <MenuItem
+                      className="menu-item"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
                       <Link to="/admin" className="flex items-center gap-2">
                         <BiSolidLockOpen
                           fontSize="2xl"

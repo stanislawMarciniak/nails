@@ -8,6 +8,7 @@ import {
   Box,
   Text,
   Center,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import CarouselContainer from "../components/home/CarouselContainer";
 import { useImageContext } from "../components/ImageContext";
@@ -17,8 +18,9 @@ import { useState } from "react";
 import Gallery from "../components/home/Gallery";
 
 const Home = () => {
-  const [isGallery, setIsGallery] = useState(false);
   const { selectedImage, setSelectedImage } = useImageContext();
+  const [isLargerThan1000] = useMediaQuery("(min-width: 1000px)");
+  const [isGallery, setIsGallery] = useState(!isLargerThan1000);
 
   const handleCloseModal = () => setSelectedImage(null);
 

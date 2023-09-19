@@ -15,17 +15,24 @@ import "./Pricing.css";
 const Pricing = () => {
   return (
     <Center>
-      <Stack w={"6xl"} mt={"16"}>
-        <Center fontSize={"9xl"} className="pinyon">
+      <Stack w={"6xl"} mt={{ base: 4, lg: 16 }}>
+        <Center
+          fontSize={{ base: "6xl", sm: "7xl", lg: "9xl" }}
+          className="pinyon"
+        >
           cennik
         </Center>
-        <Accordion allowToggle mt={10}>
+        <Accordion allowToggle mt={{ base: 3, lg: 10 }}>
           {services.map((service, id) => (
             <AccordionItem key={id}>
-              <AccordionButton>
-                <Flex width="100%" justify={"space-between"} fontSize={"lg"}>
+              <AccordionButton pl={{ base: 2, lg: 6 }}>
+                <Flex
+                  width="100%"
+                  justify={"space-between"}
+                  fontSize={{ base: "2xs", sm: "xs", lg: "lg" }}
+                >
                   <Box>
-                    <AccordionIcon mr={6} />
+                    <AccordionIcon mr={{ base: 2, lg: 6 }} />
                     <strong className="josefin-normal">
                       {service.name.toUpperCase()}{" "}
                     </strong>
@@ -42,7 +49,7 @@ const Pricing = () => {
                   <Box>{service.cost} ZŁ</Box>
                 </Flex>
               </AccordionButton>
-              <AccordionPanel pb={4}>
+              <AccordionPanel pb={4} fontSize={{ base: "xs", lg: "lg" }}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris

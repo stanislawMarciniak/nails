@@ -6,7 +6,12 @@ const Gallery = () => {
   const { setSelectedImage } = useImageContext();
 
   return (
-    <Center flexWrap={"wrap"} gap={12} mx={"16"} py={16}>
+    <Center
+      flexWrap={"wrap"}
+      gap={{ base: 7, lg: 12 }}
+      mx={"16"}
+      py={{ base: 7, lg: 16 }}
+    >
       {homeImages.map((image) => (
         <Box p={6} bg={"white"} shadow={"xl"}>
           <Image
