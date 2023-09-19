@@ -13,11 +13,6 @@ const DropdownTime = ({
   dayMeetings,
 }) => {
   const formatTime = (data) => {
-    const maxTime =
-      meeting.service.name !== services[4].name
-        ? meeting.service.maxTime
-        : meeting.service.maxTime + 0.25;
-    console.log(dayMeetings);
     const times = data.filter((time) => {
       const endTime =
         time.getHours() + time.getMinutes() / 60 + meeting.service.maxTime;
