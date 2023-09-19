@@ -10,6 +10,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { services } from "../config/data";
+import "./Pricing.css";
 
 const Pricing = () => {
   return (
@@ -18,34 +19,27 @@ const Pricing = () => {
         <Center fontSize={"9xl"} className="pinyon">
           cennik
         </Center>
-        <Accordion allowMultiple mt={10}>
+        <Accordion allowToggle mt={10}>
           {services.map((service, id) => (
             <AccordionItem key={id}>
               <AccordionButton>
-                <Flex
-                  key={id}
-                  className="josefin-light-nomral"
-                  fontSize={"md"}
-                  width="100%"
-                >
-                  <Box width="100%">
-                    <AccordionIcon />
+                <Flex width="100%" justify={"space-between"} fontSize={"lg"}>
+                  <Box>
+                    <AccordionIcon mr={6} />
                     <strong className="josefin-normal">
                       {service.name.toUpperCase()}{" "}
                     </strong>
                     {id === services.length - 1 ||
-                    id === services.length - 2 ||
-                    id === services.length - 3 ? null : (
+                    id === services.length - 2 ? null : service.minTime ===
+                      service.maxTime ? (
+                      <span>({service.minTime * 60} MIN)</span>
+                    ) : (
                       <span>
                         ({service.minTime}-{service.maxTime} H)
                       </span>
                     )}
                   </Box>
-                  {id === services.length - 1 ? (
-                    <Box width="100%">+{service.cost} ZŁ</Box>
-                  ) : (
-                    <Box width="100%">{service.cost} ZŁ</Box>
-                  )}
+                  <Box>{service.cost} ZŁ</Box>
                 </Flex>
               </AccordionButton>
               <AccordionPanel pb={4}>

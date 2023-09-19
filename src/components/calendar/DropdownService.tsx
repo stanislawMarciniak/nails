@@ -36,7 +36,9 @@ const DropdownService = ({ selected, setMeeting, data, active, setActive }) => {
             >
               {service.name}{" "}
               <span>
-                ({service.minTime}-{service.maxTime}h)
+                {service.minTime !== service.maxTime
+                  ? `(${service.minTime}-${service.maxTime}h)`
+                  : `(${service.maxTime * 60}min)`}
               </span>
             </div>
           ))}

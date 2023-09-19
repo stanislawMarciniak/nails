@@ -2,6 +2,7 @@ import { add, addMinutes, format } from "date-fns";
 import "./Dropdown.css";
 import { useState } from "react";
 import { OPENING_HOURS_END } from "../../config/constants";
+import { services } from "../../config/data";
 
 const DropdownTime = ({
   meeting,
@@ -16,7 +17,9 @@ const DropdownTime = ({
       const endTime =
         time.getHours() + time.getMinutes() / 60 + meeting.service.maxTime;
 
-      const fullEndTime = add(time, { minutes: meeting.service.maxTime * 60 });
+      const fullEndTime = add(time, {
+        minutes: meeting.service.maxTime * 60,
+      });
       const interval = { start_hour: time, end_hour: fullEndTime };
       const isDataOverlapping = dayMeetings.some((dataItem) => {
         const dataItemDate = new Date(dataItem.day);
@@ -54,7 +57,14 @@ const DropdownTime = ({
       } ${range.day.split(" ")[3]} ${range.end_hour}`;
 
       const startRange = new Date(startDateString);
-      const endRange = new Date(endDateString);
+      let endRange;
+
+      if (range.service !== services[4].name) {
+        endRange = new Date(endDateString);
+      } else {
+        endRange = addMinutes(new Date(endDateString), 15);
+        console.log(endRange);
+      }
 
       if (currentTime >= startRange && currentTime <= endRange) {
         return true;

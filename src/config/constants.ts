@@ -1,6 +1,7 @@
 export const OPENING_HOURS_BEGINNING = 9;
 export const OPENING_HOURS_END = 22;
 export const OPENING_HOURS_INTERVAL = 30; // in minutes
+export const BREAK_TIME = 30; // in minutes
 export const IS_SUNDAY_NOT_WORKING = true;
 
 export const RESPONSIVENESS_1 = {
