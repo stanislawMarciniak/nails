@@ -15,6 +15,13 @@
   box-shadow: 0 0 5rem 10rem rgb(255, 255, 255, 0.75); /* Adjust the shadow properties */
 }
 
+@media (max-width: 999px) {
+  .carousel-container::before,
+  .carousel-container::after {
+    box-shadow: 0 0 5rem 3.5rem rgb(255, 255, 255, 0.75); /* Adjusted shadow properties */
+  }
+}
+
 .carousel-container::before {
   left: 0;
   z-index: 1;

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BiHomeHeart } from "react-icons/bi";
 import { PiPencilThin } from "react-icons/pi";
 import { MdOutlineAccountCircle } from "react-icons/md";
@@ -16,6 +16,7 @@ import {
   MenuList,
   MenuItem,
   Divider,
+  Box,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
@@ -24,6 +25,8 @@ const Navbar = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLargerThan1000] = useMediaQuery("(min-width: 1000px)");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const fetchUserData = async () => {
     try {
@@ -58,7 +61,13 @@ const Navbar = () => {
       alignItems="center"
       className="justify-between px-8 josefin-light navbar"
     >
-      <Link to="/" className="flex items-center gap-2 text-lg">
+      <Link
+        to="/"
+        className="flex items-center gap-2 text-lg"
+        onClick={() => {
+          setIsMenuOpen(false);
+        }}
+      >
         <BiHomeHeart fontSize="2xl" />
         <span>STRONA GŁÓWNA</span>
       </Link>
@@ -106,44 +115,56 @@ const Navbar = () => {
               <VStack spacing={0}>
                 <MenuItem
                   className="menu-item"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    navigate("/kalendarz");
+                  }}
                 >
-                  <Link to="/kalendarz" className="flex items-center gap-2">
+                  <Box className="flex items-center gap-2">
                     <PiPencilThin />
                     <span>UMÓW SIĘ</span>
-                  </Link>
+                  </Box>
                 </MenuItem>
                 <Divider />
                 <MenuItem
                   className="menu-item"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    navigate("/cennik");
+                  }}
                 >
-                  <Link to="/cennik" className="flex items-center gap-2 ">
+                  <Box className="flex items-center gap-2 ">
                     <LiaMoneyBillWaveSolid />
                     <span>CENNIK</span>
-                  </Link>
+                  </Box>
                 </MenuItem>
                 <Divider />
 
                 {!isLogged ? (
                   <MenuItem
                     className="menu-item"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      navigate("/zaloguj");
+                    }}
                   >
-                    <Link to="/zaloguj" className="flex items-center gap-2">
+                    <Box className="flex items-center gap-2">
                       <MdOutlineAccountCircle />
                       <span>ZALOGUJ SIĘ</span>
-                    </Link>
+                    </Box>
                   </MenuItem>
                 ) : (
                   <MenuItem
                     className="menu-item"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      navigate("/konto");
+                    }}
                   >
-                    <Link to="/konto" className="flex items-center gap-2">
+                    <Box className="flex items-center gap-2">
                       <MdOutlineAccountCircle />
                       <span>MOJE KONTO</span>
-                    </Link>
+                    </Box>
                   </MenuItem>
                 )}
 
@@ -152,15 +173,18 @@ const Navbar = () => {
                     <Divider />
                     <MenuItem
                       className="menu-item"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        navigate("/admin");
+                      }}
                     >
-                      <Link to="/admin" className="flex items-center gap-2">
+                      <Box className="flex items-center gap-2">
                         <BiSolidLockOpen
                           fontSize="2xl"
                           style={{ color: "#E1DDDD" }}
                         />
                         <span>PANEL ADMINA</span>
-                      </Link>
+                      </Box>
                     </MenuItem>
                   </>
                 )}
