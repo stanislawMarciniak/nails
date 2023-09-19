@@ -44,8 +44,6 @@ const MeetingHistory = ({ user }) => {
     user && fetchMeetings();
   }, [user]);
 
-  console.log(meetings);
-
   return (
     <TableContainer
       px={5}
