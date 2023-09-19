@@ -1,5 +1,6 @@
 import {
   Center,
+  Spinner,
   Table,
   TableContainer,
   Tbody,
@@ -16,6 +17,7 @@ import "./MeetingHistory.css";
 
 const MeetingHistory = ({ user }) => {
   const [meetings, setMeetings] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -41,6 +43,9 @@ const MeetingHistory = ({ user }) => {
       });
 
       setMeetings(sortedMeetings);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
     };
     user && fetchMeetings();
   }, [user]);
@@ -55,31 +60,39 @@ const MeetingHistory = ({ user }) => {
       w={"4xl"}
       shadow={"xl"}
     >
-      <Table variant={"simple"}>
-        <Thead>
-          <Tr>
-            <Th>
-              <span className="text-secoundColor">Termin</span>
-            </Th>
-            <Th>
-              <span className="text-secoundColor">Usługa</span>
-            </Th>
-            <Th>
-              <span className="text-secoundColor">Status</span>
-            </Th>
-          </Tr>
-        </Thead>
-        <Tbody fontSize={"sm"}>
-          {meetings &&
-            meetings?.map((meeting, id) => (
-              <TableRowAccount meeting={meeting} id={id} key={id} />
-            ))}
-        </Tbody>
-      </Table>
-      {!meetings && (
+      {isLoading ? (
         <Center w={"100%"} height={"80%"}>
-          Brak spotkań póki co :(
+          <Spinner size={"xl"} color={"secondColor"} />
         </Center>
+      ) : (
+        <>
+          <Table variant={"simple"}>
+            <Thead>
+              <Tr>
+                <Th>
+                  <span className="text-secoundColor">Termin</span>
+                </Th>
+                <Th>
+                  <span className="text-secoundColor">Usługa</span>
+                </Th>
+                <Th>
+                  <span className="text-secoundColor">Status</span>
+                </Th>
+              </Tr>
+            </Thead>
+            <Tbody fontSize={"sm"}>
+              {meetings &&
+                meetings?.map((meeting, id) => (
+                  <TableRowAccount meeting={meeting} id={id} key={id} />
+                ))}
+            </Tbody>
+          </Table>
+          {!meetings && (
+            <Center w={"100%"} height={"80%"}>
+              Brak spotkań póki co :(
+            </Center>
+          )}
+        </>
       )}
     </TableContainer>
   );

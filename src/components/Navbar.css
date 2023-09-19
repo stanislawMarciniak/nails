@@ -1,5 +1,33 @@
 .navbar {
-  background-color: rgb(146 121 121 / 60%);
+  background-color: rgb(146 , 121 , 121 , 0.6);
   color: #E1DDDD;
   height: 9vh;
+}
+
+.menu-list {
+  padding-block: 0 !important;
+  border-radius: 9px !important;
+}
+
+.menu-item {
+  border-radius: 0 !important;
+}
+
+.menu-list, .menu-item {
+  background-color: rgb(181, 149, 149, 0.75) !important;
+  border: none;
+}
+
+.menu-item:hover {
+  background-color: rgba(133, 109, 109, 0.4) !important;
+}
+
+.menu-item:first-child {
+  border-top-left-radius: 9px !important;
+  border-top-right-radius: 9px !important;
+}
+
+.menu-item:last-child {
+  border-bottom-left-radius: 9px !important;
+  border-bottom-right-radius: 9px !important;
 }
