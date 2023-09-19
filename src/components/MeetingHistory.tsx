@@ -1,4 +1,5 @@
 import {
+  Center,
   Table,
   TableContainer,
   Tbody,
@@ -14,7 +15,7 @@ import { addHours, addMinutes, parse } from "date-fns";
 import "./MeetingHistory.css";
 
 const MeetingHistory = ({ user }) => {
-  const [meetings, setMeetings] = useState([]);
+  const [meetings, setMeetings] = useState(null);
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -44,8 +45,6 @@ const MeetingHistory = ({ user }) => {
     user && fetchMeetings();
   }, [user]);
 
-  console.log(meetings);
-
   return (
     <TableContainer
       px={5}
@@ -71,15 +70,17 @@ const MeetingHistory = ({ user }) => {
           </Tr>
         </Thead>
         <Tbody fontSize={"sm"}>
-          {meetings ? (
+          {meetings &&
             meetings?.map((meeting, id) => (
               <TableRowAccount meeting={meeting} id={id} key={id} />
-            ))
-          ) : (
-            <Text justifySelf={"center"}>Brak spotkań póki co :(</Text>
-          )}
+            ))}
         </Tbody>
       </Table>
+      {!meetings && (
+        <Center w={"100%"} height={"80%"}>
+          Brak spotkań póki co :(
+        </Center>
+      )}
     </TableContainer>
   );
 };
