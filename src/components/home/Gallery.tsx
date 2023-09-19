@@ -12,8 +12,8 @@ const Gallery = () => {
       mx={"16"}
       py={{ base: 7, lg: 16 }}
     >
-      {homeImages.map((image) => (
-        <Box p={6} bg={"white"} shadow={"xl"}>
+      {homeImages.map((image, id) => (
+        <Box p={6} bg={"white"} shadow={"xl"} key={id}>
           <Image
             w={"xs"}
             src={image.imgUrl}

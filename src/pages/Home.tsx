@@ -14,13 +14,19 @@ import CarouselContainer from "../components/home/CarouselContainer";
 import { useImageContext } from "../components/ImageContext";
 import "./Home.css";
 import { HiOutlineSquare2Stack, HiOutlineSquares2X2 } from "react-icons/hi2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Gallery from "../components/home/Gallery";
 
 const Home = () => {
   const { selectedImage, setSelectedImage } = useImageContext();
   const [isLargerThan1000] = useMediaQuery("(min-width: 1000px)");
-  const [isGallery, setIsGallery] = useState(!isLargerThan1000);
+  const [isGallery, setIsGallery] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      isLargerThan1000 ? setIsGallery(false) : setIsGallery(true);
+    }, 1000);
+  }, [isLargerThan1000]);
 
   const handleCloseModal = () => setSelectedImage(null);
 
