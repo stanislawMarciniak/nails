@@ -21,7 +21,7 @@ export const services = [
     name: "Uzupełnienie żelowe",
     minTime: 2,
     maxTime: 2.5,
-    cost: 85,
+    cost: 90,
   },
   {
     name: "Manicure", //keep it 5th one

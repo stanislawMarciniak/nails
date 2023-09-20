@@ -95,7 +95,7 @@ const DayCalendar = ({
       p={{ base: 0, lg: 10 }}
       py={{ base: 7, lg: 10 }}
       mt={{ base: 10, lg: 20 }}
-      mb={{ base: 0, lg: 10 }}
+      mb={{ base: 36, lg: 10 }}
       className="shadow-xl calendar-bg josefin-light"
     >
       <Stack w={{ base: "initial", lg: "xl" }} align={"center"}>

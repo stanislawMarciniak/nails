@@ -77,20 +77,20 @@ const Admin = () => {
   };
 
   return (
-    <Box mx={16} mt={16}>
-      <FormControl display="flex" mb={3} alignItems="center">
+    <Box mx={{ base: 2, lg: 16 }} mt={{ base: 6, lg: 16 }}>
+      <FormControl display="flex" mb={4} alignItems="center">
         <FormLabel mb="0">Pokazać minione spotkania?</FormLabel>
         <Switch checked={showPastDates} onChange={toggleShowPastDates} />
       </FormControl>
       <TableContainer
-        px={5}
+        px={{ base: 0, lg: 5 }}
         py={3}
         overflowY={"auto"}
         className="calendar-bg table-container"
         maxHeight={"2xl"}
         shadow={"xl"}
       >
-        <Table size="lg" variant={"simple"}>
+        <Table size={{ base: "sm", lg: "lg" }} variant={"simple"}>
           <Thead>
             <Tr>
               <Th>
