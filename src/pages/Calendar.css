@@ -7,6 +7,7 @@
   font-size: 1.2rem;
   line-height: 1.125em;
 }
+
 .calendar-bg {
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 3rem;
@@ -117,4 +118,33 @@ option {
   background-color: #E1DDDD !important;
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 200;
+}
+
+@media (max-width: 999px) {
+  .react-calendar {
+    width: auto;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 0.9em;
+  }
+  .react-calendar__navigation__label {
+    font-size: 3.5rem;
+  }
+  .react-calendar__month-view__weekdays__weekday {
+    padding: 0 0 0.8rem 0;
+    font-size: 0.9em;
+  }
+  .react-calendar__navigation {
+    height: 20px;
+    margin-bottom: 6rem;
+  }
+  .react-calendar__navigation__label__labelText {
+    padding-top: 1.6rem !important;
+    gap: 2rem;
+  }
+  .blob-image, .blob-svg{
+    width: 4rem;
+    height: 4rem;
+    opacity: 0.8;
+  }
 }

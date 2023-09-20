@@ -4,13 +4,14 @@ import {
   MdKeyboardDoubleArrowLeft,
   MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
-import { Box, Flex, Spinner, Stack } from "@chakra-ui/react";
+import { Box, Flex, Spinner, Stack, useMediaQuery } from "@chakra-ui/react";
 import ReactCalendar from "./react-calendar/src/index";
 import { addDays } from "date-fns";
 import { useEffect, useState } from "react";
 
 const MonthCalendar = ({ setClick, setMeeting, click }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isLargerThan1000] = useMediaQuery("(min-width: 1000px)");
 
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 1500);
@@ -31,7 +32,12 @@ const MonthCalendar = ({ setClick, setMeeting, click }) => {
         justify="center"
         align="center"
       >
-        <Box p="10" position={"relative"} className="shadow-xl calendar-bg">
+        <Box
+          p={{ base: 4, lg: 10 }}
+          position={"relative"}
+          w={{ base: "sm", lg: "initial" }}
+          className="shadow-xl calendar-bg"
+        >
           <ReactCalendar
             nextLabel={
               <MdKeyboardArrowRight onClick={() => setClick(!click)} />
@@ -49,43 +55,42 @@ const MonthCalendar = ({ setClick, setMeeting, click }) => {
               setMeeting((prev) => ({ ...prev, day: date }))
             }
           />
-          <Stack
-            spacing={4}
-            position={"absolute"}
-            className="top-1/4 josefin-light"
-            right={-80}
-          >
-            <Flex align="center">
-              <svg className="blob-svg">
-                <image
-                  className="blob-image"
-                  href="/images/calendar-blob2.svg"
-                />
-              </svg>
-              <span>WOLNE TERMINY</span>
-            </Flex>
-            <Flex align="center">
-              <svg className="blob-svg">
-                <image
-                  className="blob-image"
-                  href="/images/calendar-blob3.svg"
-                />
-              </svg>
-              <span>BRAK TERMINÓW</span>
-            </Flex>
-            <Flex align="center">
-              <svg className="blob-svg">
-                <image
-                  className="blob-image"
-                  href="/images/calendar-blob1.svg"
-                />
-              </svg>
-              <span>DNI WOLNE OD PRACY</span>
-            </Flex>
-          </Stack>
+          {isLargerThan1000 && <BlobStack />}
         </Box>
+        {!isLargerThan1000 && <BlobStack />}
       </Flex>
     </>
+  );
+};
+
+const BlobStack = () => {
+  return (
+    <Stack
+      spacing={{ base: 2, lg: 4 }}
+      position={{ base: "initial", lg: "absolute" }}
+      className="top-1/4 josefin-light"
+      right={-80}
+      mt={{ base: 10, lg: 0 }}
+    >
+      <Flex align="center">
+        <svg className="blob-svg">
+          <image className="blob-image" href="/images/calendar-blob2.svg" />
+        </svg>
+        <span>WOLNE TERMINY</span>
+      </Flex>
+      <Flex align="center">
+        <svg className="blob-svg">
+          <image className="blob-image" href="/images/calendar-blob3.svg" />
+        </svg>
+        <span>BRAK TERMINÓW</span>
+      </Flex>
+      <Flex align="center">
+        <svg className="blob-svg">
+          <image className="blob-image" href="/images/calendar-blob1.svg" />
+        </svg>
+        <span>DNI WOLNE OD PRACY</span>
+      </Flex>
+    </Stack>
   );
 };
 

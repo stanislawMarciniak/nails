@@ -5,7 +5,7 @@ import { MdOutlineAccountCircle } from "react-icons/md";
 import { LiaMoneyBillWaveSolid } from "react-icons/lia";
 import { BiSolidLockOpen } from "react-icons/bi";
 import "./Navbar.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import supabase, { getUser } from "../config/supabaseClient";
 import {
   Flex,

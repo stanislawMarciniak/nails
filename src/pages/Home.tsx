@@ -63,7 +63,12 @@ const Home = () => {
       )}
 
       {selectedImage && (
-        <Modal isOpen={true} onClose={handleCloseModal} size={"lg"} isCentered>
+        <Modal
+          isOpen={true}
+          onClose={handleCloseModal}
+          size={{ base: "xs", lg: "lg" }}
+          isCentered
+        >
           <ModalOverlay bg="none" backdropFilter="auto" backdropBlur="4px" />
           <ModalContent>
             <ModalBody>
@@ -73,7 +78,10 @@ const Home = () => {
                 h={"100%"}
                 alt="Selected Image"
               />
-              <Text className="flex items-center justify-center h-24 text-2xl">
+              <Text
+                fontSize={{ base: "xl", lg: "2xl" }}
+                className="flex items-center justify-center h-24"
+              >
                 {selectedImage.service}
               </Text>
             </ModalBody>
