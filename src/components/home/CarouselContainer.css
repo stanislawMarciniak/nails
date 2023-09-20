@@ -9,8 +9,11 @@
 .photoram-2xs {
   padding: 15px 15px 4rem 15px; 
 }
+.photoram-3xs {
+  padding: 13px 13px 3.5rem 13px; 
+}
 
-.photoram-sm, .photoram-2xs, .photoram-xs {
+.photoram-sm, .photoram-2xs, .photoram-xs, .photoram-3xs {
   background-color: white;
   /* animation: updown 3s linear infinite; */
 }
@@ -33,7 +36,7 @@
 }
 
 .react-multiple-carousel__arrow--right::before, .react-multiple-carousel__arrow--left::before {
-        color: #C49494;
+  color: #C49494;
   font-size: xxx-large;
   font-weight: 900;
 }

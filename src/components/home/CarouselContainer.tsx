@@ -2,10 +2,14 @@ import "./CarouselContainer.css";
 import Carousel from "react-multi-carousel";
 import { RESPONSIVENESS_1 } from "../../config/constants";
 import CarouselItem from "./CarouselItem";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useMediaQuery } from "@chakra-ui/react";
+import { homeImages } from "../../config/data";
 
 const CarouselContainer = () => {
-  return (
+  const [isLargerThan1000] = useMediaQuery("(min-width: 1000px)");
+  const length = Math.floor(homeImages.length / 3);
+
+  return isLargerThan1000 ? (
     <Carousel
       infinite={true}
       responsive={RESPONSIVENESS_1}
@@ -35,6 +39,34 @@ const CarouselContainer = () => {
         <CarouselItem id={16} top="36%" left="72%" />
         <CarouselItem id={17} top="8%" left="83%" />
       </Flex>
+    </Carousel>
+  ) : (
+    <Carousel
+      infinite={true}
+      responsive={RESPONSIVENESS_1}
+      itemClass="carousel-item"
+      swipeable={true}
+      ssr={true}
+    >
+      {Array.from({ length }, (_, index) => (
+        <Flex key={index}>
+          <CarouselItem
+            id={3 * index}
+            top="23%"
+            left="3%"
+            zIndex={2}
+            size="3xs"
+          />
+          <CarouselItem id={3 * index + 1} top="3%" right="3%" size="3xs" />
+          <CarouselItem
+            id={3 * index + 2}
+            bottom="5%"
+            left="28%"
+            zIndex={3}
+            size="3xs"
+          />
+        </Flex>
+      ))}
     </Carousel>
   );
 };
