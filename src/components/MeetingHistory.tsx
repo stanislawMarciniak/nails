@@ -57,7 +57,7 @@ const MeetingHistory = ({ user }) => {
       overflowY={"auto"}
       className="calendar-bg table-container"
       maxHeight={"sm"}
-      w={"4xl"}
+      w={{ base: "xs", lg: "4xl" }}
       shadow={"xl"}
     >
       {isLoading ? (

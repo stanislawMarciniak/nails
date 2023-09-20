@@ -35,7 +35,7 @@ const DropdownService = ({ selected, setMeeting, data, active, setActive }) => {
               className="dropdown-item"
             >
               {service.name}{" "}
-              <span>
+              <span style={{ whiteSpace: "nowrap" }}>
                 {service.minTime !== service.maxTime
                   ? `(${service.minTime}-${service.maxTime}h)`
                   : `(${service.maxTime * 60}min)`}

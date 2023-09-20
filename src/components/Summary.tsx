@@ -44,9 +44,9 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
       if (!error) {
         navigate("/");
         toast({
-          title: "Dodano spotkanie.",
-          description: "Widzimy się niedługo.",
-          status: "success",
+          title: "Poczekaj na potwierdzenie.",
+          description: 'Status spotkań znajdziesz w zakładce "Moje Konto"',
+          status: "info",
           duration: 4000,
           isClosable: true,
         });

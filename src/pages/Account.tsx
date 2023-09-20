@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 import supabase, { getUser } from "../config/supabaseClient";
-import { Center, Flex, Stack, Text, useToast } from "@chakra-ui/react";
+import {
+  Center,
+  Flex,
+  Stack,
+  Text,
+  useMediaQuery,
+  useToast,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import AccountItem from "../components/AccountItem";
 import MeetingHistory from "../components/MeetingHistory";
@@ -8,6 +15,8 @@ import MeetingHistory from "../components/MeetingHistory";
 const Account = () => {
   const [user, setUser] = useState({});
   const [isDirty, setIsDirty] = useState(false);
+  const [isLargerThan1000] = useMediaQuery("(min-width: 1000px)");
+
   const toast = useToast();
 
   useEffect(() => {
@@ -68,12 +77,20 @@ const Account = () => {
 
   return (
     <Center>
-      <Stack w={"full"} align={"center"} fontSize={"xl"} mt={12}>
-        <Text fontSize={"8xl"} className="pinyon">
+      <Stack
+        w={"full"}
+        align={"center"}
+        fontSize={"xl"}
+        mt={{ base: 4, lg: 12 }}
+      >
+        <Text fontSize={{ base: "6xl", lg: "8xl" }} className="pinyon">
           Moje Konto
         </Text>
-        <Flex gap={16}>
-          <Stack w={"sm"}>
+        <Flex
+          gap={{ base: 8, lg: 16 }}
+          direction={{ base: "column", lg: "row" }}
+        >
+          <Stack w={"xs"}>
             <AccountItem
               title="IMIĘ I NAZWISKO"
               content={user?.name}
@@ -98,7 +115,7 @@ const Account = () => {
           </Stack>
           <MeetingHistory user={user} />
         </Flex>
-        <Flex gap={5}>
+        <Flex gap={5} mb={5}>
           <button
             onClick={handleUpdate}
             className={`px-6 py-2 mt-6 text-2xl rounded-full shadow-lg  ${

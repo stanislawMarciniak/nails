@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Center,
   Divider,
   Flex,
   FormControl,
@@ -9,6 +10,7 @@ import {
   Image,
   Input,
   Text,
+  useMediaQuery,
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -51,6 +53,7 @@ const Login = () => {
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
   const [isPasswordRepeatShown, setIsPasswordRepeatShown] =
     useState<boolean>(false);
+  const [isLargerThan1000] = useMediaQuery("(min-width: 1000px)");
   const navigate = useNavigate();
   const toast = useToast();
   const { values, isLoading, error } = state;
@@ -195,22 +198,32 @@ const Login = () => {
     <Flex
       justify="space-between"
       alignItems="center"
-      mt="20"
+      mt={{ base: 5, lg: 20 }}
       className="relative"
-      h={"2xl"}
+      h={{ base: "initial", lg: "2xl" }}
     >
-      <Box>
-        <Box className="absolute top-0 flex flex-col items-center ml-10 shadow-2xl left-64 photoram-sm">
-          <Image w="sm" src={"/images/pazy_home_1.jpg"} />
+      {isLargerThan1000 && (
+        <Box>
+          <Box className="absolute top-0 flex flex-col items-center ml-10 shadow-2xl left-64 photoram-sm">
+            <Image w="sm" src={"/images/pazy_home_1.jpg"} />
+          </Box>
+          <Box className="absolute flex flex-col items-center shadow-2xl left-1/3 top-44 photoram-xs">
+            <Image w="xs" src={"/images/pazy_home_2.jpg"} />
+          </Box>
+          <Box className="absolute flex flex-col items-center mr-10 shadow-2xl top-16 right-1/3 photoram-2xs">
+            <Image w="2xs" src={"/images/pazy_home_3.jpg"} />
+          </Box>
         </Box>
-        <Box className="absolute flex flex-col items-center shadow-2xl left-1/3 top-44 photoram-xs">
-          <Image w="xs" src={"/images/pazy_home_2.jpg"} />
-        </Box>
-        <Box className="absolute flex flex-col items-center mr-10 shadow-2xl top-16 right-1/3 photoram-2xs">
-          <Image w="2xs" src={"/images/pazy_home_3.jpg"} />
-        </Box>
-      </Box>
-      <Box w="md" px="20" pb="12" pt="6" mr={36} className="login-bg">
+      )}
+      <Box
+        w="md"
+        px={{ base: 0, lg: 20 }}
+        pb="12"
+        pt={{ base: 0, lg: 6 }}
+        mr={{ base: 0, lg: 36 }}
+        mx={{ base: 7, lg: 0 }}
+        className={isLargerThan1000 ? "login-bg" : ""}
+      >
         <Heading
           mb={3}
           fontWeight="light"
@@ -282,12 +295,12 @@ const Login = () => {
           />
           {isPasswordShown ? (
             <BsFillEyeFill
-              className="relative z-10 text-2xl cursor-pointer left-64 top-2 text-firstColor"
+              className="relative z-10 text-2xl cursor-pointer left-72 lg:left-64 top-2 text-firstColor"
               onClick={() => setIsPasswordShown(!isPasswordShown)}
             />
           ) : (
             <BsFillEyeSlashFill
-              className="relative z-10 text-2xl cursor-pointer left-64 top-2 text-firstColor"
+              className="relative z-10 text-2xl cursor-pointer left-72 lg:left-64 top-2 text-firstColor"
               onClick={() => setIsPasswordShown(!isPasswordShown)}
             />
           )}
@@ -312,14 +325,14 @@ const Login = () => {
               />
               {isPasswordRepeatShown ? (
                 <BsFillEyeFill
-                  className="relative z-10 text-2xl cursor-pointer left-64 top-2 text-firstColor"
+                  className="relative z-10 text-2xl cursor-pointer left-72 lg:left-64 top-2 text-firstColor"
                   onClick={() =>
                     setIsPasswordRepeatShown(!isPasswordRepeatShown)
                   }
                 />
               ) : (
                 <BsFillEyeSlashFill
-                  className="relative z-10 text-2xl cursor-pointer left-64 top-2 text-firstColor"
+                  className="relative z-10 text-2xl cursor-pointer left-72 lg:left-64 top-2 text-firstColor"
                   onClick={() =>
                     setIsPasswordRepeatShown(!isPasswordRepeatShown)
                   }
@@ -365,9 +378,14 @@ const Login = () => {
           {isSignUp ? "UTWÓRZ KONTO" : "ZALOGUJ SIĘ"}
         </Button>
 
-        <Flex direction="row" alignItems="center" my={3}>
+        <Flex
+          direction="row"
+          alignItems="center"
+          my={3}
+          color={{ base: "inherit", lg: "gray.200" }}
+        >
           <Divider flex={1} />
-          <Text fontSize="xs" mx={2} color="gray.200">
+          <Text fontSize="xs" mx={2}>
             {isSignUp ? "Masz już konto?" : "Jesteś tu nowy?"}
           </Text>
           <Divider flex={1} />

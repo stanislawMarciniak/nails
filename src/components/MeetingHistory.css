@@ -1,22 +1,30 @@
-.table-container::-webkit-scrollbar {
-  width: 3.2rem; /* Set the width of the scrollbar */
+@media (max-width: 999px) {
+  .table-container {
+    border-radius: 2rem;
+  }
 }
 
-/* Track styles */
-.table-container::-webkit-scrollbar-track {
-  background: transparent; /* Background color of the track */
-}
-
-/* Handle styles */
-.table-container::-webkit-scrollbar-thumb {
-  background: rgba(196, 148, 148, 0.4);
-  border-radius: 2rem; 
-  background-clip: content-box;
-  border: 1.1rem solid transparent;
-}
-
-/* Handle hover styles */
-.table-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(196, 148, 148, 0.8);
-  background-clip: content-box;
+@media (min-width: 800px) {
+  .table-container::-webkit-scrollbar {
+    width: 3.2rem; /* Set the width of the scrollbar */
+  }
+  
+  /* Track styles */
+  .table-container::-webkit-scrollbar-track {
+    background: transparent; /* Background color of the track */
+  }
+  
+  /* Handle styles */
+  .table-container::-webkit-scrollbar-thumb {
+    background: rgba(196, 148, 148, 0.4);
+    border-radius: 2rem; 
+    background-clip: content-box;
+    border: 1.1rem solid transparent;
+  }
+  
+  /* Handle hover styles */
+  .table-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(196, 148, 148, 0.8);
+    background-clip: content-box;
+  }
 }

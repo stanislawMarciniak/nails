@@ -37,6 +37,7 @@ const AccountItem = ({ title, content, setUser, attribute, onChange }) => {
         py="4"
         w={"full"}
         className="mb-2 shadow-lg calendar-bg josefin-light"
+        onClick={handleEdit}
       >
         {isEditing ? (
           <Input

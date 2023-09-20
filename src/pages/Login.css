@@ -2,3 +2,10 @@
   background-color: rgb(146 121 121 / 50%);
   border-radius: 3rem;
 }
+
+@media (max-width: 999px)  {
+  .chakra-divider{
+    border-color: #927979 !important;
+  }
+}
+

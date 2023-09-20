@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import supabase from "../config/supabaseClient";
 import {
   Box,
-  Flex,
   FormControl,
   FormLabel,
   Switch,
