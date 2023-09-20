@@ -143,8 +143,8 @@ option {
     gap: 2rem;
   }
   .blob-image, .blob-svg{
-    width: 4rem;
-    height: 4rem;
+    width: 2.5rem;
+    height: 2.5rem;
     opacity: 0.8;
   }
 }

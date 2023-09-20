@@ -90,12 +90,19 @@ const DayCalendar = ({
   };
 
   return (
-    <Box p="10" className="mt-20 mb-10 shadow-xl calendar-bg josefin-light">
-      <Stack w="xl" align={"center"}>
-        <Flex w={"full"} mb={9} justify={"space-between"}>
+    <Box
+      w={{ base: "sm", lg: "initial" }}
+      p={{ base: 0, lg: 10 }}
+      py={{ base: 7, lg: 10 }}
+      mt={{ base: 10, lg: 20 }}
+      mb={{ base: 0, lg: 10 }}
+      className="shadow-xl calendar-bg josefin-light"
+    >
+      <Stack w={{ base: "initial", lg: "xl" }} align={"center"}>
+        <Flex w={{ base: "xs", lg: "full" }} mb={9} justify={"space-between"}>
           <Box />
           <Stack align={"center"}>
-            <Text className="mb-4 text-7xl pinyon">
+            <Text fontSize={{ base: "5xl", lg: "7xl" }} className="mb-4 pinyon">
               {day} {month}
             </Text>
             <Text className="mb=3 text-4xl">{weekday}</Text>

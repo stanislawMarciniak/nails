@@ -70,7 +70,7 @@ const BlobStack = () => {
       position={{ base: "initial", lg: "absolute" }}
       className="top-1/4 josefin-light"
       right={-80}
-      mt={{ base: 10, lg: 0 }}
+      mt={{ base: 5, lg: 0 }}
     >
       <Flex align="center">
         <svg className="blob-svg">

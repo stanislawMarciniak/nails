@@ -67,16 +67,27 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
   const weekday = formatWeekday(locale, meeting.day);
 
   return (
-    <Stack mt={8} w="xl" align={"center"} fontSize={"xl"}>
+    <Stack
+      mt={{ base: 0, lg: 8 }}
+      w={{ base: "initial", lg: "xl" }}
+      align={"center"}
+      fontSize={{ base: "md", lg: "xl" }}
+    >
       <Flex w={"full"} justify={"space-between"}>
         <Box />
         <Stack align={"center"}>
-          <Text className="mb-10 text-7xl pinyon">Podsumowanie</Text>
+          <Text
+            fontSize={{ base: "6xl", lg: "7xl" }}
+            mb={{ base: 2, lg: 10 }}
+            className="pinyon"
+          >
+            Podsumowanie
+          </Text>
         </Stack>
 
         <CloseIcon
-          w={"10"}
-          h={"10"}
+          w={{ base: 8, lg: 10 }}
+          h={{ base: 8, lg: 10 }}
           className="p-2 shadow-xl calendar-bg"
           cursor={"pointer"}
           onClick={() => {
