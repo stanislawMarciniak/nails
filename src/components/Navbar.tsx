@@ -108,8 +108,8 @@ const Navbar = () => {
       ) : (
         <>
           <Menu isOpen={isMenuOpen}>
-            <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)} h={1}>
-              <HamburgerIcon />
+            <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              <HamburgerIcon boxSize={7} pb={1} />
             </MenuButton>
             <MenuList className="menu-list">
               <VStack spacing={0}>

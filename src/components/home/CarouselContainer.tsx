@@ -57,10 +57,10 @@ const CarouselContainer = () => {
             zIndex={2}
             size="3xs"
           />
-          <CarouselItem id={3 * index + 1} top="3%" right="3%" size="3xs" />
+          <CarouselItem id={3 * index + 1} top="2%" right="3%" size="3xs" />
           <CarouselItem
             id={3 * index + 2}
-            bottom="5%"
+            top="53%"
             left="28%"
             zIndex={3}
             size="3xs"
