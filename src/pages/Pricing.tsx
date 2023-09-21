@@ -30,11 +30,12 @@ const Pricing = () => {
                   width="100%"
                   justify={"space-between"}
                   fontSize={{ base: "sm", lg: "lg" }}
+                  gap={5}
                 >
                   <Flex>
-                    <AccordionIcon mr={{ base: 2, lg: 6 }} />
+                    <AccordionIcon mr={{ base: 2, lg: 6 }} ml={1} />
                     <Box
-                      w={{ base: "72", lg: "full" }}
+                      w={{ base: "initial", lg: "full" }}
                       className="break-normal"
                       textAlign={"left"}
                     >
@@ -52,7 +53,9 @@ const Pricing = () => {
                       )}
                     </Box>
                   </Flex>
-                  <Box>{service.cost} ZŁ</Box>
+                  <Box style={{ whiteSpace: "nowrap" }} mr={2}>
+                    {service.cost} ZŁ
+                  </Box>
                 </Flex>
               </AccordionButton>
               <AccordionPanel pb={4} fontSize={{ base: "xs", lg: "lg" }}>

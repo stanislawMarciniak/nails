@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Center,
   Divider,
   Flex,
   FormControl,
@@ -196,7 +195,7 @@ const Login = () => {
 
   return (
     <Flex
-      justify="space-between"
+      justifyContent={{ base: "center", lg: "space-between" }}
       alignItems="center"
       mt={{ base: 5, lg: 20 }}
       className="relative"
@@ -216,13 +215,12 @@ const Login = () => {
         </Box>
       )}
       <Box
-        w="md"
-        px={{ base: 0, lg: 20 }}
+        w={{ base: "xs", lg: "md" }}
         pb="12"
         pt={{ base: 0, lg: 6 }}
-        mx={{ base: 7, lg: 0 }}
         mr={{ base: 0, lg: 32 }}
         className={isLargerThan1000 ? "login-bg" : ""}
+        px={{ base: 2, lg: 20 }}
       >
         <Heading
           mb={3}
@@ -295,12 +293,12 @@ const Login = () => {
           />
           {isPasswordShown ? (
             <BsFillEyeFill
-              className="relative z-10 text-2xl cursor-pointer left-72 lg:left-64 top-2 text-firstColor"
+              className="relative z-10 text-2xl cursor-pointer left-64 top-2 text-firstColor"
               onClick={() => setIsPasswordShown(!isPasswordShown)}
             />
           ) : (
             <BsFillEyeSlashFill
-              className="relative z-10 text-2xl cursor-pointer left-72 lg:left-64 top-2 text-firstColor"
+              className="relative z-10 text-2xl cursor-pointer left-64 top-2 text-firstColor"
               onClick={() => setIsPasswordShown(!isPasswordShown)}
             />
           )}
@@ -325,14 +323,14 @@ const Login = () => {
               />
               {isPasswordRepeatShown ? (
                 <BsFillEyeFill
-                  className="relative z-10 text-2xl cursor-pointer left-72 lg:left-64 top-2 text-firstColor"
+                  className="relative z-10 text-2xl cursor-pointer left-64 top-2 text-firstColor"
                   onClick={() =>
                     setIsPasswordRepeatShown(!isPasswordRepeatShown)
                   }
                 />
               ) : (
                 <BsFillEyeSlashFill
-                  className="relative z-10 text-2xl cursor-pointer left-72 lg:left-64 top-2 text-firstColor"
+                  className="relative z-10 text-2xl cursor-pointer left-64 top-2 text-firstColor"
                   onClick={() =>
                     setIsPasswordRepeatShown(!isPasswordRepeatShown)
                   }

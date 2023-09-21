@@ -30,7 +30,7 @@ const TableRowAccount = ({ meeting, id }) => {
       case "waiting":
         return meetingDay >= new Date() ? (
           <Box className="px-4 py-2 text-yellow-500 bg-yellow-200 rounded-md w-fit">
-            Czekaj...
+            Oczekiwanie...
           </Box>
         ) : (
           <Box className="px-4 py-2 text-yellow-300 bg-yellow-100 border border-yellow-300 rounded-md w-fit">

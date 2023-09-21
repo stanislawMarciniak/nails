@@ -19,6 +19,7 @@
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 400;
 }
+
 html,
 body {
   height: 100%;
@@ -29,7 +30,7 @@ span, p, h1, h2, h3 {
   padding-top: 0.2em !important;
 }
 .app-container {
-  min-height: 125vh
+  min-height: 100vh
 }
 @media screen and (min-width: 1000px) and (max-width: 1800px) {
   body {

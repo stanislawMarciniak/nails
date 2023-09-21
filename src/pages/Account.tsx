@@ -83,7 +83,11 @@ const Account = () => {
         fontSize={"xl"}
         mt={{ base: 4, lg: 12 }}
       >
-        <Text fontSize={{ base: "6xl", lg: "8xl" }} className="pinyon">
+        <Text
+          mb={{ base: 2, lg: 8 }}
+          fontSize={{ base: "6xl", lg: "8xl" }}
+          className="pinyon"
+        >
           Moje Konto
         </Text>
         <Flex

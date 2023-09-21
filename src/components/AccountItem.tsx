@@ -28,13 +28,14 @@ const AccountItem = ({ title, content, setUser, attribute, onChange }) => {
 
   return (
     <Box w={"full"}>
-      <Text fontSize={"md"} mb={2}>
+      <Text fontSize={{ base: "sm", lg: "md" }} mb={2}>
         {title}
       </Text>
       <Flex
+        fontSize={{ base: "lg", lg: "initial" }}
         justify={"space-between"}
         align={"center"}
-        py="4"
+        py={{ base: 2, lg: 4 }}
         w={"full"}
         className="mb-2 shadow-lg calendar-bg josefin-light"
         onClick={handleEdit}
