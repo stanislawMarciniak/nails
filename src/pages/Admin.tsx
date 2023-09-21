@@ -11,15 +11,24 @@ import {
   Th,
   Thead,
   Tr,
+  Center,
 } from "@chakra-ui/react";
 import TableRow from "../components/TableRow";
 import "./Admin.css";
 import { addHours, addMinutes, parse } from "date-fns";
+import { getUser } from "../config/supabaseClient";
 
 const Admin = () => {
   const [meetings, setMeetings] = useState([]);
-
   const [showPastDates, setShowPastDates] = useState(false);
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    const fetchUser = async () => {
+      const fetchedUser = await getUser();
+      setUser(fetchedUser);
+    };
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -76,7 +85,7 @@ const Admin = () => {
     setShowPastDates((prevShowPastDates) => !prevShowPastDates);
   };
 
-  return (
+  return user?.role === "admin" ? (
     <Box mx={{ base: 2, lg: 16 }} mt={{ base: 6, lg: 16 }}>
       <FormControl display="flex" mb={4} alignItems="center">
         <FormLabel mb="0">Pokazać minione spotkania?</FormLabel>
@@ -121,6 +130,10 @@ const Admin = () => {
         </Table>
       </TableContainer>
     </Box>
+  ) : (
+    <Center mt={20} fontSize={{ base: "xl", lg: "4xl" }}>
+      Brak uprawnien administratora
+    </Center>
   );
 };
 
