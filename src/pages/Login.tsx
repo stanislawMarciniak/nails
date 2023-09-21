@@ -220,8 +220,8 @@ const Login = () => {
         px={{ base: 0, lg: 20 }}
         pb="12"
         pt={{ base: 0, lg: 6 }}
-        mr={{ base: 0, lg: 36 }}
         mx={{ base: 7, lg: 0 }}
+        mr={{ base: 0, lg: 32 }}
         className={isLargerThan1000 ? "login-bg" : ""}
       >
         <Heading
