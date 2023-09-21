@@ -26,10 +26,10 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    isLargerThan1000 ? setIsGallery(false) : setIsGallery(true);
     setTimeout(() => {
-      isLargerThan1000 ? setIsGallery(false) : setIsGallery(true);
       setIsLoading(false);
-    }, 1000);
+    }, 1500);
   }, [isLargerThan1000]);
 
   const handleCloseModal = () => setSelectedImage(null);

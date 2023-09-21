@@ -26,53 +26,50 @@ const MonthCalendar = ({ setClick, setMeeting, click }) => {
 
   return (
     <>
-      {isLoading ? (
-        <Center
-          position="fixed"
-          top={0}
-          bottom={0}
-          left={0}
-          right={0}
-          zIndex="1000"
+      <Center
+        position="fixed"
+        top={"50%"}
+        bottom={0}
+        left={"50%"}
+        right={0}
+        zIndex="1000"
+        display={isLoading ? "initial" : "none"}
+      >
+        <Spinner size="xl" color="secondColor" />
+      </Center>
+      <Flex
+        display={isLoading ? "none" : "initial"}
+        justify="center"
+        align={{ base: "left", lg: "center" }}
+        direction={{ base: "column", lg: "row" }}
+      >
+        <Box
+          p={{ base: 4, lg: 10 }}
+          position={"relative"}
+          w={{ base: "sm", lg: "initial" }}
+          className="shadow-xl calendar-bg"
         >
-          <Spinner size="xl" color="secondColor" />
-        </Center>
-      ) : (
-        <Flex
-          justify="center"
-          align={{ base: "left", lg: "center" }}
-          direction={{ base: "column", lg: "row" }}
-        >
-          <Box
-            p={{ base: 4, lg: 10 }}
-            position={"relative"}
-            w={{ base: "sm", lg: "initial" }}
-            className="shadow-xl calendar-bg"
-          >
-            <ReactCalendar
-              nextLabel={
-                <MdKeyboardArrowRight onClick={() => setClick(!click)} />
-              }
-              next2Label={
-                <MdKeyboardDoubleArrowRight onClick={() => setClick(!click)} />
-              }
-              prevLabel={
-                <MdKeyboardArrowLeft onClick={() => setClick(!click)} />
-              }
-              prev2Label={
-                <MdKeyboardDoubleArrowLeft onClick={() => setClick(!click)} />
-              }
-              minDate={addDays(new Date(), 1)}
-              view="month"
-              onClickDay={(date) =>
-                setMeeting((prev) => ({ ...prev, day: date }))
-              }
-            />
-            {isLargerThan1000 && <BlobStack />}
-          </Box>
-          {!isLargerThan1000 && <BlobStack />}
-        </Flex>
-      )}
+          <ReactCalendar
+            nextLabel={
+              <MdKeyboardArrowRight onClick={() => setClick(!click)} />
+            }
+            next2Label={
+              <MdKeyboardDoubleArrowRight onClick={() => setClick(!click)} />
+            }
+            prevLabel={<MdKeyboardArrowLeft onClick={() => setClick(!click)} />}
+            prev2Label={
+              <MdKeyboardDoubleArrowLeft onClick={() => setClick(!click)} />
+            }
+            minDate={addDays(new Date(), 1)}
+            view="month"
+            onClickDay={(date) =>
+              setMeeting((prev) => ({ ...prev, day: date }))
+            }
+          />
+          {isLargerThan1000 && <BlobStack />}
+        </Box>
+        {!isLargerThan1000 && <BlobStack />}
+      </Flex>
     </>
   );
 };
