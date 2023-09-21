@@ -24,15 +24,15 @@
 }
 
 @keyframes updown {
-    0% {
-        transform: translateY(-18px);
-    }
-    50% {
-        transform: translateY(22px);
-    }
-    100% {
-        transform: translateY(-18px);
-    }
+  0% {
+    transform: translateY(-18px);
+  }
+  50% {
+    transform: translateY(22px);
+  }
+  100% {
+    transform: translateY(-18px);
+  }
 }
 
 .react-multiple-carousel__arrow--right::before, .react-multiple-carousel__arrow--left::before {
@@ -48,4 +48,9 @@
 
 .react-multiple-carousel__arrow:hover {
   background: rgba(213, 199, 199, 0.5);
+}
+@media screen and (min-width: 1000px) and (max-width: 1800px) {
+  .react-multi-carousel-item {
+    height: 116vh;
+  }
 }

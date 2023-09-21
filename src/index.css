@@ -28,4 +28,17 @@ body {
 span, p, h1, h2, h3 {
   padding-top: 0.2em !important;
 }
+.app-container {
+  min-height: 125vh
+}
+@media screen and (min-width: 1000px) and (max-width: 1800px) {
+  body {
+    zoom: 80%;
+    -moz-transform: scale(0.8);
+    -moz-transform-origin: 0 0;
+  }
+  .app-container {
+    min-height: 125vh
+  }
+}
 

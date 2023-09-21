@@ -4,7 +4,7 @@ import Pricing from "./pages/Pricing";
 import Calendar from "./pages/Calendar";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
-import { ChakraProvider } from "@chakra-ui/react";
+import { Box, ChakraProvider } from "@chakra-ui/react";
 import theme from "./config/theme";
 import { ImageProvider } from "./components/ImageContext";
 import Account from "./pages/Account";
@@ -33,14 +33,14 @@ function BackgroundWrapper() {
   };
 
   return (
-    <div
+    <Box
       style={{
         backgroundImage: getBackgroundImage(),
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        minHeight: "100vh",
       }}
+      className="app-container"
     >
       <Navbar />
 
@@ -52,7 +52,7 @@ function BackgroundWrapper() {
         <Route path="/konto" element={<Account />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
-    </div>
+    </Box>
   );
 }
 
