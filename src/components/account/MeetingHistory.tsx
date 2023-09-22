@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import TableRowAccount from "./TableRowAccount";
 import { useEffect, useState } from "react";
-import supabase from "../config/supabaseClient";
+import supabase from "../../config/supabaseClient";
 import { addHours, addMinutes, parse } from "date-fns";
 import "./MeetingHistory.css";
 

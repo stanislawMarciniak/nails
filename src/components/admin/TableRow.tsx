@@ -1,11 +1,11 @@
 import { Box, Flex, Td, Tr, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import supabase from "../config/supabaseClient";
+import supabase from "../../config/supabaseClient";
 import getUserLocale from "get-user-locale";
 import {
   formatLongDate,
   formatWeekday,
-} from "./calendar/react-calendar/src/shared/dateFormatter";
+} from "../calendar/react-calendar/src/shared/dateFormatter";
 import { addHours, addMinutes, format, parse } from "date-fns";
 
 const TableRow = ({ meeting, id }) => {

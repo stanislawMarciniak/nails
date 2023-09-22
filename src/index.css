@@ -26,7 +26,23 @@ body {
   margin: 0;
   padding: 0;
 }
-span, p, h1, h2, h3 {
+span:not(.date-range-picker *) {
+  padding-top: 0.2em !important;
+}
+
+p:not(.date-range-picker *) {
+  padding-top: 0.2em !important;
+}
+
+h1:not(.date-range-picker *) {
+  padding-top: 0.2em !important;
+}
+
+h2:not(.date-range-picker *) {
+  padding-top: 0.2em !important;
+}
+
+h3:not(.date-range-picker *) {
   padding-top: 0.2em !important;
 }
 .app-container {
@@ -42,4 +58,3 @@ span, p, h1, h2, h3 {
     min-height: 125vh
   }
 }
-

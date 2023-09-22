@@ -9,8 +9,8 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import AccountItem from "../components/AccountItem";
-import MeetingHistory from "../components/MeetingHistory";
+import AccountItem from "../components/account/AccountItem";
+import MeetingHistory from "../components/account/MeetingHistory";
 
 const Account = () => {
   const [user, setUser] = useState({});
