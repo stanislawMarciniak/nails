@@ -57,4 +57,8 @@ h3:not(.date-range-picker *) {
   .app-container {
     min-height: 125vh
   }
+  .chakra-modal__content-container, .chakra-modal__overlay {
+    width: 125vw !important;
+    height: 125vh !important;
+  }
 }
