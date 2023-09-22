@@ -122,7 +122,7 @@ const Summary = ({ meeting, setMeeting, setIsSummary }) => {
         <textarea
           placeholder="Jeśli masz jakieś uwagi, śmiało pisz..."
           spellCheck={false}
-          className="w-full py-2 pl-4 mb-2 text-2xl shadow-lg rounded-3xl calendar-bg josefin-light text-secoundColor"
+          className="w-full py-2 pl-4 mb-2 text-2xl shadow-lg rounded-3xl calendar-bg josefin-light text-secondColor"
           value={message}
           onChange={handleMessageChange}
         />

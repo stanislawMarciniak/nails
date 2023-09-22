@@ -103,22 +103,22 @@ const Admin = () => {
           <Thead>
             <Tr>
               <Th>
-                <span className="text-secoundColor">Imię i Nazwisko</span>
+                <span className="text-secondColor">Imię i Nazwisko</span>
               </Th>
               <Th>
-                <span className="text-secoundColor">Numer Telefonu</span>
+                <span className="text-secondColor">Numer Telefonu</span>
               </Th>
               <Th>
-                <span className="text-secoundColor">Termin</span>
+                <span className="text-secondColor">Termin</span>
               </Th>
               <Th>
-                <span className="text-secoundColor">Usługa</span>
+                <span className="text-secondColor">Usługa</span>
               </Th>
               <Th>
-                <span className="text-secoundColor">Dodatkowe Info</span>
+                <span className="text-secondColor">Dodatkowe Info</span>
               </Th>
               <Th>
-                <span className="text-secoundColor">Zaakceptuj / Odrzuć</span>
+                <span className="text-secondColor">Zaakceptuj / Odrzuć</span>
               </Th>
             </Tr>
           </Thead>
