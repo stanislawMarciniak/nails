@@ -45,6 +45,9 @@ h2:not(.date-range-picker *) {
 h3:not(.date-range-picker *) {
   padding-top: 0.2em !important;
 }
+option:not(.date-range-picker *) {
+  padding-bottom: 0 !important;
+}
 .app-container {
   min-height: 100vh
 }
