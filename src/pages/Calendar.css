@@ -93,12 +93,17 @@ abbr[title] {
   opacity: 0.7;
   text-align: center;
 }
-.full{
-  background: url(/images/calendar-blob3.svg);
-}
 .freeDay{
   background: url(/images/calendar-blob1.svg);
   color: #927979;
+}
+.full{
+  background: url(/images/calendar-blob3.svg);
+  color: whitesmoke;
+}
+.normal{
+  background: url(/images/calendar-blob2.svg);
+  color: whitesmoke;
 }
 .wasAlready, .react-calendar__month-view__days__day--neighboringMonth{
   background: none;

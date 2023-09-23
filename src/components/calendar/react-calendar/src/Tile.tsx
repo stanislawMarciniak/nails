@@ -86,10 +86,11 @@ export default function Tile(props: TileProps) {
     const wasIt = minDate && minDateTransform(minDate) > date;
     const wasAlready = wasIt ? "wasAlready" : "";
     const sundayType = isSunday(date) && IS_SUNDAY_NOT_WORKING ? "freeDay" : "";
+    console;
 
     setType(
       isDate
-        ? isDate.dateType + " " + wasAlready + " " + sundayType
+        ? wasAlready + " " + sundayType + " " + isDate.dateType
         : sundayType + " " + wasAlready
     );
   }, [formattedData, date, formatAbbr, locale, minDate, minDateTransform]);
@@ -98,12 +99,13 @@ export default function Tile(props: TileProps) {
     <button
       className={clsx(classes, tileClassName) + " " + type}
       disabled={
-        (minDate && minDateTransform(minDate) > date) ||
-        (maxDate && maxDateTransform(maxDate) < date) ||
-        (tileDisabled && tileDisabled({ activeStartDate, date, view })) ||
-        type.includes("wasAlready") ||
-        type.includes("full") ||
-        type.includes("freeDay")
+        ((minDate && minDateTransform(minDate) > date) ||
+          (maxDate && maxDateTransform(maxDate) < date) ||
+          (tileDisabled && tileDisabled({ activeStartDate, date, view })) ||
+          type.includes("wasAlready") ||
+          type.includes("full") ||
+          type.includes("freeDay")) &&
+        !type.includes("normal")
       }
       onClick={onClick ? (event) => onClick(date, event) : undefined}
       onFocus={onMouseOver ? () => onMouseOver(date) : undefined}

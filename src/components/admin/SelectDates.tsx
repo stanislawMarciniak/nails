@@ -25,19 +25,142 @@ const SelectDates = () => {
   ]);
   const toast = useToast();
   const handleFull = async () => {
-    const { data, error } = await supabase.from("special_days").select("*");
     const selectedDays = getDatesBetween(state[0]);
-    selectedDays.map((day) => day);
+
+    try {
+      await Promise.all(
+        selectedDays.map(async (day) => {
+          const { data, error } = await supabase
+            .from("special_days")
+            .upsert({ day, count: 3 })
+            .select("*");
+
+          if (error) {
+            throw new Error("Error occurred while processing data");
+          }
+        })
+      );
+
+      toast({
+        title: "Sukces.",
+        description: "Zmieniono typ dni.",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: "Błąd.",
+        description: "Nie udało się zmienić typu dni.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+      console.error(error);
+    }
   };
+
   const handleFree = async () => {
-    const { data, error } = await supabase.from("special_days").select("*");
     const selectedDays = getDatesBetween(state[0]);
-    selectedDays.map((day) => day);
+
+    try {
+      let shouldUpdate = true;
+
+      for (const day of selectedDays) {
+        const { data: existingData, error } = await supabase
+          .from("special_days")
+          .select("count")
+          .eq("day", day)
+          .gt("count", 0) // Check if count is greater than 0
+          .single();
+
+        if (!error && existingData) {
+          shouldUpdate = false;
+          break;
+        }
+      }
+
+      if (shouldUpdate) {
+        const promises = selectedDays.map(async (day) => {
+          const { data, error } = await supabase
+            .from("special_days")
+            .upsert({ day, count: -1 })
+            .select("*");
+
+          if (error) {
+            throw new Error("Error occurred while processing data");
+          }
+        });
+
+        await Promise.all(promises);
+
+        toast({
+          title: "Sukces.",
+          description: "Zmieniono typ dni.",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Błąd.",
+          description: "W wybranym przedziale są umówione wizyty.",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Błąd.",
+        description: "Nie udało się zmienić typu dni.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+      console.error(error);
+    }
   };
-  const handleNormal = () => {
-    const { data, error } = await supabase.from("special_days").select("*");
+
+  const handleNormal = async () => {
     const selectedDays = getDatesBetween(state[0]);
-    selectedDays.map((day) => day);
+
+    try {
+      await Promise.all(
+        selectedDays.map(async (day) => {
+          const { data: special_daysData, error } = await supabase
+            .from("special_days")
+            .update({ count: 0 }) // Assuming 'day' is not being updated
+            .eq("day", day);
+
+          const { data: meetingsData, error: meetingsError } = await supabase
+            .from("meetings") // You can specify multiple tables separated by a comma
+            .delete()
+            .eq("day", day);
+
+          if (error || meetingsError) {
+            throw new Error("Error occurred while processing data");
+          }
+        })
+      );
+
+      toast({
+        title: "Sukces.",
+        description: "Zmieniono typ dni.",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: "Błąd.",
+        description: "Nie udałos się zmienić typu dni.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+      console.error(error);
+    }
   };
 
   const getDatesBetween = (range) => {
@@ -45,7 +168,7 @@ const SelectDates = () => {
     let currentDate = new Date(range.startDate);
 
     while (currentDate <= range.endDate) {
-      dates.push(new Date(currentDate));
+      dates.push(currentDate.toString());
       currentDate.setDate(currentDate.getDate() + 1);
     }
 

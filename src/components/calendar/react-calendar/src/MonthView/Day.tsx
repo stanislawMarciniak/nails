@@ -41,14 +41,15 @@ export default function Day({
       const { data, error } = await supabase
         .from("special_days")
         .select("*")
-        .or("count.eq.-1,count.gte.3");
+        .or("count.lte.0,count.gte.3");
 
       const changedData = data?.map((day) => {
         const date = formatLongDate(locale, day.day);
 
         return {
           date,
-          dateType: day.count === -1 ? "freeDay" : "full",
+          dateType:
+            day.count === -1 ? "freeDay" : day.count === 0 ? "normal" : "full",
         };
       });
       setFormattedData(changedData);
