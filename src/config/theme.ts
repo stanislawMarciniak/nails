@@ -18,7 +18,7 @@ const modalTheme = defineMultiStyleConfig({
 
 const breakpoints = {
   base: "0em",
-  sm: "380px",
+  sm: "23.75em",
   md: "48em",
   lg: "62em",
   xl: "80em",
@@ -29,7 +29,7 @@ const theme = extendTheme({
   breakpoints,
   colors: {
     firstColor: "#E1DDDD",
-    secoundColor: "#927979",
+    secondColor: "#927979",
     thirdColor: "#F4F4F4",
     fourthColor: "#C49494",
   },

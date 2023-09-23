@@ -53,19 +53,19 @@ const Home = () => {
             <Center
               background={"#E1DDDD"}
               w={"40"}
-              className="fixed z-10 mt-6 text-4xl border-4 rounded-full shadow-xl bottom-10 border-secoundColor"
+              className="fixed z-10 mt-6 text-4xl border-4 rounded-full shadow-xl bottom-10 border-secondColor"
               _hover={{ cursor: "pointer" }}
             >
               <HiOutlineSquare2Stack
                 onClick={() => setIsGallery(false)}
                 className={`flex-grow rounded-l-full ${
-                  !isGallery && "text-firstColor bg-secoundColor"
+                  !isGallery && "text-firstColor bg-secondColor"
                 }`}
               />
               <HiOutlineSquares2X2
                 onClick={() => setIsGallery(true)}
                 className={`flex-grow rounded-r-full ${
-                  isGallery && "text-firstColor bg-secoundColor"
+                  isGallery && "text-firstColor bg-secondColor"
                 }`}
               />
             </Center>

@@ -4,7 +4,7 @@ import getUserLocale from "get-user-locale";
 import {
   formatLongDate,
   formatWeekday,
-} from "./calendar/react-calendar/src/shared/dateFormatter";
+} from "../calendar/react-calendar/src/shared/dateFormatter";
 import { addHours, addMinutes, format, parse } from "date-fns";
 
 const TableRowAccount = ({ meeting, id }) => {

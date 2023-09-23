@@ -8,7 +8,7 @@ export default {
       },
       colors: {
         firstColor: "#E1DDDD",
-        secoundColor: "#927979",
+        secondColor: "#927979",
         thirdColor: "#F4F4F4",
         fourthColor: "#C49494",
       },

@@ -26,8 +26,27 @@ body {
   margin: 0;
   padding: 0;
 }
-span, p, h1, h2, h3 {
+span:not(.date-range-picker *) {
   padding-top: 0.2em !important;
+}
+
+p:not(.date-range-picker *) {
+  padding-top: 0.2em !important;
+}
+
+h1:not(.date-range-picker *) {
+  padding-top: 0.2em !important;
+}
+
+h2:not(.date-range-picker *) {
+  padding-top: 0.2em !important;
+}
+
+h3:not(.date-range-picker *) {
+  padding-top: 0.2em !important;
+}
+option:not(.date-range-picker *) {
+  padding-bottom: 0 !important;
 }
 .app-container {
   min-height: 100vh
@@ -41,5 +60,8 @@ span, p, h1, h2, h3 {
   .app-container {
     min-height: 125vh
   }
+  .chakra-modal__content-container, .chakra-modal__overlay {
+    width: 125vw !important;
+    height: 125vh !important;
+  }
 }
-

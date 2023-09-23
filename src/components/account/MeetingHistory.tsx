@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import TableRowAccount from "./TableRowAccount";
 import { useEffect, useState } from "react";
-import supabase from "../config/supabaseClient";
+import supabase from "../../config/supabaseClient";
 import { addHours, addMinutes, parse } from "date-fns";
 import "./MeetingHistory.css";
 
@@ -70,13 +70,13 @@ const MeetingHistory = ({ user }) => {
             <Thead>
               <Tr>
                 <Th>
-                  <span className="text-secoundColor">Termin</span>
+                  <span className="text-secondColor">Termin</span>
                 </Th>
                 <Th>
-                  <span className="text-secoundColor">Usługa</span>
+                  <span className="text-secondColor">Usługa</span>
                 </Th>
                 <Th>
-                  <span className="text-secoundColor">Status</span>
+                  <span className="text-secondColor">Status</span>
                 </Th>
               </Tr>
             </Thead>

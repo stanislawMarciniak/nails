@@ -4,7 +4,7 @@ import Pricing from "./pages/Pricing";
 import Calendar from "./pages/Calendar";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
-import { Box, ChakraProvider } from "@chakra-ui/react";
+import { Box, CSSReset, ChakraProvider } from "@chakra-ui/react";
 import theme from "./config/theme";
 import { ImageProvider } from "./components/ImageContext";
 import Account from "./pages/Account";
