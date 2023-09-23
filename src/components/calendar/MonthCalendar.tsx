@@ -46,7 +46,7 @@ const MonthCalendar = ({ setClick, setMeeting, click }) => {
         <Box
           p={{ base: 4, lg: 10 }}
           position={"relative"}
-          w={{ base: "xs", sm: "sm", lg: "initial" }}
+          w={{ base: "xs", sm: "sm", lg: "3xl" }} //bug
           className="shadow-xl calendar-bg"
         >
           <ReactCalendar
