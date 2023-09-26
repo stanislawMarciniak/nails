@@ -34,7 +34,8 @@ const DayCalendar = ({
       const { data, error } = await supabase
         .from("meetings")
         .select("*")
-        .eq("day", meeting.day);
+        .eq("day", meeting.day)
+        .not("status", "eq", "declined");
       setDayMeetings(data);
     };
     fetchMeetings();

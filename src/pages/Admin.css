@@ -3,6 +3,9 @@
 }
 .date-range-picker {
   scale: 1.5;
-  margin-top: 8rem;
+  margin-block: 8rem;
   opacity: 0.6;
+}
+.rdrDefinedRangesWrapper{
+  display: none;
 }

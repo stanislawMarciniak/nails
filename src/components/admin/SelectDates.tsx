@@ -32,8 +32,7 @@ const SelectDates = () => {
         selectedDays.map(async (day) => {
           const { data, error } = await supabase
             .from("special_days")
-            .upsert({ day, count: 3 })
-            .select("*");
+            .upsert({ day, count: 3 }, { onConflict: "day" });
 
           if (error) {
             throw new Error("Error occurred while processing data");
@@ -51,7 +50,7 @@ const SelectDates = () => {
     } catch (error) {
       toast({
         title: "Błąd.",
-        description: "Nie udało się zmienić typu dni.",
+        description: "Nie udało się zmienić typu wszystkich dni.",
         status: "error",
         duration: 4000,
         isClosable: true,
@@ -84,8 +83,7 @@ const SelectDates = () => {
         const promises = selectedDays.map(async (day) => {
           const { data, error } = await supabase
             .from("special_days")
-            .upsert({ day, count: -1 })
-            .select("*");
+            .upsert({ day, count: -1 }, { onConflict: "day" });
 
           if (error) {
             throw new Error("Error occurred while processing data");
@@ -128,18 +126,39 @@ const SelectDates = () => {
     try {
       await Promise.all(
         selectedDays.map(async (day) => {
-          const { data: special_daysData, error } = await supabase
-            .from("special_days")
-            .update({ count: 0 }) // Assuming 'day' is not being updated
-            .eq("day", day);
+          // Convert the "day" string to a Date object
+          const dateObj = new Date(day);
 
-          const { data: meetingsData, error: meetingsError } = await supabase
-            .from("meetings") // You can specify multiple tables separated by a comma
+          // Check if the day is a Sunday (assuming Sunday is represented as 0)
+          const isSunday = dateObj.getDay() === 0;
+
+          if (isSunday) {
+            // If it's a Sunday, upsert the day with count 0 in "special_days"
+            await supabase
+              .from("special_days")
+              .upsert({ day, count: 0 }, { onConflict: "day" });
+          } else {
+            // If it's not a Sunday, delete it from "special_days"
+            const { error: specialDaysError } = await supabase
+              .from("special_days")
+              .delete()
+              .eq("day", day);
+
+            if (specialDaysError) {
+              throw new Error(
+                "Error occurred while deleting data from special_days"
+              );
+            }
+          }
+
+          // Delete meetings for the day (regardless of whether it's Sunday or not)
+          const { error: meetingsError } = await supabase
+            .from("meetings")
             .delete()
             .eq("day", day);
 
-          if (error || meetingsError) {
-            throw new Error("Error occurred while processing data");
+          if (meetingsError) {
+            throw new Error("Error occurred while deleting data from meetings");
           }
         })
       );
@@ -154,7 +173,7 @@ const SelectDates = () => {
     } catch (error) {
       toast({
         title: "Błąd.",
-        description: "Nie udałos się zmienić typu dni.",
+        description: "Nie udało się zmienić typu dni.",
         status: "error",
         duration: 4000,
         isClosable: true,
@@ -206,19 +225,6 @@ const SelectDates = () => {
   return (
     <Center>
       <Stack align={"center"}>
-        <DateRangePicker
-          locale={pl}
-          className="shadow-2xl date-range-picker"
-          onChange={(item) => setState([item.selection])}
-          minDate={addDays(new Date(), 1)}
-          maxDate={addDays(new Date(), 100)}
-          showSelectionPreview={false}
-          moveRangeOnFirstSelection={false}
-          months={isLargerThan1000 ? 2 : 1}
-          ranges={state}
-          direction={isLargerThan1000 ? "horizontal" : "vertical"}
-          rangeColors={["#927979"]}
-        />
         <Select
           placeholder="Wybierz typ dni"
           variant={"filled"}
@@ -235,8 +241,22 @@ const SelectDates = () => {
           <option value="full">Dni zapełnione</option>
           <option value="normal">Dni całkowicie puste</option>
         </Select>
+        <DateRangePicker
+          locale={pl}
+          className="shadow-2xl date-range-picker"
+          onChange={(item) => setState([item.selection])}
+          minDate={addDays(new Date(), 1)}
+          maxDate={addDays(new Date(), 100)}
+          showSelectionPreview={false}
+          moveRangeOnFirstSelection={false}
+          months={isLargerThan1000 ? 2 : 1}
+          ranges={state}
+          direction={isLargerThan1000 ? "horizontal" : "vertical"}
+          rangeColors={["#927979"]}
+        />
+
         <button
-          className="px-8 pt-4 pb-3 mt-20 text-2xl rounded-full shadow-xl opacity-80 w-max bg-thirdColor josefin-light "
+          className="px-8 pt-4 pb-3 text-2xl rounded-full shadow-xl opacity-80 w-max bg-thirdColor josefin-light "
           type="button"
           onClick={handleDaysUpdate}
         >
