@@ -162,13 +162,12 @@ option {
     padding-top: 1.5rem !important;
   }
   .react-calendar__navigation__label {
+    padding-top: 1.2rem;
     font-size: 2rem;
+    min-width: auto !important;
   }
   .react-calendar__navigation__arrow {
     padding: 3px;
     font-size: 1em;
-  }
-  .react-calendar__navigation button {
-    min-width: none;
   }
 }

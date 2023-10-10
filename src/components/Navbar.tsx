@@ -5,7 +5,7 @@ import { MdOutlineAccountCircle } from "react-icons/md";
 import { LiaMoneyBillWaveSolid } from "react-icons/lia";
 import { BiSolidLockOpen } from "react-icons/bi";
 import "./Navbar.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import supabase, { getUser } from "../config/supabaseClient";
 import {
   Flex,
@@ -33,7 +33,7 @@ const Navbar = () => {
       const user = await getUser();
 
       user && setIsLogged(true);
-      user.role === "admin" && setIsAdmin(true);
+      user && user.role === "admin" && setIsAdmin(true);
     } catch (error) {
       console.error("Error fetching user data:", error);
       setIsLogged(false);
