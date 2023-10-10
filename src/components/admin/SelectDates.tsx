@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   useToast,
 } from "@chakra-ui/react";
-import { addDays, startOfDay } from "date-fns"; // Import startOfDay
+import { addDays, startOfDay } from "date-fns";
 import { pl } from "date-fns/locale";
 import supabase from "../../config/supabaseClient";
 
@@ -30,13 +30,25 @@ const SelectDates = () => {
     try {
       await Promise.all(
         selectedDays.map(async (day) => {
+          // Check if a record with the same "day" value exists
           const { data, error } = await supabase
             .from("special_days")
-            .upsert({ day, count: 3 })
-            .select("*");
+            .select("*")
+            .eq("day", day);
 
           if (error) {
-            throw new Error("Error occurred while processing data");
+            throw new Error("Error occurred while querying data");
+          }
+
+          if (data.length === 0) {
+            // If no record exists for the day, insert a new one
+            await supabase.from("special_days").upsert([{ day, count: 3 }]);
+          } else {
+            // If a record exists for the day, update it
+            await supabase
+              .from("special_days")
+              .upsert([{ day, count: 3 }])
+              .eq("day", day);
           }
         })
       );
