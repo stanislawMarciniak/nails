@@ -42,6 +42,27 @@ const TableRow = ({ meeting, id }) => {
 
   const handleStatusChange = async (e) => {
     try {
+      if (e === "declined") {
+        // Fetch the current count for the specified day
+        const { data: specialDaysData, error: specialDaysError } =
+          await supabase
+            .from("special_days")
+            .select("count")
+            .eq("day", meeting.day);
+
+        if (!specialDaysError && specialDaysData.length > 0) {
+          const currentCount = specialDaysData[0].count;
+          const newCount = currentCount - 1;
+
+          // Update the "special_days" table with the decreased count
+          await supabase
+            .from("special_days")
+            .update({ count: newCount })
+            .eq("day", meeting.day);
+        }
+      }
+
+      // Update the status in the "meetings" table
       const { error } = await supabase
         .from("meetings")
         .update({ status: e })
