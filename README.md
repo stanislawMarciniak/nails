@@ -4,7 +4,7 @@ Clavvs is a web application designed to help users conveniently book appointment
 
 ## Live
 
-You can access the live of Clavvs at [http://localhost:5173/](https://clavvs.netlify.app/).
+You can access the live of Clavvs at [(https://clavvs.netlify.app/)](https://clavvs.netlify.app/).
 
 ## Technologies Used
 
