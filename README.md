@@ -1,6 +1,6 @@
 # Clavvs Web Application
 
-Clavvs is a web application designed to help users conveniently book appointments and enroll in a nail salon. It was created to assist my girlfriend in organizing her schedule and is now used on a daily basis. The application allows users to browse available services, select preferred time slots, and provide necessary information for booking and enrollment. Additionally, the admin has the ability to confirm or reject meetings and has access to the entire meeting history.
+Clavvs is a web application designed to help users conveniently book appointments and enroll in a nail salon. It was created to assist my friend in organizing her schedule and is now used on a daily basis. The application allows users to browse available services, select preferred time slots, and provide necessary information for booking and enrollment. Additionally, the admin has the ability to confirm or reject meetings and has access to the entire meeting history.
 
 ## Live
 
